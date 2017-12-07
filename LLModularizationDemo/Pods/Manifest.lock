@@ -1,3 +1,16 @@
-PODFILE CHECKSUM: dace520313fe8003035afdb7786bee34a1c39ffd
+PODS:
+  - LLModularization (0.0.1)
+
+DEPENDENCIES:
+  - LLModularization (from `../`)
+
+EXTERNAL SOURCES:
+  LLModularization:
+    :path: ../
+
+SPEC CHECKSUMS:
+  LLModularization: e212b8ce63e3da51e4d3a933ebbca2d28836c789
+
+PODFILE CHECKSUM: bb3c38c65f719e5752e2987be797aa3ab7861247
 
 COCOAPODS: 1.2.1

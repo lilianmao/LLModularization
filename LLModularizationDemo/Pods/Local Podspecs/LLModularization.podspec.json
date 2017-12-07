@@ -1,0 +1,22 @@
+{
+  "name": "LLModularization",
+  "version": "0.0.1",
+  "summary": "iOS Modularization System",
+  "description": "This is a powerful modularization system for iOS.",
+  "homepage": "https://github.com/lilianmao/LLModularization",
+  "license": "MIT",
+  "authors": {
+    "李林": "hzlilin3@corp.netease.com"
+  },
+  "source": {
+    "git": "https://github.com/lilianmao/LLModularization.git",
+    "tag": "0.0.1"
+  },
+  "source_files": "LLModularization/*",
+  "platforms": {
+    "osx": null,
+    "ios": null,
+    "tvos": null,
+    "watchos": null
+  }
+}

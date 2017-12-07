@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E02DC04151D04086E728523C /* Pods_LLModularizationDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2953E2ED14F7879A1F052BE5 /* Pods_LLModularizationDemo.framework */; };
 		F2F72C2E1FD96A6E00066F9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F2F72C2D1FD96A6E00066F9A /* AppDelegate.m */; };
 		F2F72C311FD96A6E00066F9A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F2F72C301FD96A6E00066F9A /* ViewController.m */; };
 		F2F72C341FD96A6E00066F9A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2F72C321FD96A6E00066F9A /* Main.storyboard */; };
@@ -35,6 +36,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2193B1627F095F99A5D81E22 /* Pods-LLModularizationDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LLModularizationDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LLModularizationDemo/Pods-LLModularizationDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		2953E2ED14F7879A1F052BE5 /* Pods_LLModularizationDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LLModularizationDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		612CE89439B595E5C626E5BF /* Pods-LLModularizationDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LLModularizationDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-LLModularizationDemo/Pods-LLModularizationDemo.release.xcconfig"; sourceTree = "<group>"; };
 		F2F72C291FD96A6E00066F9A /* LLModularizationDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LLModularizationDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2F72C2C1FD96A6E00066F9A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		F2F72C2D1FD96A6E00066F9A /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -58,6 +62,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E02DC04151D04086E728523C /* Pods_LLModularizationDemo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +83,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		239EB07DCB497820B8171548 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				2193B1627F095F99A5D81E22 /* Pods-LLModularizationDemo.debug.xcconfig */,
+				612CE89439B595E5C626E5BF /* Pods-LLModularizationDemo.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		2E0F3DCD85E184E24EE9521E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2953E2ED14F7879A1F052BE5 /* Pods_LLModularizationDemo.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		F2F72C201FD96A6E00066F9A = {
 			isa = PBXGroup;
 			children = (
@@ -85,6 +107,8 @@
 				F2F72C441FD96A6E00066F9A /* LLModularizationDemoTests */,
 				F2F72C4F1FD96A6E00066F9A /* LLModularizationDemoUITests */,
 				F2F72C2A1FD96A6E00066F9A /* Products */,
+				239EB07DCB497820B8171548 /* Pods */,
+				2E0F3DCD85E184E24EE9521E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -139,9 +163,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F2F72C551FD96A6E00066F9A /* Build configuration list for PBXNativeTarget "LLModularizationDemo" */;
 			buildPhases = (
+				757C8B891167FF2777E7B57A /* [CP] Check Pods Manifest.lock */,
 				F2F72C251FD96A6E00066F9A /* Sources */,
 				F2F72C261FD96A6E00066F9A /* Frameworks */,
 				F2F72C271FD96A6E00066F9A /* Resources */,
+				33E3D8465313046F4684C0E0 /* [CP] Embed Pods Frameworks */,
+				82B96D1B0E01737CE7A42DD7 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -259,6 +286,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		33E3D8465313046F4684C0E0 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LLModularizationDemo/Pods-LLModularizationDemo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		757C8B891167FF2777E7B57A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		82B96D1B0E01737CE7A42DD7 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LLModularizationDemo/Pods-LLModularizationDemo-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		F2F72C251FD96A6E00066F9A /* Sources */ = {
@@ -428,6 +503,7 @@
 		};
 		F2F72C561FD96A6E00066F9A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2193B1627F095F99A5D81E22 /* Pods-LLModularizationDemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -442,6 +518,7 @@
 		};
 		F2F72C571FD96A6E00066F9A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 612CE89439B595E5C626E5BF /* Pods-LLModularizationDemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
