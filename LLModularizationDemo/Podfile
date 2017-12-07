@@ -1,0 +1,12 @@
+#source 'https://github.com/CocoaPods/Specs.git'
+
+platform :ios, ‘8.0’
+use_frameworks!
+
+def pods
+	pod "LLModularization", :path => "../"
+end
+
+target 'LLModularizationDemo' do
+	pods
+end
