@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		E02DC04151D04086E728523C /* Pods_LLModularizationDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2953E2ED14F7879A1F052BE5 /* Pods_LLModularizationDemo.framework */; };
+		F2A058751FDA71920039FBCD /* ModuleAConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = F2A058741FDA71920039FBCD /* ModuleAConnector.m */; };
+		F2A058781FDA71B70039FBCD /* ModuleAViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F2A058771FDA71B70039FBCD /* ModuleAViewController.m */; };
+		F2A0587C1FDA72210039FBCD /* ModuleBViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F2A0587B1FDA72210039FBCD /* ModuleBViewController.m */; };
+		F2A0587F1FDA72380039FBCD /* ModuleBConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = F2A0587E1FDA72380039FBCD /* ModuleBConnector.m */; };
 		F2F72C2E1FD96A6E00066F9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F2F72C2D1FD96A6E00066F9A /* AppDelegate.m */; };
 		F2F72C311FD96A6E00066F9A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F2F72C301FD96A6E00066F9A /* ViewController.m */; };
 		F2F72C341FD96A6E00066F9A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2F72C321FD96A6E00066F9A /* Main.storyboard */; };
@@ -39,6 +43,14 @@
 		2193B1627F095F99A5D81E22 /* Pods-LLModularizationDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LLModularizationDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LLModularizationDemo/Pods-LLModularizationDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		2953E2ED14F7879A1F052BE5 /* Pods_LLModularizationDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LLModularizationDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		612CE89439B595E5C626E5BF /* Pods-LLModularizationDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LLModularizationDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-LLModularizationDemo/Pods-LLModularizationDemo.release.xcconfig"; sourceTree = "<group>"; };
+		F2A058731FDA71920039FBCD /* ModuleAConnector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ModuleAConnector.h; sourceTree = "<group>"; };
+		F2A058741FDA71920039FBCD /* ModuleAConnector.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ModuleAConnector.m; sourceTree = "<group>"; };
+		F2A058761FDA71B70039FBCD /* ModuleAViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ModuleAViewController.h; sourceTree = "<group>"; };
+		F2A058771FDA71B70039FBCD /* ModuleAViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ModuleAViewController.m; sourceTree = "<group>"; };
+		F2A0587A1FDA72210039FBCD /* ModuleBViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ModuleBViewController.h; sourceTree = "<group>"; };
+		F2A0587B1FDA72210039FBCD /* ModuleBViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ModuleBViewController.m; sourceTree = "<group>"; };
+		F2A0587D1FDA72380039FBCD /* ModuleBConnector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ModuleBConnector.h; sourceTree = "<group>"; };
+		F2A0587E1FDA72380039FBCD /* ModuleBConnector.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ModuleBConnector.m; sourceTree = "<group>"; };
 		F2F72C291FD96A6E00066F9A /* LLModularizationDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LLModularizationDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2F72C2C1FD96A6E00066F9A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		F2F72C2D1FD96A6E00066F9A /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -100,6 +112,28 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		F2A058721FDA71550039FBCD /* ModuleA */ = {
+			isa = PBXGroup;
+			children = (
+				F2A058731FDA71920039FBCD /* ModuleAConnector.h */,
+				F2A058741FDA71920039FBCD /* ModuleAConnector.m */,
+				F2A058761FDA71B70039FBCD /* ModuleAViewController.h */,
+				F2A058771FDA71B70039FBCD /* ModuleAViewController.m */,
+			);
+			path = ModuleA;
+			sourceTree = "<group>";
+		};
+		F2A058791FDA71D60039FBCD /* ModuleB */ = {
+			isa = PBXGroup;
+			children = (
+				F2A0587A1FDA72210039FBCD /* ModuleBViewController.h */,
+				F2A0587B1FDA72210039FBCD /* ModuleBViewController.m */,
+				F2A0587D1FDA72380039FBCD /* ModuleBConnector.h */,
+				F2A0587E1FDA72380039FBCD /* ModuleBConnector.m */,
+			);
+			path = ModuleB;
+			sourceTree = "<group>";
+		};
 		F2F72C201FD96A6E00066F9A = {
 			isa = PBXGroup;
 			children = (
@@ -129,6 +163,8 @@
 				F2F72C2D1FD96A6E00066F9A /* AppDelegate.m */,
 				F2F72C2F1FD96A6E00066F9A /* ViewController.h */,
 				F2F72C301FD96A6E00066F9A /* ViewController.m */,
+				F2A058721FDA71550039FBCD /* ModuleA */,
+				F2A058791FDA71D60039FBCD /* ModuleB */,
 				F2F72C321FD96A6E00066F9A /* Main.storyboard */,
 				F2F72C351FD96A6E00066F9A /* Assets.xcassets */,
 				F2F72C371FD96A6E00066F9A /* LaunchScreen.storyboard */,
@@ -340,9 +376,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F2A0587F1FDA72380039FBCD /* ModuleBConnector.m in Sources */,
 				F2F72C311FD96A6E00066F9A /* ViewController.m in Sources */,
+				F2A0587C1FDA72210039FBCD /* ModuleBViewController.m in Sources */,
 				F2F72C3C1FD96A6E00066F9A /* main.m in Sources */,
 				F2F72C2E1FD96A6E00066F9A /* AppDelegate.m in Sources */,
+				F2A058781FDA71B70039FBCD /* ModuleAViewController.m in Sources */,
+				F2A058751FDA71920039FBCD /* ModuleAConnector.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,0 +1,6 @@
+framework module LLModularization {
+  umbrella header "LLModularization-umbrella.h"
+
+  export *
+  module * { export * }
+}
