@@ -6,11 +6,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "LLModuleProtocol.h"
 
 @interface LLModuleProtocolManager : NSObject
 
 + (instancetype)sharedManager;
 
-- (void)registerProtocol:(NSString *)protocolStr andConnector:(id<LLModuleProtocol>)connector;
+- (BOOL)registerProtocol:(Protocol *)protocol
+            andConnector:(Class)connector;
 
 @end

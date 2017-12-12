@@ -27,15 +27,18 @@
     return sharedInstance;
 }
 
-- (void)registerProtocol:(NSString *)protocolStr andConnector:(id<LLModuleProtocol>)connector {
-    // 判断语句思考，重写，utils文件不可以用分类的形式
-    [[LLModuleProtocolManager sharedManager] registerProtocol:protocolStr andConnector:connector];
+- (BOOL)registerProtocol:(Protocol *)protocol andConnector:(Class)connector {
+    if ([LLModuleUtils isNilOrEmtpyForString:NSStringFromProtocol(protocol)] || !connector) {
+        return NO;
+    }
+    return [[LLModuleProtocolManager sharedManager] registerProtocol:protocol andConnector:connector];
 }
 
-- (void)openURL:(NSURL *)URL {
-    if (URL != nil) {
-        [[LLModuleURLManager sharedManager] openURL:URL];
+- (BOOL)openURL:(NSURL *)URL {
+    if ([LLModuleUtils isNilOrEmtpyForString:[URL absoluteString]]) {
+        return NO;
     }
+    return [[LLModuleURLManager sharedManager] openURL:URL];
 }
 
 @end

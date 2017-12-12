@@ -14,7 +14,6 @@
 @implementation LLModuleUtils
 
 + (BOOL)isNilOrEmtpyForString:(NSString *)aString {
-    // 重写一下这里
     if ([aString isEqual:[NSNull null]] || !aString || !aString.length) {
         return YES;
     }

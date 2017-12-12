@@ -25,8 +25,8 @@
     return sharedManager;
 }
 
-- (void)openURL:(NSURL *)URL {
-    
+- (BOOL)openURL:(NSURL *)URL {
+    return YES;
 }
 
 @end

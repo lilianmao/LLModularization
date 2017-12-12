@@ -8,12 +8,19 @@
 
 /* Begin PBXBuildFile section */
 		E02DC04151D04086E728523C /* Pods_LLModularizationDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2953E2ED14F7879A1F052BE5 /* Pods_LLModularizationDemo.framework */; };
-		F2A058751FDA71920039FBCD /* ModuleAConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = F2A058741FDA71920039FBCD /* ModuleAConnector.m */; };
-		F2A058781FDA71B70039FBCD /* ModuleAViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F2A058771FDA71B70039FBCD /* ModuleAViewController.m */; };
-		F2A0587C1FDA72210039FBCD /* ModuleBViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F2A0587B1FDA72210039FBCD /* ModuleBViewController.m */; };
-		F2A0587F1FDA72380039FBCD /* ModuleBConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = F2A0587E1FDA72380039FBCD /* ModuleBConnector.m */; };
+		F25867FF1FDAAF6C00D7B2BF /* LLTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = F25867FE1FDAAF6C00D7B2BF /* LLTabBarController.m */; };
+		F25868021FDAAFA300D7B2BF /* LLNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = F25868011FDAAFA300D7B2BF /* LLNavigationController.m */; };
+		F25868071FDAB42B00D7B2BF /* HomeModuleConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = F25868061FDAB42B00D7B2BF /* HomeModuleConnector.m */; };
+		F258680A1FDAB43B00D7B2BF /* HomeModuleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F25868091FDAB43A00D7B2BF /* HomeModuleViewController.m */; };
+		F258680D1FDAB46000D7B2BF /* MyStudyModuleConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = F258680C1FDAB46000D7B2BF /* MyStudyModuleConnector.m */; };
+		F25868101FDAB4C500D7B2BF /* MyStudyModuleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F258680F1FDAB4C500D7B2BF /* MyStudyModuleViewController.m */; };
+		F25868191FDAB50E00D7B2BF /* LoginModuleConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = F25868181FDAB50E00D7B2BF /* LoginModuleConnector.m */; };
+		F258681C1FDAB52600D7B2BF /* LoginModuleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F258681B1FDAB52600D7B2BF /* LoginModuleViewController.m */; };
+		F258681F1FDB764C00D7B2BF /* MeModuleConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = F258681E1FDB764C00D7B2BF /* MeModuleConnector.m */; };
+		F25868221FDB766800D7B2BF /* MeModuleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F25868211FDB766800D7B2BF /* MeModuleViewController.m */; };
+		F25868291FDB812D00D7B2BF /* UIImage+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = F25868281FDB812D00D7B2BF /* UIImage+Extension.m */; };
+		F258682D1FDB878400D7B2BF /* UIColor+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = F258682C1FDB878400D7B2BF /* UIColor+Extension.m */; };
 		F2F72C2E1FD96A6E00066F9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F2F72C2D1FD96A6E00066F9A /* AppDelegate.m */; };
-		F2F72C311FD96A6E00066F9A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F2F72C301FD96A6E00066F9A /* ViewController.m */; };
 		F2F72C341FD96A6E00066F9A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2F72C321FD96A6E00066F9A /* Main.storyboard */; };
 		F2F72C361FD96A6E00066F9A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F2F72C351FD96A6E00066F9A /* Assets.xcassets */; };
 		F2F72C391FD96A6E00066F9A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2F72C371FD96A6E00066F9A /* LaunchScreen.storyboard */; };
@@ -43,19 +50,35 @@
 		2193B1627F095F99A5D81E22 /* Pods-LLModularizationDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LLModularizationDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LLModularizationDemo/Pods-LLModularizationDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		2953E2ED14F7879A1F052BE5 /* Pods_LLModularizationDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LLModularizationDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		612CE89439B595E5C626E5BF /* Pods-LLModularizationDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LLModularizationDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-LLModularizationDemo/Pods-LLModularizationDemo.release.xcconfig"; sourceTree = "<group>"; };
-		F2A058731FDA71920039FBCD /* ModuleAConnector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ModuleAConnector.h; sourceTree = "<group>"; };
-		F2A058741FDA71920039FBCD /* ModuleAConnector.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ModuleAConnector.m; sourceTree = "<group>"; };
-		F2A058761FDA71B70039FBCD /* ModuleAViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ModuleAViewController.h; sourceTree = "<group>"; };
-		F2A058771FDA71B70039FBCD /* ModuleAViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ModuleAViewController.m; sourceTree = "<group>"; };
-		F2A0587A1FDA72210039FBCD /* ModuleBViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ModuleBViewController.h; sourceTree = "<group>"; };
-		F2A0587B1FDA72210039FBCD /* ModuleBViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ModuleBViewController.m; sourceTree = "<group>"; };
-		F2A0587D1FDA72380039FBCD /* ModuleBConnector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ModuleBConnector.h; sourceTree = "<group>"; };
-		F2A0587E1FDA72380039FBCD /* ModuleBConnector.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ModuleBConnector.m; sourceTree = "<group>"; };
+		F246B10F1FDBD0EB0066B0CA /* MeModuleProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeModuleProtocol.h; sourceTree = "<group>"; };
+		F25867FD1FDAAF6C00D7B2BF /* LLTabBarController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LLTabBarController.h; sourceTree = "<group>"; };
+		F25867FE1FDAAF6C00D7B2BF /* LLTabBarController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LLTabBarController.m; sourceTree = "<group>"; };
+		F25868001FDAAFA300D7B2BF /* LLNavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LLNavigationController.h; sourceTree = "<group>"; };
+		F25868011FDAAFA300D7B2BF /* LLNavigationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LLNavigationController.m; sourceTree = "<group>"; };
+		F25868051FDAB42B00D7B2BF /* HomeModuleConnector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeModuleConnector.h; sourceTree = "<group>"; };
+		F25868061FDAB42B00D7B2BF /* HomeModuleConnector.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeModuleConnector.m; sourceTree = "<group>"; };
+		F25868081FDAB43A00D7B2BF /* HomeModuleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeModuleViewController.h; sourceTree = "<group>"; };
+		F25868091FDAB43A00D7B2BF /* HomeModuleViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeModuleViewController.m; sourceTree = "<group>"; };
+		F258680B1FDAB46000D7B2BF /* MyStudyModuleConnector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyStudyModuleConnector.h; sourceTree = "<group>"; };
+		F258680C1FDAB46000D7B2BF /* MyStudyModuleConnector.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyStudyModuleConnector.m; sourceTree = "<group>"; };
+		F258680E1FDAB4C500D7B2BF /* MyStudyModuleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyStudyModuleViewController.h; sourceTree = "<group>"; };
+		F258680F1FDAB4C500D7B2BF /* MyStudyModuleViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyStudyModuleViewController.m; sourceTree = "<group>"; };
+		F25868171FDAB50E00D7B2BF /* LoginModuleConnector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginModuleConnector.h; sourceTree = "<group>"; };
+		F25868181FDAB50E00D7B2BF /* LoginModuleConnector.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginModuleConnector.m; sourceTree = "<group>"; };
+		F258681A1FDAB52600D7B2BF /* LoginModuleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginModuleViewController.h; sourceTree = "<group>"; };
+		F258681B1FDAB52600D7B2BF /* LoginModuleViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginModuleViewController.m; sourceTree = "<group>"; };
+		F258681D1FDB764C00D7B2BF /* MeModuleConnector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeModuleConnector.h; sourceTree = "<group>"; };
+		F258681E1FDB764C00D7B2BF /* MeModuleConnector.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MeModuleConnector.m; sourceTree = "<group>"; };
+		F25868201FDB766800D7B2BF /* MeModuleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeModuleViewController.h; sourceTree = "<group>"; };
+		F25868211FDB766800D7B2BF /* MeModuleViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MeModuleViewController.m; sourceTree = "<group>"; };
+		F25868241FDB806800D7B2BF /* LLMacro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LLMacro.h; sourceTree = "<group>"; };
+		F25868271FDB812D00D7B2BF /* UIImage+Extension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+Extension.h"; sourceTree = "<group>"; };
+		F25868281FDB812D00D7B2BF /* UIImage+Extension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Extension.m"; sourceTree = "<group>"; };
+		F258682B1FDB878300D7B2BF /* UIColor+Extension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+Extension.h"; sourceTree = "<group>"; };
+		F258682C1FDB878400D7B2BF /* UIColor+Extension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Extension.m"; sourceTree = "<group>"; };
 		F2F72C291FD96A6E00066F9A /* LLModularizationDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LLModularizationDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2F72C2C1FD96A6E00066F9A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		F2F72C2D1FD96A6E00066F9A /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		F2F72C2F1FD96A6E00066F9A /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		F2F72C301FD96A6E00066F9A /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		F2F72C331FD96A6E00066F9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F2F72C351FD96A6E00066F9A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F2F72C381FD96A6E00066F9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -112,26 +135,89 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		F2A058721FDA71550039FBCD /* ModuleA */ = {
+		F25867FC1FDAAF4300D7B2BF /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				F2A058731FDA71920039FBCD /* ModuleAConnector.h */,
-				F2A058741FDA71920039FBCD /* ModuleAConnector.m */,
-				F2A058761FDA71B70039FBCD /* ModuleAViewController.h */,
-				F2A058771FDA71B70039FBCD /* ModuleAViewController.m */,
+				F25867FD1FDAAF6C00D7B2BF /* LLTabBarController.h */,
+				F25867FE1FDAAF6C00D7B2BF /* LLTabBarController.m */,
+				F25868001FDAAFA300D7B2BF /* LLNavigationController.h */,
+				F25868011FDAAFA300D7B2BF /* LLNavigationController.m */,
 			);
-			path = ModuleA;
+			path = Main;
 			sourceTree = "<group>";
 		};
-		F2A058791FDA71D60039FBCD /* ModuleB */ = {
+		F25868031FDAB22E00D7B2BF /* MeModule */ = {
 			isa = PBXGroup;
 			children = (
-				F2A0587A1FDA72210039FBCD /* ModuleBViewController.h */,
-				F2A0587B1FDA72210039FBCD /* ModuleBViewController.m */,
-				F2A0587D1FDA72380039FBCD /* ModuleBConnector.h */,
-				F2A0587E1FDA72380039FBCD /* ModuleBConnector.m */,
+				F246B10F1FDBD0EB0066B0CA /* MeModuleProtocol.h */,
+				F258681D1FDB764C00D7B2BF /* MeModuleConnector.h */,
+				F258681E1FDB764C00D7B2BF /* MeModuleConnector.m */,
+				F25868201FDB766800D7B2BF /* MeModuleViewController.h */,
+				F25868211FDB766800D7B2BF /* MeModuleViewController.m */,
 			);
-			path = ModuleB;
+			path = MeModule;
+			sourceTree = "<group>";
+		};
+		F25868041FDAB24100D7B2BF /* LoginModule */ = {
+			isa = PBXGroup;
+			children = (
+				F25868171FDAB50E00D7B2BF /* LoginModuleConnector.h */,
+				F25868181FDAB50E00D7B2BF /* LoginModuleConnector.m */,
+				F258681A1FDAB52600D7B2BF /* LoginModuleViewController.h */,
+				F258681B1FDAB52600D7B2BF /* LoginModuleViewController.m */,
+			);
+			path = LoginModule;
+			sourceTree = "<group>";
+		};
+		F25868231FDB803800D7B2BF /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				F25868241FDB806800D7B2BF /* LLMacro.h */,
+				F25868251FDB80F200D7B2BF /* Category */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		F25868251FDB80F200D7B2BF /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				F25868271FDB812D00D7B2BF /* UIImage+Extension.h */,
+				F25868281FDB812D00D7B2BF /* UIImage+Extension.m */,
+				F258682B1FDB878300D7B2BF /* UIColor+Extension.h */,
+				F258682C1FDB878400D7B2BF /* UIColor+Extension.m */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
+		F258682A1FDB83A200D7B2BF /* Appdelegate */ = {
+			isa = PBXGroup;
+			children = (
+				F2F72C2C1FD96A6E00066F9A /* AppDelegate.h */,
+				F2F72C2D1FD96A6E00066F9A /* AppDelegate.m */,
+			);
+			path = Appdelegate;
+			sourceTree = "<group>";
+		};
+		F2A058721FDA71550039FBCD /* HomeModule */ = {
+			isa = PBXGroup;
+			children = (
+				F25868051FDAB42B00D7B2BF /* HomeModuleConnector.h */,
+				F25868061FDAB42B00D7B2BF /* HomeModuleConnector.m */,
+				F25868081FDAB43A00D7B2BF /* HomeModuleViewController.h */,
+				F25868091FDAB43A00D7B2BF /* HomeModuleViewController.m */,
+			);
+			path = HomeModule;
+			sourceTree = "<group>";
+		};
+		F2A058791FDA71D60039FBCD /* MyStudyModule */ = {
+			isa = PBXGroup;
+			children = (
+				F258680B1FDAB46000D7B2BF /* MyStudyModuleConnector.h */,
+				F258680C1FDAB46000D7B2BF /* MyStudyModuleConnector.m */,
+				F258680E1FDAB4C500D7B2BF /* MyStudyModuleViewController.h */,
+				F258680F1FDAB4C500D7B2BF /* MyStudyModuleViewController.m */,
+			);
+			path = MyStudyModule;
 			sourceTree = "<group>";
 		};
 		F2F72C201FD96A6E00066F9A = {
@@ -159,12 +245,13 @@
 		F2F72C2B1FD96A6E00066F9A /* LLModularizationDemo */ = {
 			isa = PBXGroup;
 			children = (
-				F2F72C2C1FD96A6E00066F9A /* AppDelegate.h */,
-				F2F72C2D1FD96A6E00066F9A /* AppDelegate.m */,
-				F2F72C2F1FD96A6E00066F9A /* ViewController.h */,
-				F2F72C301FD96A6E00066F9A /* ViewController.m */,
-				F2A058721FDA71550039FBCD /* ModuleA */,
-				F2A058791FDA71D60039FBCD /* ModuleB */,
+				F258682A1FDB83A200D7B2BF /* Appdelegate */,
+				F25868231FDB803800D7B2BF /* Common */,
+				F25867FC1FDAAF4300D7B2BF /* Main */,
+				F2A058721FDA71550039FBCD /* HomeModule */,
+				F2A058791FDA71D60039FBCD /* MyStudyModule */,
+				F25868031FDAB22E00D7B2BF /* MeModule */,
+				F25868041FDAB24100D7B2BF /* LoginModule */,
 				F2F72C321FD96A6E00066F9A /* Main.storyboard */,
 				F2F72C351FD96A6E00066F9A /* Assets.xcassets */,
 				F2F72C371FD96A6E00066F9A /* LaunchScreen.storyboard */,
@@ -376,13 +463,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F2A0587F1FDA72380039FBCD /* ModuleBConnector.m in Sources */,
-				F2F72C311FD96A6E00066F9A /* ViewController.m in Sources */,
-				F2A0587C1FDA72210039FBCD /* ModuleBViewController.m in Sources */,
+				F25868071FDAB42B00D7B2BF /* HomeModuleConnector.m in Sources */,
+				F25868291FDB812D00D7B2BF /* UIImage+Extension.m in Sources */,
+				F258681F1FDB764C00D7B2BF /* MeModuleConnector.m in Sources */,
+				F258682D1FDB878400D7B2BF /* UIColor+Extension.m in Sources */,
 				F2F72C3C1FD96A6E00066F9A /* main.m in Sources */,
+				F258680D1FDAB46000D7B2BF /* MyStudyModuleConnector.m in Sources */,
+				F258681C1FDAB52600D7B2BF /* LoginModuleViewController.m in Sources */,
+				F25868101FDAB4C500D7B2BF /* MyStudyModuleViewController.m in Sources */,
 				F2F72C2E1FD96A6E00066F9A /* AppDelegate.m in Sources */,
-				F2A058781FDA71B70039FBCD /* ModuleAViewController.m in Sources */,
-				F2A058751FDA71920039FBCD /* ModuleAConnector.m in Sources */,
+				F25868221FDB766800D7B2BF /* MeModuleViewController.m in Sources */,
+				F25868021FDAAFA300D7B2BF /* LLNavigationController.m in Sources */,
+				F25867FF1FDAAF6C00D7B2BF /* LLTabBarController.m in Sources */,
+				F258680A1FDAB43B00D7B2BF /* HomeModuleViewController.m in Sources */,
+				F25868191FDAB50E00D7B2BF /* LoginModuleConnector.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

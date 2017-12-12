@@ -12,6 +12,6 @@
 
 + (instancetype)sharedManager;
 
-- (void)openURL:(NSURL *)URL;
+- (BOOL)openURL:(NSURL *)URL;
 
 @end

@@ -12,8 +12,9 @@
 
 + (instancetype)sharedInstance;
 
-- (void)registerProtocol:(NSString *)protocolStr andConnector:(id<LLModuleProtocol>)connector;
+- (BOOL)registerProtocol:(Protocol *)protocol
+            andConnector:(Class)connector;
 
-- (void)openURL:(NSURL *)URL;
+- (BOOL)openURL:(NSURL *)URL;
 
 @end
