@@ -70,6 +70,8 @@
         [self.lock unlock];
     }
     
+#warning 至此注册成功，关于protocolDict函数中为什么要对dictionary进行copy不甚理解。
+    
     return YES;
 }
 
