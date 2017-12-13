@@ -13,7 +13,7 @@
 
 @implementation LLModuleURLDefinition
 
-+ (instancetype)initWithURL:(NSURL *)URL {
+- (instancetype)initWithURL:(NSURL *)URL {
     return nil;
 }
 

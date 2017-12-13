@@ -10,6 +10,9 @@
 #import <PureLayout/PureLayout.h>
 #import "LLMacro.h"
 
+#import "LoginModuleProtocol.h"
+#import "MeModuleConnector.h"
+
 @interface MeModuleViewController ()
 
 @property (nonatomic, strong) UIButton *loginBtn;
@@ -47,7 +50,18 @@
 #pragma mark - Action
 
 - (void)loginBtnAction {
+    [[MeModuleConnector sharedConnector] openModuleWithProtocol:@protocol(LoginModuleProtocol) selector:@selector(createLoginModuleWithParams:) params:[self generateParams] navigationMode:LLModuleNavigationModePresent withReturnBlock:nil];
+}
+
+#pragma mark - Private Methods
+
+- (NSDictionary *)generateParams {
+    NSMutableDictionary *params = @{}.mutableCopy;
     
+    params[LoginModule_UserName] = @"lilin";
+    params[LoginModule_Password] = @"zhouzhou";
+    
+    return [params copy];
 }
 
 @end

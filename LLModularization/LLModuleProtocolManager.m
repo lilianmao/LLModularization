@@ -18,6 +18,8 @@
 
 @implementation LLModuleProtocolManager
 
+#pragma mark - sharedManager
+
 + (instancetype)sharedManager {
     static dispatch_once_t onceToken;
     static LLModuleProtocolManager *sharedManager = nil;
@@ -45,7 +47,7 @@
     return _lock;
 }
 
-#pragma mark - register
+#pragma mark - register & open
 
 - (BOOL)registerProtocol:(Protocol *)protocol andConnector:(Class)connector {
     NSParameterAssert(NSStringFromProtocol(protocol) != nil);
@@ -70,7 +72,38 @@
         [self.lock unlock];
     }
     
-#warning 至此注册成功，关于protocolDict函数中为什么要对dictionary进行copy不甚理解。
+    return YES;
+}
+
+- (BOOL)openModuleWithCallConnector:(id<LLModuleProtocol>)connector
+                           protocol:(Protocol *)protocol
+                           selector:(SEL)sel
+                             params:(NSDictionary *)params
+                     navigationMode:(LLModuleNavigationMode)mode
+                    withReturnBlock:(returnBlock)block {
+    NSParameterAssert(NSStringFromProtocol(protocol) != nil);
+    NSParameterAssert(connector != nil);
+    
+    // 1. 做缓存 2. 做链路
+    
+    NSString *targetStr = [self getConnectorWithProtocol:protocol];
+    if ([LLModuleUtils isNilOrEmtpyForString:targetStr]) {
+        return NO;
+    }
+    Class target = NSClassFromString(targetStr);
+    if (![target respondsToSelector:sel]) {
+        return NO;
+    }
+    
+    id result = [self safePerformAction:sel target:target params:params];
+    if ([result isKindOfClass:[UIViewController class]]) {
+#warning 3. 获取当前的VC，根据mode显示新的VC。
+        NSLog(@"打开获取的VC");
+    } else if (!result){
+        block(target, result);
+    } else {
+        return NO;
+    }
     
     return YES;
 }
@@ -87,11 +120,83 @@
     return NO;
 }
 
+- (NSString *)getConnectorWithProtocol:(Protocol *)protocol {
+    NSString *connectorStr = [[self protocolDict] objectForKey:NSStringFromProtocol(protocol)];
+    return connectorStr;
+}
+
 - (NSDictionary *)protocolDict {
     [self.lock lock];
     NSDictionary *dict = [self.protocolConnector_Dict copy];
     [self.lock unlock];
     return dict;
+}
+
+- (id)safePerformAction:(SEL)action target:(Class)target params:(NSDictionary *)params
+{
+    NSMethodSignature* methodSig = [target methodSignatureForSelector:action];
+    if(methodSig == nil) {
+        return nil;
+    }
+    const char* retType = [methodSig methodReturnType];
+    
+    if (strcmp(retType, @encode(void)) == 0) {
+        NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:methodSig];
+        [invocation setArgument:&params atIndex:2];
+        [invocation setSelector:action];
+        [invocation setTarget:target];
+        [invocation invoke];
+        return nil;
+    }
+    
+    if (strcmp(retType, @encode(NSInteger)) == 0) {
+        NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:methodSig];
+        [invocation setArgument:&params atIndex:2];
+        [invocation setSelector:action];
+        [invocation setTarget:target];
+        [invocation invoke];
+        NSInteger result = 0;
+        [invocation getReturnValue:&result];
+        return @(result);
+    }
+    
+    if (strcmp(retType, @encode(BOOL)) == 0) {
+        NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:methodSig];
+        [invocation setArgument:&params atIndex:2];
+        [invocation setSelector:action];
+        [invocation setTarget:target];
+        [invocation invoke];
+        BOOL result = 0;
+        [invocation getReturnValue:&result];
+        return @(result);
+    }
+    
+    if (strcmp(retType, @encode(CGFloat)) == 0) {
+        NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:methodSig];
+        [invocation setArgument:&params atIndex:2];
+        [invocation setSelector:action];
+        [invocation setTarget:target];
+        [invocation invoke];
+        CGFloat result = 0;
+        [invocation getReturnValue:&result];
+        return @(result);
+    }
+    
+    if (strcmp(retType, @encode(NSUInteger)) == 0) {
+        NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:methodSig];
+        [invocation setArgument:&params atIndex:2];
+        [invocation setSelector:action];
+        [invocation setTarget:target];
+        [invocation invoke];
+        NSUInteger result = 0;
+        [invocation getReturnValue:&result];
+        return @(result);
+    }
+    
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+    return [target performSelector:action withObject:params];
+#pragma clang diagnostic pop
 }
 
 @end

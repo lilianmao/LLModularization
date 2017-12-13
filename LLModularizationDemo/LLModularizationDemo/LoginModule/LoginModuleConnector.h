@@ -7,7 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "LoginModuleProtocol.h"
 
-@interface LoginModuleConnector : NSObject
+#import <LLModularization/LLModule.h>
+
+@interface LoginModuleConnector : NSObject <LoginModuleProtocol>
+
++ (instancetype)sharedConnector;
 
 @end

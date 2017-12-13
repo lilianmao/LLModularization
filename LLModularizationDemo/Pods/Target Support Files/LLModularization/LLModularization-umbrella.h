@@ -11,6 +11,7 @@
 #endif
 
 #import "LLModule.h"
+#import "LLModuleNavigator.h"
 #import "LLModuleProtocol.h"
 #import "LLModuleProtocolManager.h"
 #import "LLModuleURLDefinition.h"

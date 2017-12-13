@@ -11,9 +11,4 @@
 
 @protocol MeModuleProtocol <LLModuleProtocol>
 
-@required
-
-- (void)initMeModuleWithName:(NSString *)name
-                      andAge:(NSInteger)age;
-
 @end

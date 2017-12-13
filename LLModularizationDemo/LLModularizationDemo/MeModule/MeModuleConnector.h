@@ -7,7 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MeModuleProtocol.h"
 
-@interface MeModuleConnector : NSObject
+#import <LLModularization/LLModule.h>
+
+@interface MeModuleConnector : NSObject <MeModuleProtocol>
+
++ (instancetype)sharedConnector;
 
 @end

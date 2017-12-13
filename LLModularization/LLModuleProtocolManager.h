@@ -15,4 +15,11 @@
 - (BOOL)registerProtocol:(Protocol *)protocol
             andConnector:(Class)connector;
 
+- (BOOL)openModuleWithCallConnector:(id<LLModuleProtocol>)connector
+                           protocol:(Protocol *)protocol
+                           selector:(SEL)sel
+                             params:(NSDictionary *)params
+                     navigationMode:(LLModuleNavigationMode)mode
+                    withReturnBlock:(returnBlock)block;
+
 @end
