@@ -7,11 +7,9 @@
 
 #import <Foundation/Foundation.h>
 #import "LLModuleNavigator.h"
-
-typedef void(^returnBlock)(id obj, id returnValue);
+#import "LLModuleConst.h"
 
 @class UIViewController;
-@class LLModuleURLDefinition;
 
 @protocol LLModuleProtocol <NSObject>
 
@@ -27,25 +25,9 @@ typedef void(^returnBlock)(id obj, id returnValue);
  */
 - (void)destroyModule;
 
-/**
- 这是操作另一个Module的必要的四件套
- 
- @param protocol 协议用来找到VC
- @param sel VC的方法
- @param params 方法的参数
- @param mode 如果是打开，则需要打开VC的方式
- @return 调用该Module成功与否
- */
-- (BOOL)openModuleWithProtocol:(Protocol *)protocol
-                      selector:(SEL)sel
-                        params:(NSDictionary *)params
-                navigationMode:(LLModuleNavigationMode)mode
-               withReturnBlock:(returnBlock)block;
-
-@optional
-
-- (BOOL)canOpenURL:(LLModuleURLDefinition *)URLDefinition;
-
-- (UIViewController *)handle:(LLModuleURLDefinition *)URLDefinition;
+- (void)callServiceWithURL:(NSString *)url
+            navigationMode:(LLModuleNavigationMode)mode
+              successBlock:(LLBasicSuccessBlock_t)success
+              failureBlock:(LLBasicFailureBlock_t)failure;
 
 @end

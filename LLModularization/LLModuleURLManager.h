@@ -6,12 +6,28 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "LLModuleProtocol.h"
+#import "LLModuleNavigator.h"
+#import "LLModuleConst.h"
 
-@class LLModuleURLDefinition;
 @interface LLModuleURLManager : NSObject
 
 + (instancetype)sharedManager;
 
-- (BOOL)openURL:(NSURL *)URL;
+/**
+ 注册服务。包括URL模式、Service以及实现该Service的Instance。
+ */
+- (BOOL)registerServiceWithServiceName:(NSString *)serviceName
+                            URLPattern:(NSString *)urlPattern
+                              instance:(NSString *)instanceName;
+
+
+/**
+ 调用服务。
+ */
+- (BOOL)callServiceWithURL:(NSString *)url
+            navigationMode:(LLModuleNavigationMode)mode
+              successBlock:(LLBasicSuccessBlock_t)success
+              failureBlock:(LLBasicFailureBlock_t)failure;
 
 @end

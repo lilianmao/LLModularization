@@ -50,7 +50,7 @@
 #pragma mark - Action
 
 - (void)loginBtnAction {
-    [[MeModuleConnector sharedConnector] openModuleWithProtocol:@protocol(LoginModuleProtocol) selector:@selector(createLoginModuleWithParams:) params:[self generateParams] navigationMode:LLModuleNavigationModePresent withReturnBlock:nil];
+    [[MeModuleConnector sharedConnector] callServiceWithURL:@"login" navigationMode:LLModuleNavigationModePresent successBlock:nil failureBlock:nil];
 }
 
 #pragma mark - Private Methods

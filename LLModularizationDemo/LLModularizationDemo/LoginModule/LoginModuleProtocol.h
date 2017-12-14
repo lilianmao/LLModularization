@@ -20,11 +20,12 @@ static NSString *const LoginModule_Password = @"password";
 @required
 
 /**
- 初始化
+ 初始化LoginModule。
+ URLPattern: login/?username=value1&password=value2
 
  @param params params为LoginModule_UserName和LoginModule_Password的字典
  @return loginModuleVC
  */
-+ (UIViewController *)createLoginModuleWithParams:(NSDictionary *)params;
++ (UIViewController *)openLoginModuleWithParams:(NSDictionary *)params;
 
 @end

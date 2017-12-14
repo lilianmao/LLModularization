@@ -20,6 +20,7 @@
 		F25868221FDB766800D7B2BF /* MeModuleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F25868211FDB766800D7B2BF /* MeModuleViewController.m */; };
 		F25868291FDB812D00D7B2BF /* UIImage+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = F25868281FDB812D00D7B2BF /* UIImage+Extension.m */; };
 		F258682D1FDB878400D7B2BF /* UIColor+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = F258682C1FDB878400D7B2BF /* UIColor+Extension.m */; };
+		F263E02D1FE2A7E300BD7CBD /* LLUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = F263E02C1FE2A7E300BD7CBD /* LLUtils.m */; };
 		F2F72C2E1FD96A6E00066F9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F2F72C2D1FD96A6E00066F9A /* AppDelegate.m */; };
 		F2F72C341FD96A6E00066F9A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2F72C321FD96A6E00066F9A /* Main.storyboard */; };
 		F2F72C361FD96A6E00066F9A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F2F72C351FD96A6E00066F9A /* Assets.xcassets */; };
@@ -77,6 +78,8 @@
 		F258682B1FDB878300D7B2BF /* UIColor+Extension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+Extension.h"; sourceTree = "<group>"; };
 		F258682C1FDB878400D7B2BF /* UIColor+Extension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Extension.m"; sourceTree = "<group>"; };
 		F263E01F1FDF745600BD7CBD /* LoginModuleProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginModuleProtocol.h; sourceTree = "<group>"; };
+		F263E02B1FE2A7E300BD7CBD /* LLUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LLUtils.h; sourceTree = "<group>"; };
+		F263E02C1FE2A7E300BD7CBD /* LLUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LLUtils.m; sourceTree = "<group>"; };
 		F2F72C291FD96A6E00066F9A /* LLModularizationDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LLModularizationDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2F72C2C1FD96A6E00066F9A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		F2F72C2D1FD96A6E00066F9A /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -175,6 +178,8 @@
 			isa = PBXGroup;
 			children = (
 				F25868241FDB806800D7B2BF /* LLMacro.h */,
+				F263E02B1FE2A7E300BD7CBD /* LLUtils.h */,
+				F263E02C1FE2A7E300BD7CBD /* LLUtils.m */,
 				F25868251FDB80F200D7B2BF /* Category */,
 			);
 			path = Common;
@@ -423,14 +428,12 @@
 				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
 				"${BUILT_PRODUCTS_DIR}/LLModularization/LLModularization.framework",
 				"${BUILT_PRODUCTS_DIR}/PureLayout/PureLayout.framework",
-				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LLModularization.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PureLayout.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -490,6 +493,7 @@
 				F25868021FDAAFA300D7B2BF /* LLNavigationController.m in Sources */,
 				F25867FF1FDAAF6C00D7B2BF /* LLTabBarController.m in Sources */,
 				F258680A1FDAB43B00D7B2BF /* HomeModuleViewController.m in Sources */,
+				F263E02D1FE2A7E300BD7CBD /* LLUtils.m in Sources */,
 				F25868191FDAB50E00D7B2BF /* LoginModuleConnector.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

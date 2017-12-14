@@ -7,6 +7,7 @@
 //
 
 #import "MeModuleConnector.h"
+#import "LLUtils.h"
 
 @interface MeModuleConnector()
 
@@ -30,21 +31,7 @@
 #pragma mark - register
 
 + (void)load {
-    [[LLModule sharedInstance] registerProtocol:@protocol(MeModuleProtocol) andConnector:[MeModuleConnector class]];
-}
-
-#pragma mark - open
-
-- (BOOL)openModuleWithProtocol:(Protocol *)protocol
-                      selector:(SEL)sel
-                        params:(NSDictionary *)params
-                navigationMode:(LLModuleNavigationMode)mode
-               withReturnBlock:(returnBlock)block {
-    if (!protocol || !sel) {
-        return NO;
-    }
     
-    return [[LLModule sharedInstance] openModuleWithCallConnector:self protocol:protocol selector:sel params:params navigationMode:mode withReturnBlock:block];
 }
 
 #pragma mark - LLModuleProtocol
@@ -57,11 +44,20 @@
     NSLog(@"destroy Me Module.");
 }
 
+- (void)callServiceWithURL:(NSString *)url
+            navigationMode:(LLModuleNavigationMode)mode
+              successBlock:(LLBasicSuccessBlock_t)success
+              failureBlock:(LLBasicFailureBlock_t)failure {
+    // 做一下判空
+    if ([LLUtils isNilOrEmtpyForString:url]) {
+        failure(nil);
+    }
+    
+    [[LLModule sharedInstance] callServiceWithCallConnector:self URL:url navigationMode:mode successBlock:success failureBlock:failure];
+}
+
 #pragma mark - MeModuleProtocol
 
-- (instancetype)initMeModuleWithName:(NSString *)name
-                              andAge:(NSInteger)age {
-    return nil;
-}
+
 
 @end

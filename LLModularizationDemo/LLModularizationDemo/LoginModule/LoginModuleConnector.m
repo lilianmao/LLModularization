@@ -31,7 +31,8 @@
 #pragma mark - register
 
 + (void)load {
-    [[LLModule sharedInstance] registerProtocol:@protocol(LoginModuleProtocol) andConnector:[LoginModuleConnector class]];
+    // TODO: URLPattern中关于scheme的定义
+    [[LLModule sharedInstance] registerServiceWithServiceName:NSStringFromSelector(@selector(openLoginModuleWithParams:)) URLPattern:@"login" instance:NSStringFromClass(self)];
 }
 
 
@@ -45,19 +46,22 @@
     NSLog(@"destroy Login Module.");
 }
 
-- (BOOL)openModuleWithProtocol:(Protocol *)protocol
-                      selector:(SEL)sel
-                        params:(NSDictionary *)params
-                navigationMode:(LLModuleNavigationMode)mode
-               withReturnBlock:(returnBlock)block {
-    return YES;
+- (void)callServiceWithURL:(NSString *)url
+            navigationMode:(LLModuleNavigationMode)mode
+              successBlock:(LLBasicSuccessBlock_t)success
+              failureBlock:(LLBasicFailureBlock_t)failure {
+    
 }
 
 #pragma mark - LoginModuleProtocol
 
-+ (UIViewController *)createLoginModuleWithParams:(NSDictionary *)params {
++ (UIViewController *)openLoginModuleWithParams:(NSDictionary *)params {
     LoginModuleViewController *loginVC = [[LoginModuleViewController alloc] init];
-    [loginVC updateWithUserName:params[LoginModule_UserName] password:params[LoginModule_Password]];
+    
+    NSString *username = params[LoginModule_UserName];
+    NSString *password = params[LoginModule_Password];
+    [loginVC updateWithUserName:username password:password];
+    
     return loginVC;
 }
 

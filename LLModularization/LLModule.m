@@ -31,31 +31,28 @@
 
 #pragma mark - register & open
 
-- (BOOL)registerProtocol:(Protocol *)protocol andConnector:(Class)connector {
-    if ([LLModuleUtils isNilOrEmtpyForString:NSStringFromProtocol(protocol)] || !connector) {
+- (BOOL)registerServiceWithServiceName:(NSString *)serviceName
+                            URLPattern:(NSString *)urlPattern
+                              instance:(NSString *)instanceName {
+    if ([LLModuleUtils isNilOrEmtpyForString:urlPattern] || [LLModuleUtils isNilOrEmtpyForString:serviceName] || [LLModuleUtils isNilOrEmtpyForString:instanceName]) {
         return NO;
     }
-    return [[LLModuleProtocolManager sharedManager] registerProtocol:protocol andConnector:connector];
+    // TODO: 设计的合理性需要思考
+    return [[LLModuleURLManager sharedManager] registerServiceWithServiceName:serviceName URLPattern:urlPattern instance:instanceName];
 }
 
-- (BOOL)openModuleWithCallConnector:(id<LLModuleProtocol>)connector
-                           protocol:(Protocol *)protocol
-                           selector:(SEL)sel
-                             params:(NSDictionary *)params
-                     navigationMode:(LLModuleNavigationMode)mode
-                    withReturnBlock:(returnBlock)block {
-    if ([LLModuleUtils isNilOrEmtpyForString:NSStringFromProtocol(protocol)] || !connector || !sel) {
+- (BOOL)callServiceWithCallConnector:(id<LLModuleProtocol>)connector
+                                 URL:(NSString *)url
+                      navigationMode:(LLModuleNavigationMode)mode
+                        successBlock:(LLBasicSuccessBlock_t)success
+                        failureBlock:(LLBasicFailureBlock_t)failure {
+    if ([LLModuleUtils isNilOrEmtpyForString:url] || !connector) {
         return NO;
     }
     
-    return [[LLModuleProtocolManager sharedManager] openModuleWithCallConnector:connector protocol:protocol selector:sel params:params navigationMode:mode withReturnBlock:block];
-}
-
-- (BOOL)openURL:(NSURL *)URL {
-    if ([LLModuleUtils isNilOrEmtpyForString:[URL absoluteString]]) {
-        return NO;
-    }
-    return [[LLModuleURLManager sharedManager] openURL:URL];
+    // TODO: 在这里做链路处理connector
+    
+    return [[LLModuleURLManager sharedManager] callServiceWithURL:url navigationMode:mode successBlock:success failureBlock:failure];
 }
 
 @end

@@ -5,7 +5,6 @@ use_frameworks!
 
 def pods
     pod 'AFNetworking', '2.6.3'
-    pod 'SDWebImage', '~> 4.0'
     pod 'PureLayout', '~> 3.0.1'
 	pod "LLModularization", :path => "../"
 end

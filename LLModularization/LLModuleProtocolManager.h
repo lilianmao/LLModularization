@@ -7,19 +7,25 @@
 
 #import <Foundation/Foundation.h>
 #import "LLModuleProtocol.h"
+#import "LLModuleConst.h"
 
 @interface LLModuleProtocolManager : NSObject
 
 + (instancetype)sharedManager;
 
-- (BOOL)registerProtocol:(Protocol *)protocol
-            andConnector:(Class)connector;
+/**
+ 注册服务。包括Service以及实现该Service的Instance。
+ */
+- (BOOL)registerServiceWithServiceName:(NSString *)serviceName
+                              instance:(NSString *)instanceName;
 
-- (BOOL)openModuleWithCallConnector:(id<LLModuleProtocol>)connector
-                           protocol:(Protocol *)protocol
-                           selector:(SEL)sel
-                             params:(NSDictionary *)params
-                     navigationMode:(LLModuleNavigationMode)mode
-                    withReturnBlock:(returnBlock)block;
+
+/**
+ 调用服务。
+ */
+- (BOOL)callServiceWithServiceName:(NSString *)serviceName
+                    navigationMode:(LLModuleNavigationMode)mode
+                      successBlock:(LLBasicSuccessBlock_t)success
+                      failureBlock:(LLBasicFailureBlock_t)failure;
 
 @end

@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '18C5370A030C4CE2D2096195D51FC4A4'
+               BlueprintIdentifier = 'BAB835D24DD6ADC7BDE8C74D1F89215E'
                BlueprintName = 'LLModularization'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'LLModularization.framework'>

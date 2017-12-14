@@ -11,7 +11,7 @@
 
 @interface LLModuleProtocolManager()
 
-@property (nonatomic, strong) NSMutableDictionary<NSString *, NSString *> *protocolConnector_Dict;
+@property (nonatomic, strong) NSMutableDictionary<NSString *, NSString *> *serviceInstance_Dict;
 @property (nonatomic, strong) NSRecursiveLock *lock;
 
 @end
@@ -33,11 +33,11 @@
 
 #pragma mark - Lazy Load
 
-- (NSMutableDictionary<NSString *, NSString *> *)protocolConnector_Dict {
-    if (!_protocolConnector_Dict) {
-        _protocolConnector_Dict = @{}.mutableCopy;
+- (NSMutableDictionary<NSString *, NSString *> *)serviceInstance_Dict {
+    if (!_serviceInstance_Dict) {
+        _serviceInstance_Dict = @{}.mutableCopy;
     }
-    return _protocolConnector_Dict;
+    return _serviceInstance_Dict;
 }
 
 - (NSRecursiveLock *)lock {
@@ -49,32 +49,44 @@
 
 #pragma mark - register & open
 
-- (BOOL)registerProtocol:(Protocol *)protocol andConnector:(Class)connector {
-    NSParameterAssert(NSStringFromProtocol(protocol) != nil);
-    NSParameterAssert(connector != nil);
+- (BOOL)registerServiceWithServiceName:(NSString *)serviceName
+                              instance:(NSString *)instanceName {
+    NSParameterAssert(serviceName != nil);
+    NSParameterAssert(instanceName != nil);
     
-    if (![connector conformsToProtocol:protocol]) {
-        NSLog(@"connector don't conforms to protocol.");
+    SEL sel = NSSelectorFromString(serviceName);
+    Class class = NSClassFromString(instanceName);
+    
+    if (![class respondsToSelector:sel]) {
+        NSLog(@"class doesn't respondTo selector.");
         return NO;
     }
     
-    if ([self checkValidProtocol:protocol]) {
+    if ([self checkValidService:serviceName]) {
         NSLog(@"protocol has been registed.");
         return NO;
     }
     
-    NSString *key = NSStringFromProtocol(protocol);
-    NSString *value = NSStringFromClass(connector);
-    
-    if (key.length > 0 && value.length > 0) {
+    if (serviceName.length > 0 && instanceName.length > 0) {
         [self.lock lock];
-        [self.protocolConnector_Dict setObject:value forKey:key];
+        [self.serviceInstance_Dict setObject:instanceName forKey:serviceName];
         [self.lock unlock];
     }
     
     return YES;
 }
 
+- (BOOL)callServiceWithServiceName:(NSString *)serviceName
+                    navigationMode:(LLModuleNavigationMode)mode
+                      successBlock:(LLBasicSuccessBlock_t)success
+                      failureBlock:(LLBasicFailureBlock_t)failure {
+    
+    // TODO: 别忘了执行成功与失败的block。
+    
+    return YES;
+}
+
+ /*
 - (BOOL)openModuleWithCallConnector:(id<LLModuleProtocol>)connector
                            protocol:(Protocol *)protocol
                            selector:(SEL)sel
@@ -83,7 +95,7 @@
                     withReturnBlock:(returnBlock)block {
     NSParameterAssert(NSStringFromProtocol(protocol) != nil);
     NSParameterAssert(connector != nil);
-    
+   
     // 1. 做缓存 2. 做链路
     
     NSString *targetStr = [self getConnectorWithProtocol:protocol];
@@ -92,12 +104,12 @@
     }
     Class target = NSClassFromString(targetStr);
     if (![target respondsToSelector:sel]) {
+        NSLog(@"target doesn't respondTo selector.");
         return NO;
     }
     
     id result = [self safePerformAction:sel target:target params:params];
     if ([result isKindOfClass:[UIViewController class]]) {
-#warning 3. 获取当前的VC，根据mode显示新的VC。
         NSLog(@"打开获取的VC");
     } else if (!result){
         block(target, result);
@@ -107,33 +119,33 @@
     
     return YES;
 }
+*/
 
 #pragma mark - unregister
 
 #pragma mark - private
 
-- (BOOL)checkValidProtocol:(Protocol *)protocol {
-    NSString *connectorStr = [[self protocolDict] objectForKey:NSStringFromProtocol(protocol)];
-    if (connectorStr.length > 0) {
+- (BOOL)checkValidService:(NSString *)serviceName {
+    NSString *instanceStr = [[self serviceDict] objectForKey:serviceName];
+    if (instanceStr.length > 0) {
         return YES;
     }
     return NO;
 }
 
-- (NSString *)getConnectorWithProtocol:(Protocol *)protocol {
-    NSString *connectorStr = [[self protocolDict] objectForKey:NSStringFromProtocol(protocol)];
-    return connectorStr;
+- (NSString *)getInstanceWithService:(NSString *)serviceName {
+    NSString *instanceStr = [[self serviceDict] objectForKey:serviceName];
+    return instanceStr;
 }
 
-- (NSDictionary *)protocolDict {
+- (NSDictionary *)serviceDict {
     [self.lock lock];
-    NSDictionary *dict = [self.protocolConnector_Dict copy];
+    NSDictionary *dict = [self.serviceInstance_Dict copy];
     [self.lock unlock];
     return dict;
 }
 
-- (id)safePerformAction:(SEL)action target:(Class)target params:(NSDictionary *)params
-{
+- (id)safePerformAction:(SEL)action target:(Class)target params:(NSDictionary *)params {
     NSMethodSignature* methodSig = [target methodSignatureForSelector:action];
     if(methodSig == nil) {
         return nil;

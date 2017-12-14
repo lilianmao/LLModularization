@@ -8,28 +8,32 @@
 #import <Foundation/Foundation.h>
 #import "LLModuleProtocol.h"
 #import "LLModuleNavigator.h"
+#import "LLModuleConst.h"
 
 @interface LLModule : NSObject
 
 + (instancetype)sharedInstance;
 
-- (BOOL)registerProtocol:(Protocol *)protocol
-            andConnector:(Class)connector;
+/**
+ 注册服务。包括URL模式、Service以及实现该Service的Instance。
+
+ @return 成功与否
+ */
+- (BOOL)registerServiceWithServiceName:(NSString *)serviceName
+                            URLPattern:(NSString *)urlPattern
+                              instance:(NSString *)instanceName;
 
 
 /**
- 调用方操作被调用方的函数
+ 调用服务。
 
  @param connector 传入自身module的Connector，这里需要进行链路记录。
  @return 操作成功与否
  */
-- (BOOL)openModuleWithCallConnector:(id<LLModuleProtocol>)connector
-                           protocol:(Protocol *)protocol
-                           selector:(SEL)sel
-                             params:(NSDictionary *)params
+- (BOOL)callServiceWithCallConnector:(id<LLModuleProtocol>)connector
+                                 URL:(NSString *)url
                      navigationMode:(LLModuleNavigationMode)mode
-                    withReturnBlock:(returnBlock)block;
-
-- (BOOL)openURL:(NSURL *)URL;
+                        successBlock:(LLBasicSuccessBlock_t)success
+                        failureBlock:(LLBasicFailureBlock_t)failure;
 
 @end
