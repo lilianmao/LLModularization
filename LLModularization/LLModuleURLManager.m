@@ -40,23 +40,28 @@
         return NO;
     }
     
-    // TODO:建立一个Pattern和Service的映射，模仿MGJRouter和JLRoutes。
+    [LLModuleURLRoutes registerURLPattern:urlPattern toService:serviceName];
     
     return [[LLModuleProtocolManager sharedManager] registerServiceWithServiceName:serviceName instance:instanceName];
 }
 
-- (BOOL)callServiceWithURL:(NSString *)url
+- (void)callServiceWithURL:(NSString *)url
+                parameters:(NSDictionary *)params
             navigationMode:(LLModuleNavigationMode)mode
               successBlock:(LLBasicSuccessBlock_t)success
               failureBlock:(LLBasicFailureBlock_t)failure {
     if ([LLModuleUtils isNilOrEmtpyForString:url]) {
-        return NO;
+        NSError *err = [[NSError alloc] initWithDomain:NSStringFromClass([self class]) code:-1 userInfo:@{NSLocalizedDescriptionKey:@"URL is empty."}];
+        failure(err);
     }
     
-    // TODO:获取url对应的Service
-    NSString *serviceName = @"openLoginModuleWithParams:";  // tmp
-    
-    return [[LLModuleProtocolManager sharedManager] callServiceWithServiceName:serviceName navigationMode:mode successBlock:success failureBlock:failure];
+    NSDictionary *openResult = [LLModuleURLRoutes openURL:url withUserInfo:params];
+    if (openResult[LLRoutesStatus]) {
+        [[LLModuleProtocolManager sharedManager] callServiceWithServiceName:openResult[LLRoutesService] parameters:openResult[LLRoutesParameters] navigationMode:mode successBlock:success failureBlock:failure];
+    } else {
+        NSError *err = [[NSError alloc] initWithDomain:NSStringFromClass([self class]) code:-1 userInfo:@{NSLocalizedDescriptionKey:@"URL open service failured."}];
+        failure(err);
+    }
 }
 
 @end

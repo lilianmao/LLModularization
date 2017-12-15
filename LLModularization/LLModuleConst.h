@@ -13,5 +13,6 @@
 typedef void (^LLBasicBlock_t)(void);
 typedef void (^LLBasicSuccessBlock_t)(id result);
 typedef void (^LLBasicFailureBlock_t)(NSError *err);
+typedef void (^LLBasicCompletionBlock_t)(id result);
 
 #endif /* LLModuleConst_h */

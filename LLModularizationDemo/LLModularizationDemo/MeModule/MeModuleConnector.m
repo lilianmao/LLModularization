@@ -45,15 +45,15 @@
 }
 
 - (void)callServiceWithURL:(NSString *)url
+                parameters:(NSDictionary *)params
             navigationMode:(LLModuleNavigationMode)mode
               successBlock:(LLBasicSuccessBlock_t)success
               failureBlock:(LLBasicFailureBlock_t)failure {
-    // 做一下判空
     if ([LLUtils isNilOrEmtpyForString:url]) {
         failure(nil);
     }
     
-    [[LLModule sharedInstance] callServiceWithCallConnector:self URL:url navigationMode:mode successBlock:success failureBlock:failure];
+    [[LLModule sharedInstance] callServiceWithCallConnector:self URL:url parameters:params navigationMode:mode successBlock:success failureBlock:failure];
 }
 
 #pragma mark - MeModuleProtocol

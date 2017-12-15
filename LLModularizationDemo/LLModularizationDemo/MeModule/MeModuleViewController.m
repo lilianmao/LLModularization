@@ -8,9 +8,9 @@
 
 #import "MeModuleViewController.h"
 #import <PureLayout/PureLayout.h>
+#import <SVProgressHUD/SVProgressHUD.h>
 #import "LLMacro.h"
 
-#import "LoginModuleProtocol.h"
 #import "MeModuleConnector.h"
 
 @interface MeModuleViewController ()
@@ -50,16 +50,28 @@
 #pragma mark - Action
 
 - (void)loginBtnAction {
-    [[MeModuleConnector sharedConnector] callServiceWithURL:@"login" navigationMode:LLModuleNavigationModePresent successBlock:nil failureBlock:nil];
+    [[MeModuleConnector sharedConnector] callServiceWithURL:[self generateURL] parameters:[self generateParams] navigationMode:LLModuleNavigationModePresent successBlock:^(id result) {
+        // 处理你操作其他模块返回的数据。
+    } failureBlock:^(NSError *err) {
+        [SVProgressHUD showWithStatus:err.localizedDescription];
+    }];
 }
 
 #pragma mark - Private Methods
 
+- (NSString *)generateURL {
+    NSString *username = @"1";
+    NSString *password = @"2";
+    
+    NSString *url = [NSString stringWithFormat:@"ll://login/result?username=%@&password=%@", username, password];
+    
+    return url;
+}
+
 - (NSDictionary *)generateParams {
     NSMutableDictionary *params = @{}.mutableCopy;
     
-    params[LoginModule_UserName] = @"lilin";
-    params[LoginModule_Password] = @"zhouzhou";
+    params[@"key"] = @"value";
     
     return [params copy];
 }

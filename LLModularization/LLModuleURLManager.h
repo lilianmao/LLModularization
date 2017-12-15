@@ -25,7 +25,8 @@
 /**
  调用服务。
  */
-- (BOOL)callServiceWithURL:(NSString *)url
+- (void)callServiceWithURL:(NSString *)url
+                parameters:(NSDictionary *)params
             navigationMode:(LLModuleNavigationMode)mode
               successBlock:(LLBasicSuccessBlock_t)success
               failureBlock:(LLBasicFailureBlock_t)failure;

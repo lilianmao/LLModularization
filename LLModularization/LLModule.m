@@ -37,22 +37,24 @@
     if ([LLModuleUtils isNilOrEmtpyForString:urlPattern] || [LLModuleUtils isNilOrEmtpyForString:serviceName] || [LLModuleUtils isNilOrEmtpyForString:instanceName]) {
         return NO;
     }
-    // TODO: 设计的合理性需要思考
+    
     return [[LLModuleURLManager sharedManager] registerServiceWithServiceName:serviceName URLPattern:urlPattern instance:instanceName];
 }
 
-- (BOOL)callServiceWithCallConnector:(id<LLModuleProtocol>)connector
+- (void)callServiceWithCallConnector:(id<LLModuleProtocol>)connector
                                  URL:(NSString *)url
+                          parameters:(NSDictionary *)params
                       navigationMode:(LLModuleNavigationMode)mode
                         successBlock:(LLBasicSuccessBlock_t)success
                         failureBlock:(LLBasicFailureBlock_t)failure {
     if ([LLModuleUtils isNilOrEmtpyForString:url] || !connector) {
-        return NO;
+        NSError *err = [[NSError alloc] initWithDomain:NSStringFromClass([self class]) code:-1 userInfo:@{NSLocalizedDescriptionKey:@"URL or Connector is empty."}];
+        failure(err);
     }
     
     // TODO: 在这里做链路处理connector
     
-    return [[LLModuleURLManager sharedManager] callServiceWithURL:url navigationMode:mode successBlock:success failureBlock:failure];
+    [[LLModuleURLManager sharedManager] callServiceWithURL:url parameters:params navigationMode:mode successBlock:success failureBlock:failure];
 }
 
 @end

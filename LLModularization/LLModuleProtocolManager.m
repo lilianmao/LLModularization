@@ -76,50 +76,32 @@
     return YES;
 }
 
-- (BOOL)callServiceWithServiceName:(NSString *)serviceName
+- (void)callServiceWithServiceName:(NSString *)serviceName
+                        parameters:(NSDictionary *)params
                     navigationMode:(LLModuleNavigationMode)mode
                       successBlock:(LLBasicSuccessBlock_t)success
                       failureBlock:(LLBasicFailureBlock_t)failure {
+    NSParameterAssert(serviceName != nil);
     
-    // TODO: 别忘了执行成功与失败的block。
+    NSString *instanceName = [self getInstanceWithService:serviceName];
+    Class instance = NSClassFromString(instanceName);
+    SEL service = NSSelectorFromString(serviceName);
     
-    return YES;
-}
-
- /*
-- (BOOL)openModuleWithCallConnector:(id<LLModuleProtocol>)connector
-                           protocol:(Protocol *)protocol
-                           selector:(SEL)sel
-                             params:(NSDictionary *)params
-                     navigationMode:(LLModuleNavigationMode)mode
-                    withReturnBlock:(returnBlock)block {
-    NSParameterAssert(NSStringFromProtocol(protocol) != nil);
-    NSParameterAssert(connector != nil);
-   
-    // 1. 做缓存 2. 做链路
-    
-    NSString *targetStr = [self getConnectorWithProtocol:protocol];
-    if ([LLModuleUtils isNilOrEmtpyForString:targetStr]) {
-        return NO;
-    }
-    Class target = NSClassFromString(targetStr);
-    if (![target respondsToSelector:sel]) {
-        NSLog(@"target doesn't respondTo selector.");
-        return NO;
+    if (![instance respondsToSelector:service]) {
+        NSString *errMsg = @"Instance doesn't respondTo selector.";
+        NSError *err = [[NSError alloc] initWithDomain:NSStringFromClass([self class]) code:-1 userInfo:@{NSLocalizedDescriptionKey:errMsg}];
+        failure(err);
     }
     
-    id result = [self safePerformAction:sel target:target params:params];
-    if ([result isKindOfClass:[UIViewController class]]) {
-        NSLog(@"打开获取的VC");
-    } else if (!result){
-        block(target, result);
+    id result = [self safePerformAction:service target:instance params:params];
+    if (result != nil) {
+        // TODO:这里成功执行的返回值有待测试和研究
+        success(result);
     } else {
-        return NO;
+        NSError *err = [[NSError alloc] initWithDomain:NSStringFromClass([self class]) code:-1 userInfo:@{NSLocalizedDescriptionKey:@"Instance execute selector failured."}];
+        failure(err);
     }
-    
-    return YES;
 }
-*/
 
 #pragma mark - unregister
 

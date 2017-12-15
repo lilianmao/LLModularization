@@ -23,7 +23,8 @@
 /**
  调用服务。
  */
-- (BOOL)callServiceWithServiceName:(NSString *)serviceName
+- (void)callServiceWithServiceName:(NSString *)serviceName
+                        parameters:(NSDictionary *)params
                     navigationMode:(LLModuleNavigationMode)mode
                       successBlock:(LLBasicSuccessBlock_t)success
                       failureBlock:(LLBasicFailureBlock_t)failure;

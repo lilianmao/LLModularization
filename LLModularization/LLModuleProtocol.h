@@ -26,6 +26,7 @@
 - (void)destroyModule;
 
 - (void)callServiceWithURL:(NSString *)url
+                parameters:(NSDictionary *)params
             navigationMode:(LLModuleNavigationMode)mode
               successBlock:(LLBasicSuccessBlock_t)success
               failureBlock:(LLBasicFailureBlock_t)failure;

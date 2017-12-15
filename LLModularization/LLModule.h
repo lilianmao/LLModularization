@@ -28,11 +28,11 @@
  调用服务。
 
  @param connector 传入自身module的Connector，这里需要进行链路记录。
- @return 操作成功与否
  */
-- (BOOL)callServiceWithCallConnector:(id<LLModuleProtocol>)connector
+- (void)callServiceWithCallConnector:(id<LLModuleProtocol>)connector
                                  URL:(NSString *)url
-                     navigationMode:(LLModuleNavigationMode)mode
+                          parameters:(NSDictionary *)params
+                      navigationMode:(LLModuleNavigationMode)mode
                         successBlock:(LLBasicSuccessBlock_t)success
                         failureBlock:(LLBasicFailureBlock_t)failure;
 

@@ -31,8 +31,7 @@
 #pragma mark - register
 
 + (void)load {
-    // TODO: URLPattern中关于scheme的定义
-    [[LLModule sharedInstance] registerServiceWithServiceName:NSStringFromSelector(@selector(openLoginModuleWithParams:)) URLPattern:@"login" instance:NSStringFromClass(self)];
+    [[LLModule sharedInstance] registerServiceWithServiceName:NSStringFromSelector(@selector(openLoginModuleWithParams:)) URLPattern:@"ll://login/:query" instance:NSStringFromClass(self)];
 }
 
 
@@ -47,6 +46,7 @@
 }
 
 - (void)callServiceWithURL:(NSString *)url
+                parameters:(NSDictionary *)params
             navigationMode:(LLModuleNavigationMode)mode
               successBlock:(LLBasicSuccessBlock_t)success
               failureBlock:(LLBasicFailureBlock_t)failure {
