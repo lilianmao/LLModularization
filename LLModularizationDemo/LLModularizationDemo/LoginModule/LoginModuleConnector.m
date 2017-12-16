@@ -58,6 +58,7 @@
 + (UIViewController *)openLoginModuleWithParams:(NSDictionary *)params {
     LoginModuleViewController *loginVC = [[LoginModuleViewController alloc] init];
     
+    NSLog(@"%@", params);
     NSString *username = params[LoginModule_UserName];
     NSString *password = params[LoginModule_Password];
     [loginVC updateWithUserName:username password:password];

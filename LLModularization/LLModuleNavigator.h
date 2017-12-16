@@ -15,4 +15,13 @@ typedef NS_ENUM(NSInteger, LLModuleNavigationMode) {
 
 @interface LLModuleNavigator : NSObject
 
+/**
+ 显示传入的VC
+
+ @param controller 传入的VC
+ @param mode 显示模式（默认Push）
+ */
++ (void)showController:(UIViewController *)controller
+    withNavigationMode:(LLModuleNavigationMode)mode;
+
 @end

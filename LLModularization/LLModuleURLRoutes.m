@@ -53,8 +53,8 @@ NSString *const LLRoutesParameters = @"LLRoutesParameters";
     [[LLModuleURLRoutes sharedInstance] addURLPattern:urlPattern andServiceName:serviceName];
 }
 
-+ (void)deregisterURLPattern:(NSString *)urlPattern {
-    // TODO:参考蘑菇街unregister
++ (void)deregisterURLPattern:(NSString *)URLPattern {
+    [[LLModuleURLRoutes sharedInstance] removeURLPattern:URLPattern];
 }
 
 #pragma mark - open
@@ -112,6 +112,32 @@ NSString *const LLRoutesParameters = @"LLRoutesParameters";
         subRoutes = subRoutes[pathComponent];
     }
     return subRoutes;
+}
+
+- (void)removeURLPattern:(NSString *)URLPattern {
+    // TODO:周一重新整理register和deregister以及safePerform，同时测试一下Module内两个VC是否可以相互打开。和强哥交流一下链路系统需要做成什么样子。
+    
+    NSMutableArray *pathComponents = [NSMutableArray arrayWithArray:[self pathComponentsFromURL:URLPattern]];
+    
+    // 只删除该 pattern 的最后一级
+    if (pathComponents.count >= 1) {
+        // 假如 URLPattern 为 a/b/c, components 就是 @"a.b.c" 正好可以作为 KVC 的 key
+        NSString *components = [pathComponents componentsJoinedByString:@"."];
+        NSMutableDictionary *route = [self.routes valueForKeyPath:components];
+        
+        if (route.count >= 1) {
+            NSString *lastComponent = [pathComponents lastObject];
+            [pathComponents removeLastObject];
+            
+            // 有可能是根 key，这样就是 self.routes 了
+            route = self.routes;
+            if (pathComponents.count) {
+                NSString *componentsWithoutLast = [pathComponents componentsJoinedByString:@"."];
+                route = [self.routes valueForKeyPath:componentsWithoutLast];
+            }
+            [route removeObjectForKey:lastComponent];
+        }
+    }
 }
 
 #pragma mark - Utils

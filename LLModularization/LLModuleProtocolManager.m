@@ -8,6 +8,7 @@
 #import "LLModuleProtocolManager.h"
 #import "LLModuleUtils.h"
 #import <objc/runtime.h>
+#import "LLModuleNavigator.h"
 
 @interface LLModuleProtocolManager()
 
@@ -95,7 +96,12 @@
     
     id result = [self safePerformAction:service target:instance params:params];
     if (result != nil) {
-        // TODO:这里成功执行的返回值有待测试和研究
+        if ([result isKindOfClass:[UIViewController class]]) {
+            UIViewController *showVC = (UIViewController *)result;
+            [LLModuleNavigator showController:showVC withNavigationMode:mode];
+        } else {
+            
+        }
         success(result);
     } else {
         NSError *err = [[NSError alloc] initWithDomain:NSStringFromClass([self class]) code:-1 userInfo:@{NSLocalizedDescriptionKey:@"Instance execute selector failured."}];
