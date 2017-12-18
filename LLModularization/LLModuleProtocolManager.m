@@ -59,12 +59,12 @@
     Class class = NSClassFromString(instanceName);
     
     if (![class respondsToSelector:sel]) {
-        NSLog(@"class doesn't respondTo selector.");
+        NSLog(@"Class doesn't respondTo selector.");
         return NO;
     }
     
     if ([self checkValidService:serviceName]) {
-        NSLog(@"protocol has been registed.");
+        NSLog(@"Service has been registed.");
         return NO;
     }
     
@@ -88,6 +88,11 @@
     Class instance = NSClassFromString(instanceName);
     SEL service = NSSelectorFromString(serviceName);
     
+    if ([LLModuleUtils isNilOrEmtpyForString:instanceName]) {
+        NSString *errMsg = @"Instance is nil.";
+        NSError *err = [[NSError alloc] initWithDomain:NSStringFromClass([self class]) code:-1 userInfo:@{NSLocalizedDescriptionKey:errMsg}];
+        failure(err);
+    }
     if (![instance respondsToSelector:service]) {
         NSString *errMsg = @"Instance doesn't respondTo selector.";
         NSError *err = [[NSError alloc] initWithDomain:NSStringFromClass([self class]) code:-1 userInfo:@{NSLocalizedDescriptionKey:errMsg}];

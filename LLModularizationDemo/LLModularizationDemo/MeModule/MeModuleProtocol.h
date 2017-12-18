@@ -8,7 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import <LLModularization/LLModuleProtocol.h>
+#import "LLMacro.h"
 
 @protocol MeModuleProtocol <LLModuleProtocol>
+
++ (NSString *)getMeModuleAccountWithParams:(NSDictionary *)params;
 
 @end

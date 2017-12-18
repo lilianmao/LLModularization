@@ -9,6 +9,9 @@
 #ifndef LLMacro_h
 #define LLMacro_h
 
+typedef void (^LLSuccessBlock)(id result);
+typedef void (^LLFailureBlock)(NSError *err);
+
 #import "UIColor+Extension.h"
 
 // color

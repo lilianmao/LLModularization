@@ -114,26 +114,27 @@ NSString *const LLRoutesParameters = @"LLRoutesParameters";
     return subRoutes;
 }
 
+/**
+ 只删除URLPattern的最后一级
+ */
 - (void)removeURLPattern:(NSString *)URLPattern {
-    // TODO:周一重新整理register和deregister以及safePerform，同时测试一下Module内两个VC是否可以相互打开。和强哥交流一下链路系统需要做成什么样子。
-    
     NSMutableArray *pathComponents = [NSMutableArray arrayWithArray:[self pathComponentsFromURL:URLPattern]];
     
-    // 只删除该 pattern 的最后一级
     if (pathComponents.count >= 1) {
-        // 假如 URLPattern 为 a/b/c, components 就是 @"a.b.c" 正好可以作为 KVC 的 key
+        // 假如 URLPattern 为 a/b/c, components 就是 @"a.b.c" 可以作为 KVC 的 key
         NSString *components = [pathComponents componentsJoinedByString:@"."];
-        NSMutableDictionary *route = [self.routes valueForKeyPath:components];
+        NSMutableDictionary *route = [self.routes valueForKey:components];
         
+        // 这route一定是一个Service的dictionary，在本程序逻辑上不存在没有Service的URLPattern，如果存在一定非法，那可以置之不理。
         if (route.count >= 1) {
             NSString *lastComponent = [pathComponents lastObject];
             [pathComponents removeLastObject];
             
-            // 有可能是根 key，这样就是 self.routes 了
+            // 有可能是根key
             route = self.routes;
-            if (pathComponents.count) {
-                NSString *componentsWithoutLast = [pathComponents componentsJoinedByString:@"."];
-                route = [self.routes valueForKeyPath:componentsWithoutLast];
+            if (pathComponents.count > 0) {
+                NSString *componentWithoutLast = [pathComponents componentsJoinedByString:@"."];
+                route = [self.routes valueForKeyPath:componentWithoutLast];
             }
             [route removeObjectForKey:lastComponent];
         }
@@ -142,24 +143,27 @@ NSString *const LLRoutesParameters = @"LLRoutesParameters";
 
 #pragma mark - Utils
 
-- (NSMutableDictionary *)extractParametersFromURL:(NSString *)url {
-    NSMutableDictionary* parameters = [NSMutableDictionary dictionary];
+/**
+ 解析URL的参数
+ 参考：HHRouter(https://github.com/lightory/HHRouter)
+ */
+- (NSMutableDictionary *)extractParametersFromURL:(NSString *)URL {
+    NSMutableDictionary *params = @{}.mutableCopy;
     
-//    parameters[LLRoutesrURL] = url;
-    
-    NSMutableDictionary* subRoutes = self.routes;
-    NSArray* pathComponents = [self pathComponentsFromURL:url];
+    // 1. 解析URL中 :id的参数
+    NSMutableDictionary *subRoutes = self.routes;
+    NSArray *pathComponents = [self pathComponentsFromURL:URL];
     
     BOOL found = NO;
-    // 参考 HHRouter(https://github.com/lightory/HHRouter)
-    for (NSString* pathComponent in pathComponents) {
+    for (NSString *pathComponent in pathComponents) {
         
-        // 对 key 进行排序，这样可以把 ~ 放到最后
-        NSArray *subRoutesKeys =[subRoutes.allKeys sortedArrayUsingComparator:^NSComparisonResult(NSString *obj1, NSString *obj2) {
+        // 1.1 对routes中的key排序，把特殊字符~过渡到最后面去
+        NSArray *subRoutesKeys = [subRoutes.allKeys sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
             return [obj1 compare:obj2];
         }];
         
-        for (NSString* key in subRoutesKeys) {
+        // 1.2 遍历routes中所有的key
+        for (NSString *key in subRoutesKeys) {
             if ([key isEqualToString:pathComponent] || [key isEqualToString:LL_ROUTER_WILDCARD_CHARACTER]) {
                 found = YES;
                 subRoutes = subRoutes[key];
@@ -169,57 +173,53 @@ NSString *const LLRoutesParameters = @"LLRoutesParameters";
                 subRoutes = subRoutes[key];
                 NSString *newKey = [key substringFromIndex:1];
                 NSString *newPathComponent = pathComponent;
-                // 再做一下特殊处理，比如 :id.html -> :id
+                
+                // 1.2.3 处理特殊情况 :id.html -> :id
                 if ([self.class checkIfContainsSpecialCharacter:key]) {
                     NSCharacterSet *specialCharacterSet = [NSCharacterSet characterSetWithCharactersInString:specialCharacters];
                     NSRange range = [key rangeOfCharacterFromSet:specialCharacterSet];
                     if (range.location != NSNotFound) {
-                        // 把 pathComponent 后面的部分也去掉
-                        newKey = [newKey substringToIndex:range.location - 1];
+                        newKey = [newKey substringToIndex:range.location-1];
                         NSString *suffixToStrip = [key substringFromIndex:range.location];
                         newPathComponent = [newPathComponent stringByReplacingOccurrencesOfString:suffixToStrip withString:@""];
                     }
                 }
-                parameters[newKey] = newPathComponent;
+                params[newKey] = newPathComponent;
                 break;
             }
         }
-        
-        // 如果没有找到该 pathComponent 对应的 handler，则以上一层的 handler 作为 fallback
-        if (!found && !subRoutes[LLRoutesService]) {
-            return nil;
-        }
     }
     
-    // Extract Params From Query.
-    NSArray<NSURLQueryItem *> *queryItems = [[NSURLComponents alloc] initWithURL:[[NSURL alloc] initWithString:url] resolvingAgainstBaseURL:false].queryItems;
+    // 2. 解析URL中的query参数
+    NSArray<NSURLQueryItem *> *queryItems = [[NSURLComponents alloc] initWithURL:[NSURL URLWithString:URL] resolvingAgainstBaseURL:false].queryItems;
     
     for (NSURLQueryItem *item in queryItems) {
-        parameters[item.name] = item.value;
+        params[item.name] = item.value;
     }
     
     if (subRoutes[LLRoutesService]) {
-        parameters[LLRoutesService] = [subRoutes[LLRoutesService] copy];
+        params[LLRoutesService] = [subRoutes[LLRoutesService] copy];
     }
     
-    return parameters;
+    return params;
 }
 
-- (NSArray*)pathComponentsFromURL:(NSString*)URL {
-    NSMutableArray *pathComponents = [NSMutableArray array];
+- (NSArray *)pathComponentsFromURL:(NSString*)URL {
+    NSMutableArray *pathComponents = @[].mutableCopy;
     
+    // 把URL的Scheme存放下来
     if ([URL rangeOfString:@"://"].location != NSNotFound) {
         NSArray *pathSegments = [URL componentsSeparatedByString:@"://"];
-        // 如果 URL 包含协议，那么把协议作为第一个元素放进去
         [pathComponents addObject:pathSegments[0]];
         
-        // 如果只有协议，那么放一个占位符
+        // 如果只有协议，存放一个占位符。
         URL = pathSegments.lastObject;
         if (!URL.length) {
             [pathComponents addObject:LL_ROUTER_WILDCARD_CHARACTER];
         }
     }
     
+    // ?和/都没有执行过，不了解原作者的意图。
     for (NSString *pathComponent in [[NSURL URLWithString:URL] pathComponents]) {
         if ([pathComponent isEqualToString:@"/"]) continue;
         if ([[pathComponent substringToIndex:1] isEqualToString:@"?"]) break;

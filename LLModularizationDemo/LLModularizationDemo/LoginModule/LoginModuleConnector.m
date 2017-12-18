@@ -31,7 +31,7 @@
 #pragma mark - register
 
 + (void)load {
-    [[LLModule sharedInstance] registerServiceWithServiceName:NSStringFromSelector(@selector(openLoginModuleWithParams:)) URLPattern:@"ll://login/:query" instance:NSStringFromClass(self)];
+    [[LLModule sharedInstance] registerServiceWithServiceName:NSStringFromSelector(@selector(openLoginModuleWithParams:)) URLPattern:@"ll://login/:query.html" instance:NSStringFromClass(self)];
 }
 
 

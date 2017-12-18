@@ -8,6 +8,7 @@
 
 #import "MeModuleConnector.h"
 #import "LLUtils.h"
+#import "MeModuleAccountViewController.h"
 
 @interface MeModuleConnector()
 
@@ -31,7 +32,7 @@
 #pragma mark - register
 
 + (void)load {
-    
+    [[LLModule sharedInstance] registerServiceWithServiceName:NSStringFromSelector(@selector(getMeModuleAccountWithParams:)) URLPattern:@"ll://getAccount" instance:NSStringFromClass(self)];
 }
 
 #pragma mark - LLModuleProtocol
@@ -58,6 +59,10 @@
 
 #pragma mark - MeModuleProtocol
 
-
++ (NSString *)getMeModuleAccountWithParams:(NSDictionary *)params {
+    MeModuleAccountViewController *meAccountVC = [[MeModuleAccountViewController alloc] init];
+    
+    return [meAccountVC getAccountData];
+}
 
 @end
