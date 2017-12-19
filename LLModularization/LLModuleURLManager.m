@@ -45,11 +45,12 @@
     return [[LLModuleProtocolManager sharedManager] registerServiceWithServiceName:serviceName instance:instanceName];
 }
 
-- (void)callServiceWithURL:(NSString *)url
-                parameters:(NSDictionary *)params
-            navigationMode:(LLModuleNavigationMode)mode
-              successBlock:(LLBasicSuccessBlock_t)success
-              failureBlock:(LLBasicFailureBlock_t)failure {
+- (void)callServiceWithCallConnector:(id<LLModuleProtocol>)connector
+                                 URL:(NSString *)url
+                          parameters:(NSDictionary *)params
+                      navigationMode:(LLModuleNavigationMode)mode
+                        successBlock:(LLBasicSuccessBlock_t)success
+                        failureBlock:(LLBasicFailureBlock_t)failure {
     if ([LLModuleUtils isNilOrEmtpyForString:url]) {
         NSError *err = [[NSError alloc] initWithDomain:NSStringFromClass([self class]) code:-1 userInfo:@{NSLocalizedDescriptionKey:@"URL is empty."}];
         failure(err);
@@ -57,7 +58,7 @@
     
     NSDictionary *openResult = [LLModuleURLRoutes openURL:url withUserInfo:params];
     if (openResult[LLRoutesStatus]) {
-        [[LLModuleProtocolManager sharedManager] callServiceWithServiceName:openResult[LLRoutesService] parameters:openResult[LLRoutesParameters] navigationMode:mode successBlock:success failureBlock:failure];
+        [[LLModuleProtocolManager sharedManager] callServiceWithCallConnector:connector ServiceName:openResult[LLRoutesService] parameters:openResult[LLRoutesParameters] navigationMode:mode successBlock:success failureBlock:failure];
     } else {
         NSError *err = [[NSError alloc] initWithDomain:NSStringFromClass([self class]) code:-1 userInfo:@{NSLocalizedDescriptionKey:@"URL open service failured."}];
         failure(err);

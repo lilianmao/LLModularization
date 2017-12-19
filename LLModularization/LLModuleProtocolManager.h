@@ -23,10 +23,11 @@
 /**
  调用服务。
  */
-- (void)callServiceWithServiceName:(NSString *)serviceName
-                        parameters:(NSDictionary *)params
-                    navigationMode:(LLModuleNavigationMode)mode
-                      successBlock:(LLBasicSuccessBlock_t)success
-                      failureBlock:(LLBasicFailureBlock_t)failure;
+- (void)callServiceWithCallConnector:(id<LLModuleProtocol>)connector
+                         ServiceName:(NSString *)serviceName
+                          parameters:(NSDictionary *)params
+                      navigationMode:(LLModuleNavigationMode)mode
+                        successBlock:(LLBasicSuccessBlock_t)success
+                        failureBlock:(LLBasicFailureBlock_t)failure;
 
 @end

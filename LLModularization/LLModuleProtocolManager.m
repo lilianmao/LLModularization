@@ -9,6 +9,7 @@
 #import "LLModuleUtils.h"
 #import <objc/runtime.h>
 #import "LLModuleNavigator.h"
+#import "LLModuleCallStackManager.h"
 
 @interface LLModuleProtocolManager()
 
@@ -77,11 +78,12 @@
     return YES;
 }
 
-- (void)callServiceWithServiceName:(NSString *)serviceName
-                        parameters:(NSDictionary *)params
-                    navigationMode:(LLModuleNavigationMode)mode
-                      successBlock:(LLBasicSuccessBlock_t)success
-                      failureBlock:(LLBasicFailureBlock_t)failure {
+- (void)callServiceWithCallConnector:(id<LLModuleProtocol>)connector
+                         ServiceName:(NSString *)serviceName
+                          parameters:(NSDictionary *)params
+                      navigationMode:(LLModuleNavigationMode)mode
+                        successBlock:(LLBasicSuccessBlock_t)success
+                        failureBlock:(LLBasicFailureBlock_t)failure {
     NSParameterAssert(serviceName != nil);
     
     NSString *instanceName = [self getInstanceWithService:serviceName];
@@ -107,6 +109,8 @@
         } else {
             
         }
+        // TODO: 这边传这个class/Method是有问题的，这都是操作的class和Method。
+        [LLModuleCallStackManager appendCallStackItemWithCallConnector:connector moduleClass:instanceName moduleMethod:serviceName];
         success(result);
     } else {
         NSError *err = [[NSError alloc] initWithDomain:NSStringFromClass([self class]) code:-1 userInfo:@{NSLocalizedDescriptionKey:@"Instance execute selector failured."}];

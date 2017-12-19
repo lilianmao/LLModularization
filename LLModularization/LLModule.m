@@ -52,9 +52,7 @@
         failure(err);
     }
     
-    // TODO: 在这里做链路处理connector
-    
-    [[LLModuleURLManager sharedManager] callServiceWithURL:url parameters:params navigationMode:mode successBlock:success failureBlock:failure];
+    [[LLModuleURLManager sharedManager] callServiceWithCallConnector:connector URL:url parameters:params navigationMode:mode successBlock:success failureBlock:failure];
 }
 
 @end
