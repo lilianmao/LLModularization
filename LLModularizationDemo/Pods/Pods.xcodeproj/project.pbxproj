@@ -97,8 +97,6 @@
 		EA9C289B12F66C316BD879E3620CEDF0 /* PureLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = EBD177839FBFC359E87AC4BFD3C28D4C /* PureLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EB8A7D02A0C9316C5A28CBCE887AD984 /* LLModule.h in Headers */ = {isa = PBXBuildFile; fileRef = 3786391EAFE80BE8AD97B0F4CB59E665 /* LLModule.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F04EB747F0BE60B2469181BEADE9CEDE /* LLModularization-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 374CFAFDEEC8F2135265D0D562045383 /* LLModularization-dummy.m */; };
-		F2C006BA1FE93262001E1FE9 /* UIViewController+Tracking.m in Sources */ = {isa = PBXBuildFile; fileRef = F2C006B81FE93261001E1FE9 /* UIViewController+Tracking.m */; };
-		F2C006BB1FE93262001E1FE9 /* UIViewController+Tracking.h in Headers */ = {isa = PBXBuildFile; fileRef = F2C006B91FE93261001E1FE9 /* UIViewController+Tracking.h */; };
 		F81DEA1B263B93377A74AC541E3DD1F9 /* PureLayoutDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = D2FECAE72D2B1BB2C06E3CDA1722D78E /* PureLayoutDefines.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FAA56F9ACEE4FAE18EADB3BC07C9305F /* NSArray+PureLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = C1C07D4F7028C77085A75C720C6D197F /* NSArray+PureLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FC366146E2C821C90A134117CA72485F /* LLModuleNavigator.h in Headers */ = {isa = PBXBuildFile; fileRef = A899FBCDDA024EADE4B2A79214FA3F87 /* LLModuleNavigator.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -251,8 +249,6 @@
 		ED22EA8A7F1021949ADD56AF58EC1C8B /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EDF54BA0B07D3B37DD933A5EC44FEA53 /* SVProgressHUD.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = SVProgressHUD.modulemap; sourceTree = "<group>"; };
 		F1CFEFE27CC797F93EB967B672B18900 /* ALView+PureLayout.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "ALView+PureLayout.m"; path = "PureLayout/PureLayout/ALView+PureLayout.m"; sourceTree = "<group>"; };
-		F2C006B81FE93261001E1FE9 /* UIViewController+Tracking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Tracking.m"; sourceTree = "<group>"; };
-		F2C006B91FE93261001E1FE9 /* UIViewController+Tracking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Tracking.h"; sourceTree = "<group>"; };
 		F3F58F2726C184BD79EAB63BF6390881 /* LLModuleURLManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = LLModuleURLManager.m; path = LLModularization/LLModuleURLManager.m; sourceTree = "<group>"; };
 		F98D565F5A69D941EFBA8F7F8F1F1A11 /* SVRadialGradientLayer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SVRadialGradientLayer.h; path = SVProgressHUD/SVRadialGradientLayer.h; sourceTree = "<group>"; };
 		FC9E621700EA5FFF32A33BBD2398C64D /* LLModuleConst.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = LLModuleConst.h; path = LLModularization/LLModuleConst.h; sourceTree = "<group>"; };
@@ -530,8 +526,6 @@
 				B0A54A25897DEBAB6589B8138AF06596 /* LLModuleUtils.m */,
 				612DA744563A5634A0B6747A5B933C42 /* StackForNSObject.h */,
 				1818B7829898774CEF06573985E42535 /* StackForNSObject.m */,
-				F2C006B91FE93261001E1FE9 /* UIViewController+Tracking.h */,
-				F2C006B81FE93261001E1FE9 /* UIViewController+Tracking.m */,
 				DBB284F93F4D247CECD3A1042CF84C3D /* Support Files */,
 			);
 			name = LLModularization;
@@ -632,7 +626,6 @@
 				B5E048867595ABC4B604901F78C0E5DB /* LLModuleProtocol.h in Headers */,
 				03BA10C8CB43EA5FA1388438C5596A80 /* LLModuleProtocolManager.h in Headers */,
 				78C09EFAF2A78163330A70B9BE4FC493 /* LLModuleURLManager.h in Headers */,
-				F2C006BB1FE93262001E1FE9 /* UIViewController+Tracking.h in Headers */,
 				9570B29F376703756C0E564496253008 /* LLModuleURLRoutes.h in Headers */,
 				1373B14E7A99F967DDAE993B3472C90A /* LLModuleUtils.h in Headers */,
 				23EC5D1E8AF3E1D2C37C878D3C692A57 /* StackForNSObject.h in Headers */,
@@ -845,7 +838,6 @@
 				CF08EB9D401D335481017769811D51C9 /* LLModuleCallStackManager.m in Sources */,
 				B637E728F6BCE4DCFED1E3278338F966 /* LLModuleNavigator.m in Sources */,
 				86037B23601BBED62A6FEFBA66F3DBFE /* LLModuleProtocolManager.m in Sources */,
-				F2C006BA1FE93262001E1FE9 /* UIViewController+Tracking.m in Sources */,
 				2493DD944262A1EEFAED2CF43A7A85B4 /* LLModuleURLManager.m in Sources */,
 				6CF4EA89FD4BD8B8B36C98542DA9AFD9 /* LLModuleURLRoutes.m in Sources */,
 				E24649804E83A05A6C9763E14F8B6246 /* LLModuleUtils.m in Sources */,
