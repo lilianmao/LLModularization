@@ -22,15 +22,6 @@
 		F258682D1FDB878400D7B2BF /* UIColor+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = F258682C1FDB878400D7B2BF /* UIColor+Extension.m */; };
 		F263E02D1FE2A7E300BD7CBD /* LLUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = F263E02C1FE2A7E300BD7CBD /* LLUtils.m */; };
 		F2C006861FE7BD41001E1FE9 /* MeModuleAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F2C006851FE7BD41001E1FE9 /* MeModuleAccountViewController.m */; };
-		F2C006DF1FEA5945001E1FE9 /* LLModuleURLRoutes.m in Sources */ = {isa = PBXBuildFile; fileRef = F2C006CB1FEA5945001E1FE9 /* LLModuleURLRoutes.m */; };
-		F2C006E01FEA5945001E1FE9 /* LLModuleURLManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F2C006D01FEA5945001E1FE9 /* LLModuleURLManager.m */; };
-		F2C006E11FEA5945001E1FE9 /* LLModuleProtocolManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F2C006D51FEA5945001E1FE9 /* LLModuleProtocolManager.m */; };
-		F2C006E21FEA5945001E1FE9 /* LLModule.m in Sources */ = {isa = PBXBuildFile; fileRef = F2C006D71FEA5945001E1FE9 /* LLModule.m */; };
-		F2C006E31FEA5945001E1FE9 /* StackForNSObject.m in Sources */ = {isa = PBXBuildFile; fileRef = F2C006D81FEA5945001E1FE9 /* StackForNSObject.m */; };
-		F2C006E41FEA5945001E1FE9 /* UIViewController+Tracking.m in Sources */ = {isa = PBXBuildFile; fileRef = F2C006D91FEA5945001E1FE9 /* UIViewController+Tracking.m */; };
-		F2C006E51FEA5945001E1FE9 /* LLModuleCallStackManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F2C006DA1FEA5945001E1FE9 /* LLModuleCallStackManager.m */; };
-		F2C006E61FEA5945001E1FE9 /* LLModuleUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = F2C006DD1FEA5945001E1FE9 /* LLModuleUtils.m */; };
-		F2C006E71FEA5945001E1FE9 /* LLModuleNavigator.m in Sources */ = {isa = PBXBuildFile; fileRef = F2C006DE1FEA5945001E1FE9 /* LLModuleNavigator.m */; };
 		F2F72C2E1FD96A6E00066F9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F2F72C2D1FD96A6E00066F9A /* AppDelegate.m */; };
 		F2F72C341FD96A6E00066F9A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2F72C321FD96A6E00066F9A /* Main.storyboard */; };
 		F2F72C361FD96A6E00066F9A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F2F72C351FD96A6E00066F9A /* Assets.xcassets */; };
@@ -92,26 +83,6 @@
 		F263E02C1FE2A7E300BD7CBD /* LLUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LLUtils.m; sourceTree = "<group>"; };
 		F2C006841FE7BD41001E1FE9 /* MeModuleAccountViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeModuleAccountViewController.h; sourceTree = "<group>"; };
 		F2C006851FE7BD41001E1FE9 /* MeModuleAccountViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MeModuleAccountViewController.m; sourceTree = "<group>"; };
-		F2C006CA1FEA5945001E1FE9 /* LLModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LLModule.h; sourceTree = "<group>"; };
-		F2C006CB1FEA5945001E1FE9 /* LLModuleURLRoutes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LLModuleURLRoutes.m; sourceTree = "<group>"; };
-		F2C006CC1FEA5945001E1FE9 /* LLModuleProtocolManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LLModuleProtocolManager.h; sourceTree = "<group>"; };
-		F2C006CD1FEA5945001E1FE9 /* StackForNSObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StackForNSObject.h; sourceTree = "<group>"; };
-		F2C006CE1FEA5945001E1FE9 /* UIViewController+Tracking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Tracking.h"; sourceTree = "<group>"; };
-		F2C006CF1FEA5945001E1FE9 /* LLModuleProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LLModuleProtocol.h; sourceTree = "<group>"; };
-		F2C006D01FEA5945001E1FE9 /* LLModuleURLManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LLModuleURLManager.m; sourceTree = "<group>"; };
-		F2C006D11FEA5945001E1FE9 /* LLModuleCallStackManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LLModuleCallStackManager.h; sourceTree = "<group>"; };
-		F2C006D21FEA5945001E1FE9 /* LLModuleUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LLModuleUtils.h; sourceTree = "<group>"; };
-		F2C006D31FEA5945001E1FE9 /* LLModuleNavigator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LLModuleNavigator.h; sourceTree = "<group>"; };
-		F2C006D41FEA5945001E1FE9 /* LLModuleConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LLModuleConst.h; sourceTree = "<group>"; };
-		F2C006D51FEA5945001E1FE9 /* LLModuleProtocolManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LLModuleProtocolManager.m; sourceTree = "<group>"; };
-		F2C006D61FEA5945001E1FE9 /* LLModuleURLRoutes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LLModuleURLRoutes.h; sourceTree = "<group>"; };
-		F2C006D71FEA5945001E1FE9 /* LLModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LLModule.m; sourceTree = "<group>"; };
-		F2C006D81FEA5945001E1FE9 /* StackForNSObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StackForNSObject.m; sourceTree = "<group>"; };
-		F2C006D91FEA5945001E1FE9 /* UIViewController+Tracking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Tracking.m"; sourceTree = "<group>"; };
-		F2C006DA1FEA5945001E1FE9 /* LLModuleCallStackManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LLModuleCallStackManager.m; sourceTree = "<group>"; };
-		F2C006DC1FEA5945001E1FE9 /* LLModuleURLManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LLModuleURLManager.h; sourceTree = "<group>"; };
-		F2C006DD1FEA5945001E1FE9 /* LLModuleUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LLModuleUtils.m; sourceTree = "<group>"; };
-		F2C006DE1FEA5945001E1FE9 /* LLModuleNavigator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LLModuleNavigator.m; sourceTree = "<group>"; };
 		F2F72C291FD96A6E00066F9A /* LLModularizationDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LLModularizationDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2F72C2C1FD96A6E00066F9A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		F2F72C2D1FD96A6E00066F9A /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -261,42 +232,6 @@
 			path = MyStudyModule;
 			sourceTree = "<group>";
 		};
-		F2C006C91FEA5945001E1FE9 /* LLModularization */ = {
-			isa = PBXGroup;
-			children = (
-				F2C006CA1FEA5945001E1FE9 /* LLModule.h */,
-				F2C006D71FEA5945001E1FE9 /* LLModule.m */,
-				F2C006D41FEA5945001E1FE9 /* LLModuleConst.h */,
-				F2C006CF1FEA5945001E1FE9 /* LLModuleProtocol.h */,
-				F2C006D31FEA5945001E1FE9 /* LLModuleNavigator.h */,
-				F2C006DE1FEA5945001E1FE9 /* LLModuleNavigator.m */,
-				F2C006CC1FEA5945001E1FE9 /* LLModuleProtocolManager.h */,
-				F2C006D51FEA5945001E1FE9 /* LLModuleProtocolManager.m */,
-				F2C006DC1FEA5945001E1FE9 /* LLModuleURLManager.h */,
-				F2C006D01FEA5945001E1FE9 /* LLModuleURLManager.m */,
-				F2C006D61FEA5945001E1FE9 /* LLModuleURLRoutes.h */,
-				F2C006CB1FEA5945001E1FE9 /* LLModuleURLRoutes.m */,
-				F2C006D21FEA5945001E1FE9 /* LLModuleUtils.h */,
-				F2C006DD1FEA5945001E1FE9 /* LLModuleUtils.m */,
-				F2C006E81FEA59F3001E1FE9 /* ModuleTracing */,
-			);
-			name = LLModularization;
-			path = ../../LLModularization;
-			sourceTree = "<group>";
-		};
-		F2C006E81FEA59F3001E1FE9 /* ModuleTracing */ = {
-			isa = PBXGroup;
-			children = (
-				F2C006D11FEA5945001E1FE9 /* LLModuleCallStackManager.h */,
-				F2C006DA1FEA5945001E1FE9 /* LLModuleCallStackManager.m */,
-				F2C006CD1FEA5945001E1FE9 /* StackForNSObject.h */,
-				F2C006D81FEA5945001E1FE9 /* StackForNSObject.m */,
-				F2C006CE1FEA5945001E1FE9 /* UIViewController+Tracking.h */,
-				F2C006D91FEA5945001E1FE9 /* UIViewController+Tracking.m */,
-			);
-			path = ModuleTracing;
-			sourceTree = "<group>";
-		};
 		F2F72C201FD96A6E00066F9A = {
 			isa = PBXGroup;
 			children = (
@@ -322,7 +257,6 @@
 		F2F72C2B1FD96A6E00066F9A /* LLModularizationDemo */ = {
 			isa = PBXGroup;
 			children = (
-				F2C006C91FEA5945001E1FE9 /* LLModularization */,
 				F258682A1FDB83A200D7B2BF /* Appdelegate */,
 				F25868231FDB803800D7B2BF /* Common */,
 				F25867FC1FDAAF4300D7B2BF /* Main */,
@@ -553,29 +487,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F2C006DF1FEA5945001E1FE9 /* LLModuleURLRoutes.m in Sources */,
-				F2C006E61FEA5945001E1FE9 /* LLModuleUtils.m in Sources */,
 				F25868071FDAB42B00D7B2BF /* HomeModuleConnector.m in Sources */,
 				F25868291FDB812D00D7B2BF /* UIImage+Extension.m in Sources */,
-				F2C006E01FEA5945001E1FE9 /* LLModuleURLManager.m in Sources */,
 				F258681F1FDB764C00D7B2BF /* MeModuleConnector.m in Sources */,
 				F258682D1FDB878400D7B2BF /* UIColor+Extension.m in Sources */,
-				F2C006E11FEA5945001E1FE9 /* LLModuleProtocolManager.m in Sources */,
 				F2F72C3C1FD96A6E00066F9A /* main.m in Sources */,
 				F258680D1FDAB46000D7B2BF /* MyStudyModuleConnector.m in Sources */,
 				F258681C1FDAB52600D7B2BF /* LoginModuleViewController.m in Sources */,
 				F25868101FDAB4C500D7B2BF /* MyStudyModuleViewController.m in Sources */,
 				F2F72C2E1FD96A6E00066F9A /* AppDelegate.m in Sources */,
-				F2C006E51FEA5945001E1FE9 /* LLModuleCallStackManager.m in Sources */,
 				F25868221FDB766800D7B2BF /* MeModuleViewController.m in Sources */,
 				F25868021FDAAFA300D7B2BF /* LLNavigationController.m in Sources */,
 				F25867FF1FDAAF6C00D7B2BF /* LLTabBarController.m in Sources */,
-				F2C006E41FEA5945001E1FE9 /* UIViewController+Tracking.m in Sources */,
-				F2C006E31FEA5945001E1FE9 /* StackForNSObject.m in Sources */,
-				F2C006E21FEA5945001E1FE9 /* LLModule.m in Sources */,
 				F258680A1FDAB43B00D7B2BF /* HomeModuleViewController.m in Sources */,
 				F263E02D1FE2A7E300BD7CBD /* LLUtils.m in Sources */,
-				F2C006E71FEA5945001E1FE9 /* LLModuleNavigator.m in Sources */,
 				F2C006861FE7BD41001E1FE9 /* MeModuleAccountViewController.m in Sources */,
 				F25868191FDAB50E00D7B2BF /* LoginModuleConnector.m in Sources */,
 			);
