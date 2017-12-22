@@ -29,7 +29,7 @@
 
  @param connector 传入自身module的Connector，这里需要进行链路记录。
  */
-- (void)callServiceWithCallConnector:(id<LLModuleProtocol>)connector
+- (void)callServiceWithCallConnector:(NSString *)connector
                                  URL:(NSString *)url
                           parameters:(NSDictionary *)params
                       navigationMode:(LLModuleNavigationMode)mode

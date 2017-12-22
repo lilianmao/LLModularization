@@ -41,7 +41,7 @@
     return [[LLModuleURLManager sharedManager] registerServiceWithServiceName:serviceName URLPattern:urlPattern instance:instanceName];
 }
 
-- (void)callServiceWithCallConnector:(id<LLModuleProtocol>)connector
+- (void)callServiceWithCallConnector:(NSString *)connector
                                  URL:(NSString *)url
                           parameters:(NSDictionary *)params
                       navigationMode:(LLModuleNavigationMode)mode

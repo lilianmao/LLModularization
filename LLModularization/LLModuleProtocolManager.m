@@ -13,7 +13,8 @@
 
 @interface LLModuleProtocolManager()
 
-@property (nonatomic, strong) NSMutableDictionary<NSString *, NSString *> *serviceInstance_Dict;
+@property (nonatomic, strong) NSMutableDictionary<NSString *, NSString *> *serviceInstance_Dict;           // service和Instance的映射
+@property (nonatomic, strong) NSMutableDictionary<NSString *, NSString *> *viewControllerInstance_dict;    // ViewController和Instance(VC的实现者，模块的发言人)的映射
 @property (nonatomic, strong) NSRecursiveLock *lock;
 
 @end
@@ -40,6 +41,13 @@
         _serviceInstance_Dict = @{}.mutableCopy;
     }
     return _serviceInstance_Dict;
+}
+
+- (NSMutableDictionary<NSString *,NSString *> *)viewControllerInstance_dict {
+    if (!_viewControllerInstance_dict) {
+        _viewControllerInstance_dict = @{}.mutableCopy;
+    }
+    return _viewControllerInstance_dict;
 }
 
 - (NSRecursiveLock *)lock {
@@ -78,7 +86,7 @@
     return YES;
 }
 
-- (void)callServiceWithCallConnector:(id<LLModuleProtocol>)connector
+- (void)callServiceWithCallConnector:(NSString *)connector
                          ServiceName:(NSString *)serviceName
                           parameters:(NSDictionary *)params
                       navigationMode:(LLModuleNavigationMode)mode
@@ -106,16 +114,29 @@
         if ([result isKindOfClass:[UIViewController class]]) {
             UIViewController *showVC = (UIViewController *)result;
             [LLModuleNavigator showController:showVC withNavigationMode:mode];
-        } else {
+            [self.lock lock];
+            [self.viewControllerInstance_dict setObject:instanceName forKey:NSStringFromClass([showVC class])];
+            [self.lock unlock];
             
+            // TODO: 思考一个完善的demo来检测这个链路合理性
+            [LLModuleCallStackManager appendCallStackItemWithCallerConnector:connector calleeConnector:instanceName moduleService:serviceName serviceType:LLModuleTreeServiceTypeForeground];
+        } else {
+            // 记录链路
+            [LLModuleCallStackManager appendCallStackItemWithCallerConnector:connector calleeConnector:instanceName moduleService:serviceName serviceType:LLModuleTreeServiceTypeBackground];
         }
-        // TODO: 这边传这个class/Method是有问题的，这都是操作的class和Method。
-        [LLModuleCallStackManager appendCallStackItemWithCallConnector:connector moduleClass:instanceName moduleMethod:serviceName];
         success(result);
     } else {
         NSError *err = [[NSError alloc] initWithDomain:NSStringFromClass([self class]) code:-1 userInfo:@{NSLocalizedDescriptionKey:@"Instance execute selector failured."}];
         failure(err);
     }
+}
+
+- (NSString *)getInstanceWithViewController:(NSString *)viewControllerStr {
+    NSString *instanceStr = [[self viewControllerInstance_dict] objectForKey:viewControllerStr];
+    if (instanceStr.length > 0) {
+        return instanceStr;
+    }
+    return nil;
 }
 
 #pragma mark - unregister
@@ -138,6 +159,13 @@
 - (NSDictionary *)serviceDict {
     [self.lock lock];
     NSDictionary *dict = [self.serviceInstance_Dict copy];
+    [self.lock unlock];
+    return dict;
+}
+
+- (NSDictionary *)viewControllerDict {
+    [self.lock lock];
+    NSDictionary *dict = [self.viewControllerInstance_dict copy];
     [self.lock unlock];
     return dict;
 }

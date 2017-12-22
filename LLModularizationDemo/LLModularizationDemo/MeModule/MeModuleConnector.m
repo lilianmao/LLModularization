@@ -54,7 +54,7 @@
         failure(nil);
     }
     
-    [[LLModule sharedInstance] callServiceWithCallConnector:self URL:url parameters:params navigationMode:mode successBlock:success failureBlock:failure];
+    [[LLModule sharedInstance] callServiceWithCallConnector:NSStringFromClass([self class]) URL:url parameters:params navigationMode:mode successBlock:success failureBlock:failure];
 }
 
 #pragma mark - MeModuleProtocol

@@ -63,7 +63,7 @@
 #pragma mark - Action
 
 - (void)loginBtnAction {
-    [[MeModuleConnector sharedConnector] callServiceWithURL:[self generateLoginURL] parameters:[self generateLoginParams] navigationMode:LLModuleNavigationModePresent successBlock:^(id result) {
+    [[MeModuleConnector sharedConnector] callServiceWithURL:[self generateLoginURL] parameters:[self generateLoginParams] navigationMode:LLModuleNavigationModePush successBlock:^(id result) {
         // 处理你操作其他模块返回的数据。
     } failureBlock:^(NSError *err) {
         [SVProgressHUD showErrorWithStatus:err.localizedDescription];

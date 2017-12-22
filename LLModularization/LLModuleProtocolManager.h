@@ -23,11 +23,16 @@
 /**
  调用服务。
  */
-- (void)callServiceWithCallConnector:(id<LLModuleProtocol>)connector
+- (void)callServiceWithCallConnector:(NSString *)connector
                          ServiceName:(NSString *)serviceName
                           parameters:(NSDictionary *)params
                       navigationMode:(LLModuleNavigationMode)mode
                         successBlock:(LLBasicSuccessBlock_t)success
                         failureBlock:(LLBasicFailureBlock_t)failure;
+
+/**
+ 通过ViewController查找到Instance，也就是找到从属的模块。
+ */
+- (NSString *)getInstanceWithViewController:(NSString *)viewController;
 
 @end

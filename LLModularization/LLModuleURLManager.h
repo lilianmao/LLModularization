@@ -25,7 +25,7 @@
 /**
  调用服务。
  */
-- (void)callServiceWithCallConnector:(id<LLModuleProtocol>)connector
+- (void)callServiceWithCallConnector:(NSString *)connector
                                  URL:(NSString *)url
                           parameters:(NSDictionary *)params
                       navigationMode:(LLModuleNavigationMode)mode

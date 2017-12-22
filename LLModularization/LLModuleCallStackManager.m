@@ -8,31 +8,44 @@
 #import "LLModuleCallStackManager.h"
 #import "LLModuleUtils.h"
 #import "StackForNSObject.h"
+#import "LLModuleTree.h"
 
-@interface LLModuleCallStackItem()
-
-@property (nonatomic, strong) id<LLModuleProtocol> moduleConnector;
-@property (nonatomic, copy) NSString *moduleClass;
-@property (nonatomic, copy) NSString *moduleMethod;
-
-@end
+#pragma mark - LLModuleTreeCallStack
 
 @implementation LLModuleCallStackItem
 
-- (instancetype)initWithModuleConnector:(id<LLModuleProtocol>)connector
-                            moduleClass:(NSString *)moduleClass
-                           moduleMethod:(NSString *)moduleMethod {
+- (instancetype)initWithModuleCallChain:(NSArray *)callChain
+                             andService:(NSString *)service
+                         andServiceType:(LLModuleTreeServiceType)serviceType {
     if (self = [super init]) {
-        _moduleConnector = connector;
-        _moduleClass = moduleClass;
-        _moduleMethod = moduleMethod;
+        _moduleCallChain = callChain;
+        _service = service;
+        _serviceType = serviceType;
     }
     return self;
 }
 
 - (NSString *)description {
-    NSString *itemStr = [NSString stringWithFormat:@"<LLModuleCallStackItem: connector = %@ moduleClass = %@ moduleMethod = %@>", _moduleConnector, _moduleClass, _moduleMethod];
-    return itemStr;
+    NSString *callChainStr = [_moduleCallChain componentsJoinedByString:@"->"];
+    return [NSString stringWithFormat:@"<callChain = %@, service = %@, serviceType = %@>", callChainStr, _service, [self formatToString:_serviceType]];
+}
+
+- (NSString *)formatToString:(LLModuleTreeServiceType)type {
+    NSString *result = nil;
+    
+    switch (type) {
+        case LLModuleTreeServiceTypeForeground:
+            result = @"Foreground";
+            break;
+        case LLModuleTreeServiceTypeBackground:
+            result = @"Background";
+            break;
+        default:
+            result = @"None";
+            break;
+    }
+    
+    return result;
 }
 
 @end
@@ -73,10 +86,15 @@
     return [[LLModuleCallStackManager sharedManager] getModuleCallStack];
 }
 
-+ (void)appendCallStackItemWithCallConnector:(id<LLModuleProtocol>)connector
-                                 moduleClass:(NSString *)moduleClass
-                                moduleMethod:(NSString *)moduleMethod {
-    [[LLModuleCallStackManager sharedManager] appendCallStackItemWithCallConnector:connector moduleClass:moduleClass moduleMethod:moduleMethod];
++ (void)appendCallStackItemWithCallerConnector:(NSString *)callerConnector
+                               calleeConnector:(NSString *)calleeConnector
+                                 moduleService:(NSString *)service
+                                   serviceType:(LLModuleTreeServiceType)type {
+    [[LLModuleCallStackManager sharedManager] appendCallStackItemWithCallerConnector:callerConnector calleeConnector:calleeConnector moduleService:service serviceType:type];
+}
+
++ (void)popPage:(NSString *)page withPopType:(LLModuleTreePopType)type{
+    [[LLModuleCallStackManager sharedManager] popPage:page withPopType:type];
 }
 
 #pragma mark - Private Method
@@ -85,21 +103,49 @@
     return [self.stack getAllObjects];
 }
 
-- (void)appendCallStackItemWithCallConnector:(id<LLModuleProtocol>)connector
-                                 moduleClass:(NSString *)moduleClass
-                                moduleMethod:(NSString *)moduleMethod {
-    if (!connector || [LLModuleUtils isNilOrEmtpyForString:moduleClass] || [LLModuleUtils isNilOrEmtpyForString:moduleMethod]) {
-        NSLog(@"Append Failured. Connector or moduleClass or moduleMethod is nil.");
+- (void)appendCallStackItemWithCallerConnector:(NSString *)callerConnector
+                               calleeConnector:(NSString *)calleeConnector
+                                 moduleService:(NSString *)service
+                                   serviceType:(LLModuleTreeServiceType)type {
+    if (!callerConnector || !calleeConnector || [LLModuleUtils isNilOrEmtpyForString:service]) {
+        NSLog(@"Append Failured. Connector or service is nil.");
         return ;
     }
     
-    LLModuleCallStackItem *item = [[LLModuleCallStackItem alloc] initWithModuleConnector:connector moduleClass:moduleClass moduleMethod:moduleMethod];
+    NSArray *callChainArray = [LLModuleTree appendCaller:callerConnector andCallee:calleeConnector];
+    LLModuleCallStackItem *stackItem = [[LLModuleCallStackItem alloc] initWithModuleCallChain:callChainArray andService:service andServiceType:type];
+    NSLog(@"%@", stackItem);
     
-    [self.stack pushObj:item];
-    
+    [self.stack pushObj:stackItem];
 }
 
-#pragma mark - Utils
+- (void)popPage:(NSString *)page withPopType:(LLModuleTreePopType)type{
+    NSArray *callChainArray = [LLModuleTree popPage:page];
+    LLModuleCallStackItem *stackItem = [[LLModuleCallStackItem alloc] initWithModuleCallChain:callChainArray andService:[self formatToString:type] andServiceType:LLModuleTreeServiceTypeForeground];
+    NSLog(@"%@", stackItem);
+    
+    [self.stack pushObj:stackItem];
+}
+
+#pragma mark - Private Method
+
+- (NSString *)formatToString:(LLModuleTreePopType)popType {
+    NSString *result = nil;
+    
+    switch (popType) {
+        case LLModuleTreePopTypePop:
+            result = @"pop";
+            break;
+        case LLModuleTreePopTypeDismiss:
+            result = @"dismiss";
+            break;
+        default:
+            result = @"None";
+            break;
+    }
+    
+    return result;
+}
 
 @end
 
