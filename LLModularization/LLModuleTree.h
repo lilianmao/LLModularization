@@ -30,6 +30,6 @@
 
 + (NSArray *)popPage:(NSString *)page;
 
-#warning 1. 非法pop一次或者多次 2. 各种判空以及for换成NSEnumator 3. 写一个全面的demo 
+#warning 1. 需要打日志(最好用block方式) 2. 写一个全面的demo(包括非法pop一次或者多次)
 
 @end

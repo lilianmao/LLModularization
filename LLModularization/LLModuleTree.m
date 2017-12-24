@@ -7,6 +7,7 @@
 
 #import "LLModuleTree.h"
 #import "LLModuleUtils.h"
+#import "StackForNSObject.h"
 
 #pragma mark - LLModuleTreeNode
 
@@ -29,8 +30,9 @@
 @interface LLModuleTree()
 
 @property (nonatomic, strong) LLModuleTreeNode *root;
-@property (nonatomic, assign) int incrementSeqNumber;               // 自增序号，按照时间线。
-@property (nonatomic, strong) LLModuleTreeNode *findNode;         // 暂存找到的调用节点
+@property (nonatomic, assign) int incrementSeqNumber;           // 自增序号，按照时间线
+@property (nonatomic, strong) LLModuleTreeNode *findNode;       // 暂存找到的调用节点
+@property (nonatomic, strong) StackForNSObject *stack;          // 页面堆栈，用于排查非法Push
 
 // 记录链路的数组
 @property (nonatomic, strong) NSMutableArray<LLModuleTreeNode *> *tempChain;
@@ -53,12 +55,20 @@
     return sharedTree;
 }
 
+- (StackForNSObject *)stack {
+    if (!_stack) {
+        _stack = [[StackForNSObject alloc] init];
+    }
+    return _stack;
+}
+
 #pragma mark - Tree Method
 
 - (void)initTreeWithRootStr:(NSString *)rootStr {
     if (!_root) {
-        self.incrementSeqNumber = 0;    // 根节点序号初始化为0。
+        self.incrementSeqNumber = 0;    // 根节点序号初始化为0
         _root = [[LLModuleTreeNode alloc] initTreeNodeWithModuleName:rootStr andSequenceNumber:self.incrementSeqNumber++];
+        [self.stack pushObj:_root];     // 存在争议
     }
 }
 
@@ -73,9 +83,9 @@
     if (root.childs.count == 0) {
         return ;
     } else {
-        for (int i=0; i<root.childs.count; i++) {
-            [self findNodeInHighestSequenceNumberWithTreeNode:root.childs[i] andModuleName:moduleName];
-        }
+        [root.childs enumerateObjectsUsingBlock:^(LLModuleTreeNode * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            [self findNodeInHighestSequenceNumberWithTreeNode:root.childs[idx] andModuleName:moduleName];
+        }];
     }
 }
 
@@ -93,11 +103,20 @@
         return ;
     } else {
         [_tempChain addObject:root];
-        for (int i=0; i<root.childs.count; i++) {
-            [self getCallChainWithRootNode:root.childs[i] andGivenNode:givenNode];
-        }
+        [root.childs enumerateObjectsUsingBlock:^(LLModuleTreeNode * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            [self getCallChainWithRootNode:root.childs[idx] andGivenNode:givenNode];
+        }];
         [_tempChain removeLastObject];
     }
+}
+
+- (LLModuleTreeNode *)getPopPageFromStackWithPage:(NSString *)page {
+    LLModuleTreeNode *topTreeNode = (LLModuleTreeNode *)[self.stack top];
+    if ([topTreeNode.moduleName isEqualToString:page]) {
+        [self.stack pop];
+        return (LLModuleTreeNode *)[self.stack top];
+    }
+    return nil;
 }
 
 #pragma mark - append & pop
@@ -105,7 +124,7 @@
 + (NSArray *)appendCaller:(NSString *)callerStr
                 andCallee:(NSString *)calleeStr {
     if ([LLModuleUtils isNilOrEmtpyForString:callerStr] || [LLModuleUtils isNilOrEmtpyForString:calleeStr]) {
-        NSLog(@"Page is nil.");
+        NSLog(@"Caller or Callee is nil.");
         return nil;
     }
     
@@ -126,6 +145,7 @@
         NSMutableArray *childNodes = [tree.findNode.childs mutableCopy];
         [childNodes addObject:newNode];
         tree.findNode.childs = [childNodes copy];
+        [tree.stack pushObj:newNode];
         
         // 获取到被调用者节点的链路
         [tree getCallChainWithRootNode:tree.root andGivenNode:newNode];
@@ -158,24 +178,13 @@
     }
     
     LLModuleTree *tree = [LLModuleTree sharedTree];
-    tree.findNode = nil;
-    [tree.tempChain removeAllObjects];
-    tree.callChain = @[];
-    
-    [tree findNodeInHighestSequenceNumberWithTreeNode:tree.root andModuleName:page];
-    if (tree.findNode) {
-        [tree getCallChainWithRootNode:tree.root andGivenNode:tree.findNode];
-        if (tree.callChain.count > 0) {
-            LLModuleTreeNode *parentNode = tree.callChain[tree.callChain.count-2];
-            return [self appendCaller:page andCallee:parentNode.moduleName];
-        } else {
-            NSLog(@"Pop failure.");
-        }
-    } else {
-        NSLog(@"Pop failure.");
+    LLModuleTreeNode *previousNode = [tree getPopPageFromStackWithPage:page];
+    if (!previousNode) {
+        NSLog(@"Invalid operation.");
+        return nil;
     }
     
-    return nil;
+    return [self appendCaller:page andCallee:previousNode.moduleName];
 }
 
 @end
