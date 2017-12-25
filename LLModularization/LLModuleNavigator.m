@@ -28,18 +28,18 @@
 
 #pragma mark - showVC
 
-+ (void)showController:(UIViewController *)controller
-    withNavigationMode:(LLModuleNavigationMode)mode {
++ (NSArray<UIViewController *> *)showController:(UIViewController *)controller
+                             withNavigationMode:(LLModuleNavigationMode)mode {
     if (mode == LLModuleNavigationModeNone) {
         mode = LLModuleNavigationModePush;
     }
     
     switch (mode) {
         case LLModuleNavigationModePush:
-            [[LLModuleNavigator sharedNavigator] pushViewController:controller];
+            return [[LLModuleNavigator sharedNavigator] pushViewController:controller];
             break;
         case LLModuleNavigationModePresent:
-            [[LLModuleNavigator sharedNavigator] presentViewController:controller];
+            return [[LLModuleNavigator sharedNavigator] presentViewController:controller];
             break;
         case LLModuleNavigationModeNone:
             NSLog(@"Internal error.");
@@ -47,9 +47,10 @@
         default:
             break;
     }
+    return nil;
 }
 
-- (void)pushViewController:(UIViewController *)controller {
+- (NSArray<UIViewController *> *)pushViewController:(UIViewController *)controller {
     UIViewController *topViewController = [self topMostViewControllerWithRootViewController:[UIApplication sharedApplication].keyWindow.rootViewController];
     
     if ([topViewController isKindOfClass:[UINavigationController class]]) {
@@ -60,13 +61,20 @@
         UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:controller];
         [topViewController presentViewController:navController animated:YES completion:nil];
     }
+    
+    NSMutableArray *viewControllerArrays = @[].mutableCopy;
+    [viewControllerArrays addObject:topViewController];
+    if (topViewController.presentingViewController) {
+        [viewControllerArrays addObject:topViewController.presentingViewController];
+    }
+    return [viewControllerArrays copy];
 }
 
-- (void)presentViewController:(UIViewController *)controller {
+- (NSArray<UIViewController *> *)presentViewController:(UIViewController *)controller {
     UIViewController *topViewController = [self topMostViewControllerWithRootViewController:[UIApplication sharedApplication].keyWindow.rootViewController];
     
     if ([topViewController isKindOfClass:[UITabBarController class]] || [topViewController isKindOfClass:[UINavigationController class]]) {
-        return ;
+        return nil;
     }
     
     if (topViewController.presentedViewController) {
@@ -75,6 +83,8 @@
     
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:controller];
     [topViewController presentViewController:navController animated:YES completion:nil];
+    
+    return @[topViewController];
 }
 
 #pragma mark - Private Method

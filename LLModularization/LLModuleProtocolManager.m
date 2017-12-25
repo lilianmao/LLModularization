@@ -86,12 +86,12 @@
     return YES;
 }
 
-- (void)callServiceWithCallConnector:(NSString *)connector
-                         ServiceName:(NSString *)serviceName
-                          parameters:(NSDictionary *)params
-                      navigationMode:(LLModuleNavigationMode)mode
-                        successBlock:(LLBasicSuccessBlock_t)success
-                        failureBlock:(LLBasicFailureBlock_t)failure {
+- (void)callServiceWithCallerConnector:(NSString *)connector
+                           ServiceName:(NSString *)serviceName
+                            parameters:(NSDictionary *)params
+                        navigationMode:(LLModuleNavigationMode)mode
+                          successBlock:(LLBasicSuccessBlock_t)success
+                          failureBlock:(LLBasicFailureBlock_t)failure {
     NSParameterAssert(serviceName != nil);
     
     NSString *instanceName = [self getInstanceWithService:serviceName];
@@ -112,18 +112,18 @@
     id result = [self safePerformAction:service target:instance params:params];
     if (result != nil) {
         if ([result isKindOfClass:[UIViewController class]]) {
-            UIViewController *showVC = (UIViewController *)result;
-            [LLModuleNavigator showController:showVC withNavigationMode:mode];
-            [self.lock lock];
-            [self.viewControllerInstance_dict setObject:instanceName forKey:NSStringFromClass([showVC class])];
-            [self.lock unlock];
+            UIViewController *showingVC = (UIViewController *)result;
+            NSArray<UIViewController *> *showVCs = [LLModuleNavigator showController:showingVC withNavigationMode:mode];
+            // 同时将push和被push的VC和他们对应的module记录下来。
+            [self setShowViewControllers:showVCs toInstance:connector];
+            [self setShowViewControllers:@[showingVC] toInstance:instanceName];
             
-            // TODO: 思考一个完善的demo来检测这个链路合理性
             [LLModuleCallStackManager appendCallStackItemWithCallerConnector:connector calleeConnector:instanceName moduleService:serviceName serviceType:LLModuleTreeServiceTypeForeground];
         } else {
             // 记录链路
             [LLModuleCallStackManager appendCallStackItemWithCallerConnector:connector calleeConnector:instanceName moduleService:serviceName serviceType:LLModuleTreeServiceTypeBackground];
         }
+        
         success(result);
     } else {
         NSError *err = [[NSError alloc] initWithDomain:NSStringFromClass([self class]) code:-1 userInfo:@{NSLocalizedDescriptionKey:@"Instance execute selector failured."}];
@@ -168,6 +168,15 @@
     NSDictionary *dict = [self.viewControllerInstance_dict copy];
     [self.lock unlock];
     return dict;
+}
+
+- (void)setShowViewControllers:(NSArray<UIViewController *> *)viewControllers
+                    toInstance:(NSString *)instanceName {
+    [self.lock lock];
+    [viewControllers enumerateObjectsUsingBlock:^(UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [self.viewControllerInstance_dict setObject:instanceName forKey:NSStringFromClass([obj class])];
+    }];
+    [self.lock unlock];
 }
 
 - (id)safePerformAction:(SEL)action target:(Class)target params:(NSDictionary *)params {

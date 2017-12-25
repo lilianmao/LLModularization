@@ -44,7 +44,9 @@ typedef NS_ENUM(NSInteger, LLModuleTreePopType) {
                                  moduleService:(NSString *)service
                                    serviceType:(LLModuleTreeServiceType)type;
 
-+ (void)popPage:(NSString *)page withPopType:(LLModuleTreePopType)type;
++ (void)popToPage:(NSString *)page withPopType:(LLModuleTreePopType)type;
+
++ (void)popWithPage:(NSString *)page withPopType:(LLModuleTreePopType)type;
 
 @end
 

@@ -25,11 +25,11 @@
 /**
  调用服务。
  */
-- (void)callServiceWithCallConnector:(NSString *)connector
-                                 URL:(NSString *)url
-                          parameters:(NSDictionary *)params
-                      navigationMode:(LLModuleNavigationMode)mode
-                        successBlock:(LLBasicSuccessBlock_t)success
-                        failureBlock:(LLBasicFailureBlock_t)failure;
+- (void)callServiceWithCallerConnector:(NSString *)connector
+                                   URL:(NSString *)url
+                            parameters:(NSDictionary *)params
+                        navigationMode:(LLModuleNavigationMode)mode
+                          successBlock:(LLBasicSuccessBlock_t)success
+                          failureBlock:(LLBasicFailureBlock_t)failure;
 
 @end

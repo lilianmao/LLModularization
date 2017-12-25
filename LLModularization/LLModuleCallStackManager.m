@@ -93,8 +93,12 @@
     [[LLModuleCallStackManager sharedManager] appendCallStackItemWithCallerConnector:callerConnector calleeConnector:calleeConnector moduleService:service serviceType:type];
 }
 
-+ (void)popPage:(NSString *)page withPopType:(LLModuleTreePopType)type{
-    [[LLModuleCallStackManager sharedManager] popPage:page withPopType:type];
++ (void)popToPage:(NSString *)page withPopType:(LLModuleTreePopType)type{
+    [[LLModuleCallStackManager sharedManager] popToPage:page withPopType:type];
+}
+
++ (void)popWithPage:(NSString *)page withPopType:(LLModuleTreePopType)type {
+    [[LLModuleCallStackManager sharedManager] popWithPage:page withPopType:type];
 }
 
 #pragma mark - Private Method
@@ -112,18 +116,41 @@
         return ;
     }
     
-    NSArray *callChainArray = [LLModuleTree appendCaller:callerConnector andCallee:calleeConnector];
-    LLModuleCallStackItem *stackItem = [[LLModuleCallStackItem alloc] initWithModuleCallChain:callChainArray andService:service andServiceType:type];
-    NSLog(@"%@", stackItem);
+    __block LLModuleCallStackItem *stackItem = nil;
+    [LLModuleTree appendCaller:callerConnector andCallee:calleeConnector successBlock:^(id result) {
+        NSArray *callChainArray = result;
+        stackItem = [[LLModuleCallStackItem alloc] initWithModuleCallChain:callChainArray andService:service andServiceType:type];
+    } failureBlock:^(NSError *err) {
+        stackItem = [[LLModuleCallStackItem alloc] initWithModuleCallChain:nil andService:err.localizedDescription andServiceType:LLModuleTreeServiceTypeNone];
+    }];
     
+    NSLog(@"%@", stackItem);
     [self.stack pushObj:stackItem];
 }
 
-- (void)popPage:(NSString *)page withPopType:(LLModuleTreePopType)type{
-    NSArray *callChainArray = [LLModuleTree popPage:page];
-    LLModuleCallStackItem *stackItem = [[LLModuleCallStackItem alloc] initWithModuleCallChain:callChainArray andService:[self formatToString:type] andServiceType:LLModuleTreeServiceTypeForeground];
-    NSLog(@"%@", stackItem);
+- (void)popToPage:(NSString *)page withPopType:(LLModuleTreePopType)type{
+    __block LLModuleCallStackItem *stackItem = nil;
+    [LLModuleTree popToPage:page successBlock:^(id result) {
+        NSArray *callChainArray = (NSArray *)result;
+        stackItem = [[LLModuleCallStackItem alloc] initWithModuleCallChain:callChainArray andService:[self formatToString:type] andServiceType:LLModuleTreeServiceTypeForeground];
+    } failureBlock:^(NSError *err) {
+        stackItem = [[LLModuleCallStackItem alloc] initWithModuleCallChain:nil andService:err.localizedDescription andServiceType:LLModuleTreeServiceTypeNone];
+    }];
     
+    NSLog(@"%@", stackItem);
+    [self.stack pushObj:stackItem];
+}
+
+- (void)popWithPage:(NSString *)page withPopType:(LLModuleTreePopType)type {
+    __block LLModuleCallStackItem *stackItem = nil;
+    [LLModuleTree popWithPage:page successBlock:^(id result) {
+        NSArray *callChainArray = (NSArray *)result;
+        stackItem = [[LLModuleCallStackItem alloc] initWithModuleCallChain:callChainArray andService:[self formatToString:type] andServiceType:LLModuleTreeServiceTypeForeground];
+    } failureBlock:^(NSError *err) {
+        stackItem = [[LLModuleCallStackItem alloc] initWithModuleCallChain:nil andService:err.localizedDescription andServiceType:LLModuleTreeServiceTypeNone];
+    }];
+    
+    NSLog(@"%@", stackItem);
     [self.stack pushObj:stackItem];
 }
 

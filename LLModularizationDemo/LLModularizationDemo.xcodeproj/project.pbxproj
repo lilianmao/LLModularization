@@ -22,6 +22,8 @@
 		F258682D1FDB878400D7B2BF /* UIColor+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = F258682C1FDB878400D7B2BF /* UIColor+Extension.m */; };
 		F263E02D1FE2A7E300BD7CBD /* LLUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = F263E02C1FE2A7E300BD7CBD /* LLUtils.m */; };
 		F2C006861FE7BD41001E1FE9 /* MeModuleAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F2C006851FE7BD41001E1FE9 /* MeModuleAccountViewController.m */; };
+		F2C0072F1FF0E487001E1FE9 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F2C0072E1FF0E487001E1FE9 /* RegisterViewController.m */; };
+		F2C007321FF0E49A001E1FE9 /* ForgetPwdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F2C007311FF0E49A001E1FE9 /* ForgetPwdViewController.m */; };
 		F2F72C2E1FD96A6E00066F9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F2F72C2D1FD96A6E00066F9A /* AppDelegate.m */; };
 		F2F72C341FD96A6E00066F9A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2F72C321FD96A6E00066F9A /* Main.storyboard */; };
 		F2F72C361FD96A6E00066F9A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F2F72C351FD96A6E00066F9A /* Assets.xcassets */; };
@@ -83,6 +85,10 @@
 		F263E02C1FE2A7E300BD7CBD /* LLUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LLUtils.m; sourceTree = "<group>"; };
 		F2C006841FE7BD41001E1FE9 /* MeModuleAccountViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeModuleAccountViewController.h; sourceTree = "<group>"; };
 		F2C006851FE7BD41001E1FE9 /* MeModuleAccountViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MeModuleAccountViewController.m; sourceTree = "<group>"; };
+		F2C0072D1FF0E487001E1FE9 /* RegisterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
+		F2C0072E1FF0E487001E1FE9 /* RegisterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
+		F2C007301FF0E49A001E1FE9 /* ForgetPwdViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ForgetPwdViewController.h; sourceTree = "<group>"; };
+		F2C007311FF0E49A001E1FE9 /* ForgetPwdViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ForgetPwdViewController.m; sourceTree = "<group>"; };
 		F2F72C291FD96A6E00066F9A /* LLModularizationDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LLModularizationDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2F72C2C1FD96A6E00066F9A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		F2F72C2D1FD96A6E00066F9A /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -175,6 +181,10 @@
 				F25868181FDAB50E00D7B2BF /* LoginModuleConnector.m */,
 				F258681A1FDAB52600D7B2BF /* LoginModuleViewController.h */,
 				F258681B1FDAB52600D7B2BF /* LoginModuleViewController.m */,
+				F2C0072D1FF0E487001E1FE9 /* RegisterViewController.h */,
+				F2C0072E1FF0E487001E1FE9 /* RegisterViewController.m */,
+				F2C007301FF0E49A001E1FE9 /* ForgetPwdViewController.h */,
+				F2C007311FF0E49A001E1FE9 /* ForgetPwdViewController.m */,
 			);
 			path = LoginModule;
 			sourceTree = "<group>";
@@ -496,9 +506,11 @@
 				F258681C1FDAB52600D7B2BF /* LoginModuleViewController.m in Sources */,
 				F25868101FDAB4C500D7B2BF /* MyStudyModuleViewController.m in Sources */,
 				F2F72C2E1FD96A6E00066F9A /* AppDelegate.m in Sources */,
+				F2C007321FF0E49A001E1FE9 /* ForgetPwdViewController.m in Sources */,
 				F25868221FDB766800D7B2BF /* MeModuleViewController.m in Sources */,
 				F25868021FDAAFA300D7B2BF /* LLNavigationController.m in Sources */,
 				F25867FF1FDAAF6C00D7B2BF /* LLTabBarController.m in Sources */,
+				F2C0072F1FF0E487001E1FE9 /* RegisterViewController.m in Sources */,
 				F258680A1FDAB43B00D7B2BF /* HomeModuleViewController.m in Sources */,
 				F263E02D1FE2A7E300BD7CBD /* LLUtils.m in Sources */,
 				F2C006861FE7BD41001E1FE9 /* MeModuleAccountViewController.m in Sources */,

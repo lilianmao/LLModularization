@@ -6,6 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "LLModuleConst.h"
 
 /**
  树的节点
@@ -25,11 +26,25 @@
 
 @property (nonatomic, strong, readonly) LLModuleTreeNode *root;
 
-+ (NSArray *)appendCaller:(NSString *)callerStr
-                andCallee:(NSString *)calleeStr;
++ (void)appendCaller:(NSString *)callerStr
+           andCallee:(NSString *)calleeStr
+        successBlock:(LLBasicSuccessBlock_t)success
+        failureBlock:(LLBasicFailureBlock_t)failure;
 
-+ (NSArray *)popPage:(NSString *)page;
+/**
+ popToPage: pop到指定页面
+ */
++ (void)popToPage:(NSString *)page
+     successBlock:(LLBasicSuccessBlock_t)success
+     failureBlock:(LLBasicFailureBlock_t)failure;
 
-#warning 1. 需要打日志(最好用block方式) 2. 写一个全面的demo(包括非法pop一次或者多次)
+/**
+ popWithPage: 指定页面无法获取，传入最近的module，向上一级寻找page
+ */
++ (void)popWithPage:(NSString *)page
+       successBlock:(LLBasicSuccessBlock_t)success
+       failureBlock:(LLBasicFailureBlock_t)failure;
+
+#warning 1. 写一个全面的demo(包括非法pop一次或者多次)
 
 @end

@@ -41,18 +41,18 @@
     return [[LLModuleURLManager sharedManager] registerServiceWithServiceName:serviceName URLPattern:urlPattern instance:instanceName];
 }
 
-- (void)callServiceWithCallConnector:(NSString *)connector
-                                 URL:(NSString *)url
-                          parameters:(NSDictionary *)params
-                      navigationMode:(LLModuleNavigationMode)mode
-                        successBlock:(LLBasicSuccessBlock_t)success
-                        failureBlock:(LLBasicFailureBlock_t)failure {
+- (void)callServiceWithCallerConnector:(NSString *)connector
+                                   URL:(NSString *)url
+                            parameters:(NSDictionary *)params
+                        navigationMode:(LLModuleNavigationMode)mode
+                          successBlock:(LLBasicSuccessBlock_t)success
+                          failureBlock:(LLBasicFailureBlock_t)failure {
     if ([LLModuleUtils isNilOrEmtpyForString:url] || !connector) {
         NSError *err = [[NSError alloc] initWithDomain:NSStringFromClass([self class]) code:-1 userInfo:@{NSLocalizedDescriptionKey:@"URL or Connector is empty."}];
         failure(err);
     }
     
-    [[LLModuleURLManager sharedManager] callServiceWithCallConnector:connector URL:url parameters:params navigationMode:mode successBlock:success failureBlock:failure];
+    [[LLModuleURLManager sharedManager] callServiceWithCallerConnector:connector URL:url parameters:params navigationMode:mode successBlock:success failureBlock:failure];
 }
 
 @end

@@ -111,21 +111,28 @@
 }
 
 - (LLModuleTreeNode *)getPopPageFromStackWithPage:(NSString *)page {
-    LLModuleTreeNode *topTreeNode = (LLModuleTreeNode *)[self.stack top];
-    if ([topTreeNode.moduleName isEqualToString:page]) {
+    LLModuleTreeNode *topNode = [self.stack top];
+    if ([topNode.moduleName isEqualToString:page]) {        // pop本模块不参与调度
+        return nil;
+    }
+    while (![self.stack isEmpty]) {
         [self.stack pop];
-        return (LLModuleTreeNode *)[self.stack top];
+        topNode = [self.stack top];
+        if ([topNode.moduleName isEqualToString:page]) {
+            return topNode;
+        }
     }
     return nil;
 }
 
 #pragma mark - append & pop
 
-+ (NSArray *)appendCaller:(NSString *)callerStr
-                andCallee:(NSString *)calleeStr {
++ (void)appendCaller:(NSString *)callerStr
+           andCallee:(NSString *)calleeStr
+        successBlock:(LLBasicSuccessBlock_t)success
+        failureBlock:(LLBasicFailureBlock_t)failure {
     if ([LLModuleUtils isNilOrEmtpyForString:callerStr] || [LLModuleUtils isNilOrEmtpyForString:calleeStr]) {
         NSLog(@"Caller or Callee is nil.");
-        return nil;
     }
     
     // 初始化
@@ -155,15 +162,15 @@
                 LLModuleTreeNode *node = (LLModuleTreeNode *)obj;
                 [returnChain addObject:node.moduleName];
             }];
-            return [returnChain copy];
+            success([returnChain copy]);
         } else {
-            NSLog(@"Internal Error.");
+            NSError *err = [[NSError alloc] initWithDomain:NSStringFromClass([self class]) code:-1 userInfo:@{NSLocalizedDescriptionKey:@"Internal Error."}];
+            failure(err);
         }
     } else {
-        NSLog(@"Internal Error.");
+        NSError *err = [[NSError alloc] initWithDomain:NSStringFromClass([self class]) code:-1 userInfo:@{NSLocalizedDescriptionKey:@"Internal Error."}];
+        failure(err);
     }
-    
-    return nil;
 }
 
 /**
@@ -171,20 +178,44 @@
  任何页面都是被之前的页面push/present进来的，首先找到这个页面，然后找打这个页面的链路，push他的页面就在他的上面一级。
  记录的形式：例如 a push b，然后b pop，则记录成 a->b->a，pop本质上也是一种推进。
  */
-+ (NSArray *)popPage:(NSString *)page {
++ (void)popToPage:(NSString *)page
+     successBlock:(LLBasicSuccessBlock_t)success
+     failureBlock:(LLBasicFailureBlock_t)failure {
     if ([LLModuleUtils isNilOrEmtpyForString:page]) {
-        NSLog(@"Page is nil.");
-        return nil;
+        NSError *err = [[NSError alloc] initWithDomain:NSStringFromClass([self class]) code:-1 userInfo:@{NSLocalizedDescriptionKey:@"Page is nil."}];
+        failure(err);
     }
     
     LLModuleTree *tree = [LLModuleTree sharedTree];
+    NSString *topPage = ((LLModuleTreeNode *)[tree.stack top]).moduleName;  // 暂存顶部page
     LLModuleTreeNode *previousNode = [tree getPopPageFromStackWithPage:page];
     if (!previousNode) {
-        NSLog(@"Invalid operation.");
-        return nil;
+        NSError *err = [[NSError alloc] initWithDomain:NSStringFromClass([self class]) code:-1 userInfo:@{NSLocalizedDescriptionKey:@"Invalid operation."}];
+        failure(err);
     }
     
-    return [self appendCaller:page andCallee:previousNode.moduleName];
+    [self appendCaller:topPage andCallee:previousNode.moduleName successBlock:success failureBlock:failure];
+}
+
++ (void)popWithPage:(NSString *)page
+       successBlock:(LLBasicSuccessBlock_t)success
+       failureBlock:(LLBasicFailureBlock_t)failure {
+    if ([LLModuleUtils isNilOrEmtpyForString:page]) {
+        NSError *err = [[NSError alloc] initWithDomain:NSStringFromClass([self class]) code:-1 userInfo:@{NSLocalizedDescriptionKey:@"Page is nil."}];
+        failure(err);
+    }
+    
+    LLModuleTree *tree = [LLModuleTree sharedTree];
+    NSString *topPage = ((LLModuleTreeNode *)[tree.stack top]).moduleName;  // 暂存顶部page
+    [tree getPopPageFromStackWithPage:page];
+    [tree.stack pop];
+    LLModuleTreeNode *previousNode = (LLModuleTreeNode *)[tree.stack top];
+    if (!previousNode) {
+        NSError *err = [[NSError alloc] initWithDomain:NSStringFromClass([self class]) code:-1 userInfo:@{NSLocalizedDescriptionKey:@"Invalid operation."}];
+        failure(err);
+    }
+    
+    [self appendCaller:topPage andCallee:previousNode.moduleName successBlock:success failureBlock:failure];
 }
 
 @end
