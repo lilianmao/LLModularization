@@ -10,7 +10,6 @@
 
 @interface LoginModuleViewController : UIViewController
 
-- (void)updateWithUserName:(NSString *)username
-                  password:(NSString *)password;
+@property (nonatomic, copy) NSString *moduleTag;
 
 @end

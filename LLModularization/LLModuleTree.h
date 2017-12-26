@@ -45,6 +45,4 @@
        successBlock:(LLBasicSuccessBlock_t)success
        failureBlock:(LLBasicFailureBlock_t)failure;
 
-#warning 1. 写一个全面的demo(包括非法pop一次或者多次)
-
 @end

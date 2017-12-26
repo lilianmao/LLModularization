@@ -10,4 +10,6 @@
 
 @interface HomeModuleViewController : UIViewController
 
+@property (nonatomic, copy) NSString *moduleTag;
+
 @end

@@ -1,22 +1,22 @@
 //
-//  RegisterViewController.m
+//  LoginModuleRegisterViewController.m
 //  LLModularizationDemo
 //
 //  Created by 李林 on 12/25/17.
 //  Copyright © 2017 lee. All rights reserved.
 //
 
-#import "RegisterViewController.h"
+#import "LoginModuleRegisterViewController.h"
 #import <PureLayout/PureLayout.h>
 #import "LLMacro.h"
 
-@interface RegisterViewController ()
+@interface LoginModuleRegisterViewController ()
 
 @property (nonatomic, strong) UIButton *dismissBtn;
 
 @end
 
-@implementation RegisterViewController
+@implementation LoginModuleRegisterViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

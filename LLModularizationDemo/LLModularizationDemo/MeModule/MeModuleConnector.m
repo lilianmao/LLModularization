@@ -8,7 +8,7 @@
 
 #import "MeModuleConnector.h"
 #import "LLUtils.h"
-#import "MeModuleAccountViewController.h"
+#import "MeModuleMainViewController.h"
 
 @interface MeModuleConnector()
 
@@ -60,9 +60,9 @@
 #pragma mark - MeModuleProtocol
 
 + (NSString *)getMeModuleAccountWithParams:(NSDictionary *)params {
-    MeModuleAccountViewController *meAccountVC = [[MeModuleAccountViewController alloc] init];
+    MeModuleMainViewController *meAccountVC = [[MeModuleMainViewController alloc] init];
     
-    return [meAccountVC getAccountData];
+    return nil;
 }
 
 @end

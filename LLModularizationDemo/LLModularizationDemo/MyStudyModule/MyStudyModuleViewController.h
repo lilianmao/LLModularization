@@ -10,4 +10,6 @@
 
 @interface MyStudyModuleViewController : UIViewController
 
+@property (nonatomic, copy) NSString *moduleTag;
+
 @end
