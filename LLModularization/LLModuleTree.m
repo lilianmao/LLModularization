@@ -133,6 +133,7 @@
         failureBlock:(LLBasicFailureBlock_t)failure {
     if ([LLModuleUtils isNilOrEmtpyForString:callerStr] || [LLModuleUtils isNilOrEmtpyForString:calleeStr]) {
         NSLog(@"Caller or Callee is nil.");
+        return ;
     }
     
     // 初始化
@@ -192,6 +193,7 @@
     if (!previousNode) {
         NSError *err = [[NSError alloc] initWithDomain:NSStringFromClass([self class]) code:-1 userInfo:@{NSLocalizedDescriptionKey:@"Invalid operation."}];
         failure(err);
+        return ;
     }
     
     [self appendCaller:topPage andCallee:previousNode.moduleName successBlock:success failureBlock:failure];
@@ -213,6 +215,7 @@
     if (!previousNode) {
         NSError *err = [[NSError alloc] initWithDomain:NSStringFromClass([self class]) code:-1 userInfo:@{NSLocalizedDescriptionKey:@"Invalid operation."}];
         failure(err);
+        return ;
     }
     
     [self appendCaller:topPage andCallee:previousNode.moduleName successBlock:success failureBlock:failure];

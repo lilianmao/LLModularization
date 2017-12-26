@@ -102,11 +102,13 @@
         NSString *errMsg = @"Instance is nil.";
         NSError *err = [[NSError alloc] initWithDomain:NSStringFromClass([self class]) code:-1 userInfo:@{NSLocalizedDescriptionKey:errMsg}];
         failure(err);
+        return ;
     }
     if (![instance respondsToSelector:service]) {
         NSString *errMsg = @"Instance doesn't respondTo selector.";
         NSError *err = [[NSError alloc] initWithDomain:NSStringFromClass([self class]) code:-1 userInfo:@{NSLocalizedDescriptionKey:errMsg}];
         failure(err);
+        return ;
     }
     
     id result = [self safePerformAction:service target:instance params:params];

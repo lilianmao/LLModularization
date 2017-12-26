@@ -50,6 +50,7 @@
     if ([LLModuleUtils isNilOrEmtpyForString:url] || !connector) {
         NSError *err = [[NSError alloc] initWithDomain:NSStringFromClass([self class]) code:-1 userInfo:@{NSLocalizedDescriptionKey:@"URL or Connector is empty."}];
         failure(err);
+        return ;
     }
     
     [[LLModuleURLManager sharedManager] callServiceWithCallerConnector:connector URL:url parameters:params navigationMode:mode successBlock:success failureBlock:failure];

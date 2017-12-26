@@ -54,6 +54,7 @@
     if ([LLModuleUtils isNilOrEmtpyForString:url]) {
         NSError *err = [[NSError alloc] initWithDomain:NSStringFromClass([self class]) code:-1 userInfo:@{NSLocalizedDescriptionKey:@"URL is empty."}];
         failure(err);
+        return ;
     }
     
     NSDictionary *openResult = [LLModuleURLRoutes openURL:url withUserInfo:params];
