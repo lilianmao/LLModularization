@@ -8,6 +8,15 @@
 
 #import "MeModuleViewController.h"
 
+@interface MeModuleMainModel : NSObject
+
+@property (nonatomic, copy) NSString *imgName;
+@property (nonatomic, copy) NSString *title;
+
+- (instancetype)initWithImgName:(NSString *)imgName title:(NSString *)title;
+
+@end
+
 @interface MeModuleMainViewController : MeModuleViewController
 
 @end

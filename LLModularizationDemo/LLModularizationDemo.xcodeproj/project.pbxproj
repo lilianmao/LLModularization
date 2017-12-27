@@ -30,6 +30,8 @@
 		F2C0074A1FF27475001E1FE9 /* MyStudyModuleMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F2C007491FF27475001E1FE9 /* MyStudyModuleMainViewController.m */; };
 		F2C0074D1FF2754D001E1FE9 /* LoginModuleMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F2C0074C1FF2754D001E1FE9 /* LoginModuleMainViewController.m */; };
 		F2C007501FF27697001E1FE9 /* MeModuleMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F2C0074F1FF27697001E1FE9 /* MeModuleMainViewController.m */; };
+		F2C007531FF33586001E1FE9 /* MeModuleMyStudyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F2C007521FF33586001E1FE9 /* MeModuleMyStudyViewController.m */; };
+		F2C007561FF3414D001E1FE9 /* MeModuleMainTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F2C007551FF3414D001E1FE9 /* MeModuleMainTableViewCell.m */; };
 		F2F72C2E1FD96A6E00066F9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F2F72C2D1FD96A6E00066F9A /* AppDelegate.m */; };
 		F2F72C341FD96A6E00066F9A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2F72C321FD96A6E00066F9A /* Main.storyboard */; };
 		F2F72C361FD96A6E00066F9A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F2F72C351FD96A6E00066F9A /* Assets.xcassets */; };
@@ -107,6 +109,10 @@
 		F2C0074C1FF2754D001E1FE9 /* LoginModuleMainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginModuleMainViewController.m; sourceTree = "<group>"; };
 		F2C0074E1FF27697001E1FE9 /* MeModuleMainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeModuleMainViewController.h; sourceTree = "<group>"; };
 		F2C0074F1FF27697001E1FE9 /* MeModuleMainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MeModuleMainViewController.m; sourceTree = "<group>"; };
+		F2C007511FF33586001E1FE9 /* MeModuleMyStudyViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeModuleMyStudyViewController.h; sourceTree = "<group>"; };
+		F2C007521FF33586001E1FE9 /* MeModuleMyStudyViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MeModuleMyStudyViewController.m; sourceTree = "<group>"; };
+		F2C007541FF3414D001E1FE9 /* MeModuleMainTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeModuleMainTableViewCell.h; sourceTree = "<group>"; };
+		F2C007551FF3414D001E1FE9 /* MeModuleMainTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MeModuleMainTableViewCell.m; sourceTree = "<group>"; };
 		F2F72C291FD96A6E00066F9A /* LLModularizationDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LLModularizationDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2F72C2C1FD96A6E00066F9A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		F2F72C2D1FD96A6E00066F9A /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -187,10 +193,14 @@
 				F25868211FDB766800D7B2BF /* MeModuleViewController.m */,
 				F2C0074E1FF27697001E1FE9 /* MeModuleMainViewController.h */,
 				F2C0074F1FF27697001E1FE9 /* MeModuleMainViewController.m */,
+				F2C007541FF3414D001E1FE9 /* MeModuleMainTableViewCell.h */,
+				F2C007551FF3414D001E1FE9 /* MeModuleMainTableViewCell.m */,
 				F2C007361FF24574001E1FE9 /* MeModuleProfileViewController.h */,
 				F2C007371FF24574001E1FE9 /* MeModuleProfileViewController.m */,
 				F2C007391FF24587001E1FE9 /* MeModuleCollectionViewController.h */,
 				F2C0073A1FF24587001E1FE9 /* MeModuleCollectionViewController.m */,
+				F2C007511FF33586001E1FE9 /* MeModuleMyStudyViewController.h */,
+				F2C007521FF33586001E1FE9 /* MeModuleMyStudyViewController.m */,
 				F2C0073C1FF245A0001E1FE9 /* MeModuleSettingViewController.h */,
 				F2C0073D1FF245A0001E1FE9 /* MeModuleSettingViewController.m */,
 			);
@@ -541,10 +551,12 @@
 				F2C007501FF27697001E1FE9 /* MeModuleMainViewController.m in Sources */,
 				F2C007411FF245FF001E1FE9 /* LoginModuleForgetPwdViewController.m in Sources */,
 				F25868221FDB766800D7B2BF /* MeModuleViewController.m in Sources */,
+				F2C007561FF3414D001E1FE9 /* MeModuleMainTableViewCell.m in Sources */,
 				F2C0074D1FF2754D001E1FE9 /* LoginModuleMainViewController.m in Sources */,
 				F25868021FDAAFA300D7B2BF /* LLNavigationController.m in Sources */,
 				F25867FF1FDAAF6C00D7B2BF /* LLTabBarController.m in Sources */,
 				F2C0072F1FF0E487001E1FE9 /* LoginModuleRegisterViewController.m in Sources */,
+				F2C007531FF33586001E1FE9 /* MeModuleMyStudyViewController.m in Sources */,
 				F2C0073E1FF245A0001E1FE9 /* MeModuleSettingViewController.m in Sources */,
 				F258680A1FDAB43B00D7B2BF /* HomeModuleViewController.m in Sources */,
 				F2C007381FF24574001E1FE9 /* MeModuleProfileViewController.m in Sources */,

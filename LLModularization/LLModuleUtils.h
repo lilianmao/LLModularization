@@ -11,4 +11,6 @@
 
 + (BOOL)isNilOrEmtpyForString:(NSString *)aString;
 
++ (UIViewController *)topMostViewControllerWithRootViewController:(UIViewController *)rootViewController;
+
 @end

@@ -10,14 +10,11 @@
 
 typedef NS_ENUM(NSInteger, LLModuleTreeServiceType) {
     LLModuleTreeServiceTypeNone = 0,
-    LLModuleTreeServiceTypeForeground = 1,      // 前台，一般是页面跳转。
-    LLModuleTreeServiceTypeBackground = 2       // 后台，一般是非页面跳转，请求数据服务。
-};
-
-typedef NS_ENUM(NSInteger, LLModuleTreePopType) {
-    LLModuleTreePopTypeNone = 0,
-    LLModuleTreePopTypePop = 1,
-    LLModuleTreePopTypeDismiss = 2
+    LLModuleTreeServiceTypePush = 1,        // Push
+    LLModuleTreeServiceTypePresent = 2,     // Present
+    LLModuleTreeServiceTypePop = 3,         // Pop
+    LLModuleTreeServiceTypeDismiss = 4,     // Dismiss
+    LLModuleTreeServiceTypeBackground = 5,  // 后台，一般是非页面跳转，请求数据服务。
 };
 
 /**
@@ -39,14 +36,20 @@ typedef NS_ENUM(NSInteger, LLModuleTreePopType) {
 
 + (NSArray *)getModuleCallStack;
 
-+ (void)appendCallStackItemWithCallerConnector:(NSString *)callerConnector
-                               calleeConnector:(NSString *)calleeConnector
-                                 moduleService:(NSString *)service
-                                   serviceType:(LLModuleTreeServiceType)type;
++ (void)appendCallStackItemWithCallerModule:(NSString *)callerModule
+                           callerController:(NSString *)callerController
+                               calleeModule:(NSString *)calleeModule
+                           calleeController:(NSString *)calleeController
+                              moduleService:(NSString *)service
+                                serviceType:(LLModuleTreeServiceType)type;
 
-+ (void)popToPage:(NSString *)page withPopType:(LLModuleTreePopType)type;
++ (void)popWithControllers:(NSArray<NSString *> *)controllers
+               serviceName:(NSString *)serviceName
+                   popType:(LLModuleTreeServiceType)type;
 
-+ (void)popWithPage:(NSString *)page withPopType:(LLModuleTreePopType)type;
++ (void)popToController:(NSString *)controller
+            serviceName:(NSString *)serviceName
+                popType:(LLModuleTreeServiceType)type;
 
 @end
 

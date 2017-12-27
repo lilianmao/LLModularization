@@ -41,7 +41,7 @@
     MeModuleMainViewController *me = [[MeModuleMainViewController alloc] init];
     UIViewController *meNav = [self addChildVcWithViewController:me name:@"账号" imageName:@"tab-account" selectedImageName:@"tab-account-hl"];
     
-    self.viewControllers =@[homeNav, myStudyNav, meNav];
+    self.viewControllers =@[homeNav, meNav];
 }
 
 /*

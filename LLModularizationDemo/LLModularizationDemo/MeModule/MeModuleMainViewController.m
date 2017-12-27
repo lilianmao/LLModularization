@@ -7,19 +7,32 @@
 //
 
 #import "MeModuleMainViewController.h"
+#import "MeModuleMainTableViewCell.h"
+
 #import <PureLayout/PureLayout.h>
 #import <SVProgressHUD/SVProgressHUD.h>
 #import "LLMacro.h"
 
 #import "MeModuleConnector.h"
 
-static NSInteger rows = 3;
+static NSInteger rows = 4;
+
+@implementation MeModuleMainModel
+
+- (instancetype)initWithImgName:(NSString *)imgName title:(NSString *)title {
+    if (self = [super init]) {
+        _imgName = imgName;
+        _title = title;
+    }
+    return self;
+}
+
+@end
 
 @interface MeModuleMainViewController () <UITableViewDataSource, UITableViewDelegate>
 
+@property (nonatomic, strong) NSMutableArray<MeModuleMainModel *> *models;
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) UIButton *loginBtn;
-@property (nonatomic, strong) UIButton *accountBtn;
 
 @end
 
@@ -31,44 +44,67 @@ static NSInteger rows = 3;
     self.view.backgroundColor = [UIColor whiteColor];
     [self setupViews];
     [self layoutViews];
+    [self loadData];
+}
+
+#pragma mark - Lazy Load
+
+- (NSMutableArray *)models {
+    if (!_models) {
+        _models = @[].mutableCopy;
+    }
+    return _models;
 }
 
 #pragma mark - setup & layout
 
 - (void)setupViews {
-    _tableView = [[UITableView alloc] init];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     [self.view addSubview:_tableView];
-    // TODO: 完善UITableViewCell的样式，开始做module+VC的链路。
-    
-    _loginBtn = [[UIButton alloc] init];
-    [self.view addSubview:_loginBtn];
-    _loginBtn.hidden = YES;
-    _loginBtn.backgroundColor = LLURGB(58, 199, 215);
-    [_loginBtn setTitle:@"登录" forState:UIControlStateNormal];
-    _loginBtn.titleLabel.font = [UIFont systemFontOfSize:18.f];
-    _loginBtn.layer.cornerRadius = 5.f;
-    [_loginBtn addTarget:self action:@selector(loginBtnAction) forControlEvents:UIControlEventTouchUpInside];
-    
-    _accountBtn = [[UIButton alloc] init];
-    [self.view addSubview:_accountBtn];
-    _accountBtn.hidden = YES;
-    _accountBtn.backgroundColor = LLURGB(58, 199, 215);
-    [_accountBtn setTitle:@"获取账户数据" forState:UIControlStateNormal];
-    _accountBtn.titleLabel.font = [UIFont systemFontOfSize:18.f];
-    _accountBtn.layer.cornerRadius = 5.f;
-    [_accountBtn addTarget:self action:@selector(accountBtnAction) forControlEvents:UIControlEventTouchUpInside];
+    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    _tableView.dataSource = self;
+    _tableView.delegate = self;
+    [_tableView registerClass:[MeModuleMainTableViewCell class] forCellReuseIdentifier:NSStringFromClass([MeModuleMainTableViewCell class])];
 }
 
 - (void)layoutViews {
     [_tableView autoPinEdgesToSuperviewEdges];
-    
-    [_loginBtn autoSetDimensionsToSize:CGSizeMake(100.f, 50.f)];
-    [_loginBtn autoAlignAxisToSuperviewAxis:ALAxisVertical];
-    [_loginBtn autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:200.f];
-    
-    [_accountBtn autoSetDimensionsToSize:CGSizeMake(120.f, 50.f)];
-    [_accountBtn autoAlignAxisToSuperviewAxis:ALAxisVertical];
-    [_accountBtn autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_loginBtn withOffset:50.f];
+}
+
+- (void)loadData {
+    MeModuleMainModel *profileModel = [[MeModuleMainModel alloc] initWithImgName:@"account-profile" title:@"个人资料"];
+    [self.models addObject:profileModel];
+    MeModuleMainModel *interestModel = [[MeModuleMainModel alloc] initWithImgName:@"account-tag" title:@"学习兴趣"];
+    [self.models addObject:interestModel];
+    MeModuleMainModel *myStudyModel = [[MeModuleMainModel alloc] initWithImgName:@"account-balance" title:@"我的学习"];
+    [self.models addObject:myStudyModel];
+    MeModuleMainModel *settingModel = [[MeModuleMainModel alloc] initWithImgName:@"account-setting" title:@"设置"];
+    [self.models addObject:settingModel];
+}
+
+#pragma mark - UITableView DataSource & Delegate
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return rows;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 1;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    MeModuleMainTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MeModuleMainTableViewCell class])];
+    [cell setCellDataWithImgName:self.models[indexPath.section].imgName titleName:self.models[indexPath.section].title];
+    return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 48.f;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    // 临时测试
+    [self loginBtnAction];
 }
 
 #pragma mark - Action
@@ -87,21 +123,6 @@ static NSInteger rows = 3;
     } failureBlock:^(NSError *err) {
         [SVProgressHUD showErrorWithStatus:err.localizedDescription];
     }];
-}
-
-#pragma mark - UITableView DataSource & Delegate
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return rows;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 1;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [[UITableViewCell alloc] init];
-    return cell;
 }
 
 #pragma mark - Private Methods

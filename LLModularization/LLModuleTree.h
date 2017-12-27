@@ -15,9 +15,11 @@
 
 @property (nonatomic, strong) NSArray<LLModuleTreeNode *> *childs;
 @property (nonatomic, copy) NSString *moduleName;
+@property (nonatomic, copy) NSString *controllerName;
 @property (nonatomic, assign) int sequenceNumber;
 
 - (instancetype)initTreeNodeWithModuleName:(NSString *)moduleName
+                         andControllerName:(NSString *)controllerName
                          andSequenceNumber:(int)sequenceNumber;
 
 @end
@@ -26,23 +28,27 @@
 
 @property (nonatomic, strong, readonly) LLModuleTreeNode *root;
 
-+ (void)appendCaller:(NSString *)callerStr
-           andCallee:(NSString *)calleeStr
-        successBlock:(LLBasicSuccessBlock_t)success
-        failureBlock:(LLBasicFailureBlock_t)failure;
+// TODO: 优化tree的算法，同时测一下popToViewController已经Service，module的需求
+
++ (void)appendCallerModule:(NSString *)callerModule
+          callerController:(NSString *)callerController
+              calleeModule:(NSString *)calleeModule
+          calleeController:(NSString *)calleeController
+              successBlock:(LLBasicSuccessBlock_t)success
+              failureBlock:(LLBasicFailureBlock_t)failure;
+
+/**
+ popWithPage: pop页面
+ */
++ (void)popWithController:(NSArray<NSString *> *)controllers
+             successBlock:(LLBasicSuccessBlock_t)success
+             failureBlock:(LLBasicFailureBlock_t)failure;
 
 /**
  popToPage: pop到指定页面
  */
-+ (void)popToPage:(NSString *)page
-     successBlock:(LLBasicSuccessBlock_t)success
-     failureBlock:(LLBasicFailureBlock_t)failure;
-
-/**
- popWithPage: 指定页面无法获取，传入最近的module，向上一级寻找page
- */
-+ (void)popWithPage:(NSString *)page
-       successBlock:(LLBasicSuccessBlock_t)success
-       failureBlock:(LLBasicFailureBlock_t)failure;
++ (void)popToController:(NSString *)controllers
+           successBlock:(LLBasicSuccessBlock_t)success
+           failureBlock:(LLBasicFailureBlock_t)failure;
 
 @end

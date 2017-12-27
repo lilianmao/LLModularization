@@ -34,8 +34,17 @@
     NSString *result = nil;
     
     switch (type) {
-        case LLModuleTreeServiceTypeForeground:
-            result = @"Foreground";
+        case LLModuleTreeServiceTypePush:
+            result = @"Push";
+            break;
+        case LLModuleTreeServiceTypePresent:
+            result = @"Present";
+            break;
+        case LLModuleTreeServiceTypePop:
+            result = @"Pop";
+            break;
+        case LLModuleTreeServiceTypeDismiss:
+            result = @"Dismiss";
             break;
         case LLModuleTreeServiceTypeBackground:
             result = @"Background";
@@ -86,19 +95,25 @@
     return [[LLModuleCallStackManager sharedManager] getModuleCallStack];
 }
 
-+ (void)appendCallStackItemWithCallerConnector:(NSString *)callerConnector
-                               calleeConnector:(NSString *)calleeConnector
-                                 moduleService:(NSString *)service
-                                   serviceType:(LLModuleTreeServiceType)type {
-    [[LLModuleCallStackManager sharedManager] appendCallStackItemWithCallerConnector:callerConnector calleeConnector:calleeConnector moduleService:service serviceType:type];
++ (void)appendCallStackItemWithCallerModule:(NSString *)callerModule
+                           callerController:(NSString *)callerController
+                               calleeModule:(NSString *)calleeModule
+                           calleeController:(NSString *)calleeController
+                              moduleService:(NSString *)service
+                                serviceType:(LLModuleTreeServiceType)type {
+    [[LLModuleCallStackManager sharedManager] appendCallStackItemWithCallerModule:callerModule callerController:callerController calleeModule:calleeModule calleeController:calleeController moduleService:service serviceType:type];
 }
 
-+ (void)popToPage:(NSString *)page withPopType:(LLModuleTreePopType)type{
-    [[LLModuleCallStackManager sharedManager] popToPage:page withPopType:type];
++ (void)popWithControllers:(NSArray<NSString *> *)controllers
+               serviceName:(NSString *)serviceName
+                   popType:(LLModuleTreeServiceType)type {
+    [[LLModuleCallStackManager sharedManager] popWithControllers:controllers serviceName:serviceName popType:type];
 }
 
-+ (void)popWithPage:(NSString *)page withPopType:(LLModuleTreePopType)type {
-    [[LLModuleCallStackManager sharedManager] popWithPage:page withPopType:type];
++ (void)popToController:(NSString *)controller
+            serviceName:(NSString *)serviceName
+                popType:(LLModuleTreeServiceType)type {
+    [[LLModuleCallStackManager sharedManager] popToController:controller serviceName:serviceName popType:type];
 }
 
 #pragma mark - Private Method
@@ -107,17 +122,27 @@
     return [self.stack getAllObjects];
 }
 
-- (void)appendCallStackItemWithCallerConnector:(NSString *)callerConnector
-                               calleeConnector:(NSString *)calleeConnector
-                                 moduleService:(NSString *)service
-                                   serviceType:(LLModuleTreeServiceType)type {
-    if (!callerConnector || !calleeConnector || [LLModuleUtils isNilOrEmtpyForString:service]) {
-        NSLog(@"Append Failured. Connector or service is nil.");
+- (void)appendCallStackItemWithCallerModule:(NSString *)callerModule
+                           callerController:(NSString *)callerController
+                               calleeModule:(NSString *)calleeModule
+                           calleeController:(NSString *)calleeController
+                              moduleService:(NSString *)service
+                                serviceType:(LLModuleTreeServiceType)type {
+    if ([LLModuleUtils isNilOrEmtpyForString:callerModule]) {
+        NSLog(@"Append Failured. Caller is nil.");
+        return ;
+    }
+    if ([LLModuleUtils isNilOrEmtpyForString:calleeModule]) {
+        NSLog(@"Append Failured. Callee is nil.");
+        return ;
+    }
+    if ([LLModuleUtils isNilOrEmtpyForString:service]) {
+        NSLog(@"Append Failured. Service is nil.");
         return ;
     }
     
     __block LLModuleCallStackItem *stackItem = nil;
-    [LLModuleTree appendCaller:callerConnector andCallee:calleeConnector successBlock:^(id result) {
+    [LLModuleTree appendCallerModule:callerModule callerController:callerController calleeModule:calleeModule calleeController:calleeController successBlock:^(id result) {
         NSArray *callChainArray = result;
         stackItem = [[LLModuleCallStackItem alloc] initWithModuleCallChain:callChainArray andService:service andServiceType:type];
     } failureBlock:^(NSError *err) {
@@ -128,11 +153,13 @@
     [self.stack pushObj:stackItem];
 }
 
-- (void)popToPage:(NSString *)page withPopType:(LLModuleTreePopType)type{
+- (void)popWithControllers:(NSArray<NSString *> *)controllers
+               serviceName:(NSString *)serviceName
+                   popType:(LLModuleTreeServiceType)type {
     __block LLModuleCallStackItem *stackItem = nil;
-    [LLModuleTree popToPage:page successBlock:^(id result) {
+    [LLModuleTree popWithController:controllers successBlock:^(id result) {
         NSArray *callChainArray = (NSArray *)result;
-        stackItem = [[LLModuleCallStackItem alloc] initWithModuleCallChain:callChainArray andService:[self formatToString:type] andServiceType:LLModuleTreeServiceTypeForeground];
+        stackItem = [[LLModuleCallStackItem alloc] initWithModuleCallChain:callChainArray andService:serviceName andServiceType:type];
     } failureBlock:^(NSError *err) {
         stackItem = [[LLModuleCallStackItem alloc] initWithModuleCallChain:nil andService:err.localizedDescription andServiceType:LLModuleTreeServiceTypeNone];
     }];
@@ -141,38 +168,19 @@
     [self.stack pushObj:stackItem];
 }
 
-- (void)popWithPage:(NSString *)page withPopType:(LLModuleTreePopType)type {
+- (void)popToController:(NSString *)controller
+            serviceName:(NSString *)serviceName
+                popType:(LLModuleTreeServiceType)type {
     __block LLModuleCallStackItem *stackItem = nil;
-    [LLModuleTree popWithPage:page successBlock:^(id result) {
+    [LLModuleTree popToController:controller successBlock:^(id result) {
         NSArray *callChainArray = (NSArray *)result;
-        stackItem = [[LLModuleCallStackItem alloc] initWithModuleCallChain:callChainArray andService:[self formatToString:type] andServiceType:LLModuleTreeServiceTypeForeground];
+        stackItem = [[LLModuleCallStackItem alloc] initWithModuleCallChain:callChainArray andService:serviceName andServiceType:type];
     } failureBlock:^(NSError *err) {
         stackItem = [[LLModuleCallStackItem alloc] initWithModuleCallChain:nil andService:err.localizedDescription andServiceType:LLModuleTreeServiceTypeNone];
     }];
     
     NSLog(@"%@", stackItem);
     [self.stack pushObj:stackItem];
-}
-
-#pragma mark - Private Method
-
-- (NSString *)formatToString:(LLModuleTreePopType)popType {
-    NSString *result = nil;
-    
-    switch (popType) {
-        case LLModuleTreePopTypePop:
-            result = @"pop";
-            break;
-        case LLModuleTreePopTypeDismiss:
-            result = @"dismiss";
-            break;
-        default:
-            result = @"None";
-            break;
-    }
-    
-    return result;
 }
 
 @end
-

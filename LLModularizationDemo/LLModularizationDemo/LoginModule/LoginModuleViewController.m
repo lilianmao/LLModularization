@@ -12,7 +12,7 @@
 
 - (instancetype)init {
     if (self = [super init]) {
-        _moduleTag = @"MeModule";
+        _moduleTag = @"LoginModule";
     }
     return self;
 }
