@@ -25,12 +25,13 @@
 
 - (void)LLModule_pushViewController:(UIViewController *)viewController animated:(BOOL)animated {
     UIViewController *callerVC = [LLModuleUtils topMostViewControllerWithRootViewController:self.topViewController];
-    NSString *callerVCModule = [callerVC valueForKey:LLModule_ModuleTag];
-    NSString *calleeVCModule = [viewController valueForKey:LLModule_ModuleTag];
-    if (![LLModuleUtils isNilOrEmtpyForString:callerVCModule] && ![LLModuleUtils isNilOrEmtpyForString:calleeVCModule]) {
-        [LLModuleCallStackManager appendCallStackItemWithCallerModule:callerVCModule callerController:NSStringFromClass([callerVC class]) calleeModule:calleeVCModule calleeController:NSStringFromClass([viewController class]) moduleService:@"pushViewController:animated:" serviceType:LLModuleTreeServiceTypePush];
+    if ([LLModuleUtils checkInstance:callerVC ifExistProperty:LLModule_ModuleTag] && [LLModuleUtils checkInstance:viewController ifExistProperty:LLModule_ModuleTag]) {
+        NSString *callerVCModule = [callerVC valueForKey:LLModule_ModuleTag];
+        NSString *calleeVCModule = [viewController valueForKey:LLModule_ModuleTag];
+        if (![LLModuleUtils isNilOrEmtpyForString:callerVCModule] && ![LLModuleUtils isNilOrEmtpyForString:calleeVCModule]) {
+            [LLModuleCallStackManager appendCallStackItemWithCallerModule:callerVCModule callerController:NSStringFromClass([callerVC class]) calleeModule:calleeVCModule calleeController:NSStringFromClass([viewController class]) moduleService:@"pushViewController:animated:" serviceType:LLModuleTreeServiceTypePush];
+        }
     }
-    
     [self LLModule_pushViewController:viewController animated:animated];
 }
 

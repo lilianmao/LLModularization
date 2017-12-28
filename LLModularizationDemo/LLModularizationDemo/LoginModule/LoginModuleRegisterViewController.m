@@ -47,8 +47,10 @@
 #pragma mark - Action
 
 - (void)dismissBtnAction {
-    [self dismissViewControllerAnimated:YES completion:nil];
+//    [self dismissViewControllerAnimated:YES completion:nil];
 //    [self.navigationController popToRootViewControllerAnimated:YES];
+    NSArray *viewControllers = self.navigationController.viewControllers;
+    [self.navigationController popToViewController:[viewControllers objectAtIndex:1] animated:YES];
 }
 
 @end

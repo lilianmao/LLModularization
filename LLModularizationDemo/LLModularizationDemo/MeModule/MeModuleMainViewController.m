@@ -105,12 +105,14 @@ static NSInteger rows = 4;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     // 临时测试
     [self loginBtnAction];
+//    [self accountBtnAction];
+    CFRunLoopWakeUp(CFRunLoopGetCurrent());
 }
 
 #pragma mark - Action
 
 - (void)loginBtnAction {
-    [[MeModuleConnector sharedConnector] callServiceWithURL:[self generateLoginURL] parameters:[self generateLoginParams] navigationMode:LLModuleNavigationModePresent successBlock:^(id result) {
+    [[MeModuleConnector sharedConnector] callServiceWithURL:[self generateLoginURL] parameters:[self generateLoginParams] navigationMode:LLModuleNavigationModePush successBlock:^(id result) {
         // 处理你操作其他模块返回的数据。
     } failureBlock:^(NSError *err) {
         [SVProgressHUD showErrorWithStatus:err.localizedDescription];
@@ -123,6 +125,11 @@ static NSInteger rows = 4;
     } failureBlock:^(NSError *err) {
         [SVProgressHUD showErrorWithStatus:err.localizedDescription];
     }];
+}
+
+- (NSString *)getAccountDataWithParams:(NSDictionary *)params {
+    NSLog(@"params : %@", params);
+    return @"This is Account Data.";
 }
 
 #pragma mark - Private Methods

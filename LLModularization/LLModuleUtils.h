@@ -13,4 +13,6 @@
 
 + (UIViewController *)topMostViewControllerWithRootViewController:(UIViewController *)rootViewController;
 
++ (BOOL)checkInstance:(id)instance ifExistProperty:(NSString *)propertyName;
+
 @end

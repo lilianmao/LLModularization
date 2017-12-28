@@ -104,20 +104,15 @@
     }
     
     id result = [self safePerformAction:service target:instance params:params];
-    if (result != nil) {
-        if ([result isKindOfClass:[UIViewController class]]) {
-            UIViewController *showingVC = (UIViewController *)result;
-            [LLModuleNavigator showController:showingVC withNavigationMode:mode];
-        } else {
-            // 输出链路
-            [LLModuleCallStackManager appendCallStackItemWithCallerModule:connector callerController:nil calleeModule:instanceName calleeController:nil moduleService:serviceName serviceType:LLModuleTreeServiceTypeBackground];
-        }
-        
-        success(result);
+    if ([result isKindOfClass:[UIViewController class]]) {
+        UIViewController *showingVC = (UIViewController *)result;
+        [LLModuleNavigator showController:showingVC withNavigationMode:mode];
     } else {
-        NSError *err = [[NSError alloc] initWithDomain:NSStringFromClass([self class]) code:-1 userInfo:@{NSLocalizedDescriptionKey:@"Instance execute selector failured."}];
-        failure(err);
+        // 输出链路
+        [LLModuleCallStackManager appendCallStackItemWithCallerModule:connector callerController:nil calleeModule:instanceName calleeController:nil moduleService:serviceName serviceType:LLModuleTreeServiceTypeBackground];
     }
+    
+    success(result);
 }
 
 #pragma mark - unregister

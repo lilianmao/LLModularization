@@ -62,7 +62,7 @@
 + (NSString *)getMeModuleAccountWithParams:(NSDictionary *)params {
     MeModuleMainViewController *meAccountVC = [[MeModuleMainViewController alloc] init];
     
-    return nil;
+    return [meAccountVC getAccountDataWithParams:params];;
 }
 
 @end

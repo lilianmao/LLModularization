@@ -6,6 +6,7 @@
 //
 
 #import "LLModuleUtils.h"
+#import <objc/runtime.h>
 
 @interface LLModuleUtils()
 
@@ -33,6 +34,15 @@
     } else {
         return rootViewController;
     }
+}
+
++ (BOOL)checkInstance:(id)instance ifExistProperty:(NSString *)propertyName {
+    const char *property = [propertyName cStringUsingEncoding:NSUTF8StringEncoding];
+    Ivar ivar = class_getInstanceVariable([instance class], property);
+    if (!ivar) {
+        return YES;
+    }
+    return NO;
 }
 
 @end

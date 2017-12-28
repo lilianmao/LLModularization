@@ -21,16 +21,16 @@
     method_exchangeImplementations(class_getInstanceMethod([self class], @selector(dismissViewControllerAnimated:completion:)), class_getInstanceMethod([self class], @selector(LLModule_dismissViewControllerAnimated:completion:)));
 }
 
+// TODO: valueForKey如果取不到值会crash，试一试Ivar。怎么在这里卡很久？？？
 - (void)LLModule_presentViewController:(UIViewController *)viewControllerToPresent animated:(BOOL)flag completion:(void (^ __nullable)(void))completion NS_AVAILABLE_IOS(5_0) {
-    UIViewController *callerVC = [LLModuleUtils topMostViewControllerWithRootViewController:self];
-    UIViewController *calleeVC = [LLModuleUtils topMostViewControllerWithRootViewController:viewControllerToPresent];
-    if ([LLModuleUtils checkInstance:callerVC ifExistProperty:LLModule_ModuleTag] && [LLModuleUtils checkInstance:calleeVC ifExistProperty:LLModule_ModuleTag]) {
-        NSString *callerVCModule = [callerVC valueForKey:LLModule_ModuleTag];
-        NSString *calleeVCModule = [calleeVC valueForKey:LLModule_ModuleTag];
-        if (![LLModuleUtils isNilOrEmtpyForString:callerVCModule] && ![LLModuleUtils isNilOrEmtpyForString:calleeVCModule]) {
-            [LLModuleCallStackManager appendCallStackItemWithCallerModule:callerVCModule callerController:NSStringFromClass([callerVC class]) calleeModule:calleeVCModule calleeController:NSStringFromClass([calleeVC class]) moduleService:@"presentViewController:animated:completion:" serviceType:LLModuleTreeServiceTypePresent];
-        }
-    }
+//    UIViewController *callerVC = [LLModuleUtils topMostViewControllerWithRootViewController:self];
+//    NSString *callerVCModule = [callerVC valueForKey:LLModule_ModuleTag];
+//    UIViewController *calleeVC = [LLModuleUtils topMostViewControllerWithRootViewController:viewControllerToPresent];
+//    NSString *calleeVCModule = [calleeVC valueForKey:LLModule_ModuleTag];
+//    if (![LLModuleUtils isNilOrEmtpyForString:callerVCModule] && ![LLModuleUtils isNilOrEmtpyForString:calleeVCModule]) {
+//        [LLModuleCallStackManager appendCallStackItemWithCallerModule:callerVCModule callerController:NSStringFromClass([callerVC class]) calleeModule:calleeVCModule calleeController:NSStringFromClass([calleeVC class]) moduleService:@"presentViewController:animated:completion:" serviceType:LLModuleTreeServiceTypePresent];
+//    }
+    NSLog(@"%@", [NSThread currentThread]);
     [self LLModule_presentViewController:viewControllerToPresent animated:flag completion:completion];
 }
 

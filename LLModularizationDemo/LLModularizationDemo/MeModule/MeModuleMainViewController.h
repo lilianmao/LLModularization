@@ -19,4 +19,6 @@
 
 @interface MeModuleMainViewController : MeModuleViewController
 
+- (NSString *)getAccountDataWithParams:(NSDictionary *)params;
+
 @end

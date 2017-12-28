@@ -131,9 +131,9 @@
     LLModuleTree *tree = [LLModuleTree sharedTree];
     LLModuleTreeNode *previousNode = [tree popStackWithControllers:controllers];
     if (previousNode) {
-        NSArray<LLModuleTreeNode *> *callChain = [tree.stack getAllObjects];
-        if (callChain.count > 0) {
-            success([tree formatTreeNodesChain:callChain]);
+        NSArray<LLModuleTreeNode *> *chain = [tree.stack getAllObjects];
+        if (chain.count > 0) {
+            success([tree formatTreeNodesChain:chain]);
         }
     } else {
         NSError *err = [[NSError alloc] initWithDomain:NSStringFromClass([self class]) code:-1 userInfo:@{NSLocalizedDescriptionKey:@"Invalid operation."}];
@@ -154,9 +154,9 @@
     LLModuleTree *tree = [LLModuleTree sharedTree];
     LLModuleTreeNode *previousNode = [tree popStackToController:controller];
     if (previousNode) {
-        NSArray<LLModuleTreeNode *> *callChain = [tree.stack getAllObjects];
-        if (callChain.count > 0) {
-            success([tree formatTreeNodesChain:callChain]);
+        NSArray<LLModuleTreeNode *> *chain = [tree.stack getAllObjects];
+        if (chain.count > 0) {
+            success([tree formatTreeNodesChain:chain]);
         }
     } else {
         NSError *err = [[NSError alloc] initWithDomain:NSStringFromClass([self class]) code:-1 userInfo:@{NSLocalizedDescriptionKey:@"Invalid operation."}];
@@ -172,7 +172,7 @@
     if (!_root) {
         self.incrementSeqNumber = 0;    // 根节点序号初始化为0
         _root = [[LLModuleTreeNode alloc] initTreeNodeWithModuleName:rootStr andControllerName:viewControllerName andSequenceNumber:self.incrementSeqNumber++];
-        [self.stack pushObj:_root];     // 存在争议
+        [self.stack pushObj:_root];     //TODO: 是否要压入root，存在争议。
     }
 }
 
