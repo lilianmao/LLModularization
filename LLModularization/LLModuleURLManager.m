@@ -12,7 +12,7 @@
 
 @interface LLModuleURLManager()
 
-
+@property (nonatomic, copy) NSArray *urlPatterns;
 
 @end
 
@@ -31,6 +31,13 @@
     return sharedManager;
 }
 
+- (NSArray *)urlPatterns {
+    if (!_urlPatterns) {
+        _urlPatterns = @[];
+    }
+    return _urlPatterns;
+}
+
 #pragma mark - register & open
 
 - (BOOL)registerServiceWithServiceName:(NSString *)serviceName
@@ -39,6 +46,10 @@
     if ([LLModuleUtils isNilOrEmtpyForString:urlPattern] || [LLModuleUtils isNilOrEmtpyForString:serviceName]) {
         return NO;
     }
+    
+    NSMutableArray *urls = [self.urlPatterns mutableCopy];
+    [urls addObject:urlPattern];
+    self.urlPatterns = urls;
     
     [LLModuleURLRoutes registerURLPattern:urlPattern toService:serviceName];
     
@@ -64,6 +75,13 @@
         NSError *err = [[NSError alloc] initWithDomain:NSStringFromClass([self class]) code:-1 userInfo:@{NSLocalizedDescriptionKey:@"URL open service failured."}];
         failure(err);
     }
+}
+
+- (BOOL)checkIfRegisterURLPattern:(NSString *)urlPattern {
+    if ([_urlPatterns indexOfObject:urlPattern]) {
+        return YES;
+    }
+    return NO;
 }
 
 @end

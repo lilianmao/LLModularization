@@ -32,4 +32,9 @@
                           successBlock:(LLBasicSuccessBlock_t)success
                           failureBlock:(LLBasicFailureBlock_t)failure;
 
+/**
+ 检查是否已经注册了该URL(服务)
+ */
+- (BOOL)checkIfRegisterURLPattern:(NSString *)urlPattern;
+
 @end

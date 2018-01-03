@@ -10,6 +10,7 @@
 #import <objc/runtime.h>
 #import "LLModuleNavigator.h"
 #import "LLModuleCallStackManager.h"
+#import "LLModuleURLManager.h"
 
 @interface LLModuleProtocolManager()
 
@@ -102,6 +103,21 @@
         failure(err);
         return ;
     }
+    if (![instance respondsToSelector:@selector(relyService)]) {
+        NSString *errMsg = @"Instance doesn't respondTo relyService";
+        NSError *err = [[NSError alloc] initWithDomain:NSStringFromClass([self class]) code:-1 userInfo:@{NSLocalizedDescriptionKey:errMsg}];
+        failure(err);
+        return ;
+    } else {
+        id<LLModuleProtocol> ins = (id<LLModuleProtocol>)instance;
+        NSArray *relyServices = [ins relyService];
+        if (![self checkRelyServices:relyServices]) {
+            NSString *errMsg = @"Instance rely on service doesn't register.";
+            NSError *err = [[NSError alloc] initWithDomain:NSStringFromClass([self class]) code:-1 userInfo:@{NSLocalizedDescriptionKey:errMsg}];
+            failure(err);
+            return ;
+        }
+    }
     
     id result = [self safePerformAction:service target:instance params:params];
     if ([result isKindOfClass:[UIViewController class]]) {
@@ -125,6 +141,17 @@
         return YES;
     }
     return NO;
+}
+
+- (BOOL)checkRelyServices:(NSArray *)services {
+    __block BOOL flag = YES;
+    [services enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (![[LLModuleURLManager sharedManager] checkIfRegisterURLPattern:obj]) {
+            flag = NO;
+            *stop = YES;
+        }
+    }];
+    return flag;
 }
 
 - (NSString *)getInstanceWithService:(NSString *)serviceName {

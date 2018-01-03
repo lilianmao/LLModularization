@@ -53,6 +53,11 @@
     
 }
 
++ (NSArray *)relyService {
+//    return @[@"ll://login/:query.html"];
+    return @[];
+}
+
 #pragma mark - LoginModuleProtocol
 
 + (UIViewController *)openLoginModuleWithParams:(NSDictionary *)params {

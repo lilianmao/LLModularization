@@ -31,6 +31,11 @@
               successBlock:(LLBasicSuccessBlock_t)success
               failureBlock:(LLBasicFailureBlock_t)failure;
 
-// TODO: 为每个module加上module的依赖(需求)服务，由中心化的解决方案来check一下。
+/**
+ 每个模块所需要(依赖)的服务，由LLModularization来check，如果没有相关服务注册，则报错无法打开。
+
+ @return 该模块依赖的服务
+ */
++ (NSArray *)relyService;
 
 @end
