@@ -28,8 +28,11 @@
 
 @property (nonatomic, strong, readonly) LLModuleTreeNode *root;
 
-// TODO: 优化tree的算法，Service是否可以和
+// TODO: 用两种类型的节点
 
+/**
+ 向树中添加一个节点
+ */
 + (void)appendCallerModule:(NSString *)callerModule
           callerController:(NSString *)callerController
               calleeModule:(NSString *)calleeModule
