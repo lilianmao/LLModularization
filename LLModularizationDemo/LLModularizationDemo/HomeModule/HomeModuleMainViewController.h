@@ -6,8 +6,8 @@
 //  Copyright © 2017 lee. All rights reserved.
 //
 
-#import "HomeModuleViewController.h"
+#import <UIKit/UIKit.h>
 
-@interface HomeModuleMainViewController : HomeModuleViewController
+@interface HomeModuleMainViewController : UIViewController
 
 @end

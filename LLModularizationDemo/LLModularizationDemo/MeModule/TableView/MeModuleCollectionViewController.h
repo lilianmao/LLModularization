@@ -6,8 +6,8 @@
 //  Copyright © 2017 lee. All rights reserved.
 //
 
-#import "MeModuleViewController.h"
+#import <UIKit/UIKit.h>
 
-@interface MeModuleCollectionViewController : MeModuleViewController
+@interface MeModuleCollectionViewController : UIViewController
 
 @end

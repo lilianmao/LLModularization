@@ -6,9 +6,9 @@
 //  Copyright © 2017 lee. All rights reserved.
 //
 
-#import "LoginModuleViewController.h"
+#import <UIKit/UIKit.h>
 
-@interface LoginModuleMainViewController : LoginModuleViewController
+@interface LoginModuleMainViewController : UIViewController
 
 - (void)updateWithUserName:(NSString *)username
                   password:(NSString *)password;

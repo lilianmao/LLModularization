@@ -8,19 +8,26 @@
 #import <Foundation/Foundation.h>
 #import "LLModuleConst.h"
 
+typedef NS_ENUM(NSInteger, LLModuleTreeNodeType) {
+    LLModuleTreeNodeTypeForeground = 0,         // 前端页面节点
+    LLModuleTreeNodeTypeBackground = 1          // 后台服务节点
+};
+
 /**
  树的节点
  */
 @interface LLModuleTreeNode : NSObject
 
 @property (nonatomic, strong) NSArray<LLModuleTreeNode *> *childs;
+@property (nonatomic, assign) LLModuleTreeNodeType nodeType;
 @property (nonatomic, copy) NSString *moduleName;
 @property (nonatomic, copy) NSString *controllerName;
 @property (nonatomic, assign) int sequenceNumber;
 
-- (instancetype)initTreeNodeWithModuleName:(NSString *)moduleName
-                         andControllerName:(NSString *)controllerName
-                         andSequenceNumber:(int)sequenceNumber;
+- (instancetype)initTreeNodeWithNodeType:(LLModuleTreeNodeType)nodeType
+                              moduleName:(NSString *)moduleName
+                          controllerName:(NSString *)controllerName
+                          sequenceNumber:(int)sequenceNumber;
 
 @end
 
@@ -28,15 +35,16 @@
 
 @property (nonatomic, strong, readonly) LLModuleTreeNode *root;
 
-// TODO: 用两种类型的节点
+// TODO: 情况复杂，需要完整测试
 
 /**
- 向树中添加一个节点
+ 向树中添加一个页面节点
  */
 + (void)appendCallerModule:(NSString *)callerModule
           callerController:(NSString *)callerController
               calleeModule:(NSString *)calleeModule
           calleeController:(NSString *)calleeController
+                  callType:(LLModuleTreeNodeType)type
               successBlock:(LLBasicSuccessBlock_t)success
               failureBlock:(LLBasicFailureBlock_t)failure;
 

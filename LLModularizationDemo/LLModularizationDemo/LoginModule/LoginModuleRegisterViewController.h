@@ -6,8 +6,8 @@
 //  Copyright © 2017 lee. All rights reserved.
 //
 
-#import "LoginModuleViewController.h"
+#import <UIKit/UIKit.h>
 
-@interface LoginModuleRegisterViewController : LoginModuleViewController
+@interface LoginModuleRegisterViewController : UIViewController
 
 @end

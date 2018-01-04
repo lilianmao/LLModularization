@@ -16,7 +16,7 @@
 
 - (instancetype)initWithModuleCallChain:(NSArray *)callChain
                              andService:(NSString *)service
-                         andServiceType:(LLModuleTreeServiceType)serviceType {
+                         andServiceType:(LLModuleServiceType)serviceType {
     if (self = [super init]) {
         _moduleCallChain = callChain;
         _service = service;
@@ -30,23 +30,23 @@
     return [NSString stringWithFormat:@"<callChain = %@, service = %@, serviceType = %@>", callChainStr, _service, [self formatToString:_serviceType]];
 }
 
-- (NSString *)formatToString:(LLModuleTreeServiceType)type {
+- (NSString *)formatToString:(LLModuleServiceType)type {
     NSString *result = nil;
     
     switch (type) {
-        case LLModuleTreeServiceTypePush:
+        case LLModuleServiceTypePush:
             result = @"Push";
             break;
-        case LLModuleTreeServiceTypePresent:
+        case LLModuleServiceTypePresent:
             result = @"Present";
             break;
-        case LLModuleTreeServiceTypePop:
+        case LLModuleServiceTypePop:
             result = @"Pop";
             break;
-        case LLModuleTreeServiceTypeDismiss:
+        case LLModuleServiceTypeDismiss:
             result = @"Dismiss";
             break;
-        case LLModuleTreeServiceTypeBackground:
+        case LLModuleServiceTypeBackground:
             result = @"Background";
             break;
         default:
@@ -100,19 +100,19 @@
                                calleeModule:(NSString *)calleeModule
                            calleeController:(NSString *)calleeController
                               moduleService:(NSString *)service
-                                serviceType:(LLModuleTreeServiceType)type {
+                                serviceType:(LLModuleServiceType)type {
     [[LLModuleCallStackManager sharedManager] appendCallStackItemWithCallerModule:callerModule callerController:callerController calleeModule:calleeModule calleeController:calleeController moduleService:service serviceType:type];
 }
 
 + (void)popWithControllers:(NSArray<NSString *> *)controllers
                serviceName:(NSString *)serviceName
-                   popType:(LLModuleTreeServiceType)type {
+                   popType:(LLModuleServiceType)type {
     [[LLModuleCallStackManager sharedManager] popWithControllers:controllers serviceName:serviceName popType:type];
 }
 
 + (void)popToController:(NSString *)controller
             serviceName:(NSString *)serviceName
-                popType:(LLModuleTreeServiceType)type {
+                popType:(LLModuleServiceType)type {
     [[LLModuleCallStackManager sharedManager] popToController:controller serviceName:serviceName popType:type];
 }
 
@@ -127,7 +127,7 @@
                                calleeModule:(NSString *)calleeModule
                            calleeController:(NSString *)calleeController
                               moduleService:(NSString *)service
-                                serviceType:(LLModuleTreeServiceType)type {
+                                serviceType:(LLModuleServiceType)type {
     if ([LLModuleUtils isNilOrEmtpyForString:callerModule]) {
         NSLog(@"Append Failured. Caller is nil.");
         return ;
@@ -142,11 +142,12 @@
     }
     
     __block LLModuleCallStackItem *stackItem = nil;
-    [LLModuleTree appendCallerModule:callerModule callerController:callerController calleeModule:calleeModule calleeController:calleeController successBlock:^(id result) {
+    LLModuleTreeNodeType nodeType = (type==LLModuleServiceTypeBackground) ? LLModuleTreeNodeTypeBackground : LLModuleTreeNodeTypeForeground;
+    [LLModuleTree appendCallerModule:callerModule callerController:callerController calleeModule:calleeModule calleeController:calleeController callType:nodeType successBlock:^(id result) {
         NSArray *callChainArray = result;
         stackItem = [[LLModuleCallStackItem alloc] initWithModuleCallChain:callChainArray andService:service andServiceType:type];
     } failureBlock:^(NSError *err) {
-        stackItem = [[LLModuleCallStackItem alloc] initWithModuleCallChain:nil andService:err.localizedDescription andServiceType:LLModuleTreeServiceTypeNone];
+        stackItem = [[LLModuleCallStackItem alloc] initWithModuleCallChain:nil andService:err.localizedDescription andServiceType:LLModuleServiceTypeNone];
     }];
     
     NSLog(@"%@", stackItem);
@@ -155,13 +156,13 @@
 
 - (void)popWithControllers:(NSArray<NSString *> *)controllers
                serviceName:(NSString *)serviceName
-                   popType:(LLModuleTreeServiceType)type {
+                   popType:(LLModuleServiceType)type {
     __block LLModuleCallStackItem *stackItem = nil;
     [LLModuleTree popWithController:controllers successBlock:^(id result) {
         NSArray *callChainArray = (NSArray *)result;
         stackItem = [[LLModuleCallStackItem alloc] initWithModuleCallChain:callChainArray andService:serviceName andServiceType:type];
     } failureBlock:^(NSError *err) {
-        stackItem = [[LLModuleCallStackItem alloc] initWithModuleCallChain:nil andService:err.localizedDescription andServiceType:LLModuleTreeServiceTypeNone];
+        stackItem = [[LLModuleCallStackItem alloc] initWithModuleCallChain:nil andService:err.localizedDescription andServiceType:LLModuleServiceTypeNone];
     }];
     
     NSLog(@"%@", stackItem);
@@ -170,13 +171,13 @@
 
 - (void)popToController:(NSString *)controller
             serviceName:(NSString *)serviceName
-                popType:(LLModuleTreeServiceType)type {
+                popType:(LLModuleServiceType)type {
     __block LLModuleCallStackItem *stackItem = nil;
     [LLModuleTree popToController:controller successBlock:^(id result) {
         NSArray *callChainArray = (NSArray *)result;
         stackItem = [[LLModuleCallStackItem alloc] initWithModuleCallChain:callChainArray andService:serviceName andServiceType:type];
     } failureBlock:^(NSError *err) {
-        stackItem = [[LLModuleCallStackItem alloc] initWithModuleCallChain:nil andService:err.localizedDescription andServiceType:LLModuleTreeServiceTypeNone];
+        stackItem = [[LLModuleCallStackItem alloc] initWithModuleCallChain:nil andService:err.localizedDescription andServiceType:LLModuleServiceTypeNone];
     }];
     
     NSLog(@"%@", stackItem);

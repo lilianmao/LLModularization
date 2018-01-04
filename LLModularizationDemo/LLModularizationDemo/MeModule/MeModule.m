@@ -1,32 +1,32 @@
 //
-//  MeModuleConnector.m
+//  MeModule.m
 //  LLModularizationDemo
 //
-//  Created by 李林 on 2017/12/9.
-//  Copyright © 2017年 lee. All rights reserved.
+//  Created by 李林 on 1/4/18.
+//  Copyright © 2018 lee. All rights reserved.
 //
 
-#import "MeModuleConnector.h"
+#import "MeModule.h"
 #import "LLUtils.h"
 #import "MeModuleMainViewController.h"
 
-@interface MeModuleConnector()
+@interface MeModule()
 
 @end
 
-@implementation MeModuleConnector
+@implementation MeModule
 
 #pragma mark - sharedConnector
 
-+ (instancetype)sharedConnector {
++ (instancetype)sharedModule {
     static dispatch_once_t onceToken;
-    static MeModuleConnector *sharedConnector = nil;
+    static MeModule *sharedModule = nil;
     
     dispatch_once(&onceToken, ^{
-        sharedConnector = [[MeModuleConnector alloc] init];
+        sharedModule = [[MeModule alloc] init];
     });
     
-    return sharedConnector;
+    return sharedModule;
 }
 
 #pragma mark - register

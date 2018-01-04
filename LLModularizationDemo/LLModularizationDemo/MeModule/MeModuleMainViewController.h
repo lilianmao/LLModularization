@@ -6,7 +6,7 @@
 //  Copyright © 2017 lee. All rights reserved.
 //
 
-#import "MeModuleViewController.h"
+#import <UIKit/UIKit.h>
 
 @interface MeModuleMainModel : NSObject
 
@@ -17,7 +17,7 @@
 
 @end
 
-@interface MeModuleMainViewController : MeModuleViewController
+@interface MeModuleMainViewController : UIViewController
 
 - (NSString *)getAccountDataWithParams:(NSDictionary *)params;
 

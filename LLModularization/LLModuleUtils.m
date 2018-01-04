@@ -45,4 +45,12 @@
     return NO;
 }
 
++ (NSString *)getModuleNameWithStr:(NSString *)str {
+    NSRange range = [str rangeOfString:@"Module"];
+    if (range.length > 0) {
+        return [str substringWithRange:NSMakeRange(0, range.location+range.length)];
+    }
+    return nil;
+}
+
 @end

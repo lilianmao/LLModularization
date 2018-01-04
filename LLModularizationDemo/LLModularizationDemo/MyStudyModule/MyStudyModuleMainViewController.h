@@ -6,8 +6,8 @@
 //  Copyright © 2017 lee. All rights reserved.
 //
 
-#import "MyStudyModuleViewController.h"
+#import <UIKit/UIKit.h>
 
-@interface MyStudyModuleMainViewController : MyStudyModuleViewController
+@interface MyStudyModuleMainViewController : UIViewController
 
 @end

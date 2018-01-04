@@ -125,7 +125,7 @@
         [LLModuleNavigator showController:showingVC withNavigationMode:mode];
     } else {
         // 输出链路
-        [LLModuleCallStackManager appendCallStackItemWithCallerModule:connector callerController:nil calleeModule:instanceName calleeController:nil moduleService:serviceName serviceType:LLModuleTreeServiceTypeBackground];
+        [LLModuleCallStackManager appendCallStackItemWithCallerModule:connector callerController:nil calleeModule:instanceName calleeController:nil moduleService:serviceName serviceType:LLModuleServiceTypeBackground];
     }
     
     success(result);

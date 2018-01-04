@@ -13,7 +13,7 @@
 #import <SVProgressHUD/SVProgressHUD.h>
 #import "LLMacro.h"
 
-#import "MeModuleConnector.h"
+#import "MeModule.h"
 
 static NSInteger rows = 4;
 
@@ -104,15 +104,18 @@ static NSInteger rows = 4;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     // 临时测试
-    [self loginBtnAction];
-//    [self accountBtnAction];
+    if (indexPath.section == 0) {
+        [self loginBtnAction];
+    } else {
+        [self accountBtnAction];
+    }
     CFRunLoopWakeUp(CFRunLoopGetCurrent());
 }
 
 #pragma mark - Action
 
 - (void)loginBtnAction {
-    [[MeModuleConnector sharedConnector] callServiceWithURL:[self generateLoginURL] parameters:[self generateLoginParams] navigationMode:LLModuleNavigationModePush successBlock:^(id result) {
+    [[MeModule sharedModule] callServiceWithURL:[self generateLoginURL] parameters:[self generateLoginParams] navigationMode:LLModuleNavigationModePresent successBlock:^(id result) {
         // 处理你操作其他模块返回的数据。
     } failureBlock:^(NSError *err) {
         [SVProgressHUD showErrorWithStatus:err.localizedDescription];
@@ -120,7 +123,7 @@ static NSInteger rows = 4;
 }
 
 - (void)accountBtnAction {
-    [[MeModuleConnector sharedConnector] callServiceWithURL:@"ll://getAccount" parameters:nil navigationMode:LLModuleNavigationModeNone successBlock:^(id result) {
+    [[MeModule sharedModule] callServiceWithURL:@"ll://getAccount" parameters:nil navigationMode:LLModuleNavigationModeNone successBlock:^(id result) {
         [SVProgressHUD showSuccessWithStatus:(NSString *)result];
     } failureBlock:^(NSError *err) {
         [SVProgressHUD showErrorWithStatus:err.localizedDescription];

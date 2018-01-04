@@ -25,31 +25,29 @@
 
 - (void)LLModule_pushViewController:(UIViewController *)viewController animated:(BOOL)animated {
     UIViewController *callerVC = [LLModuleUtils topMostViewControllerWithRootViewController:self.topViewController];
-    if ([LLModuleUtils checkInstance:callerVC ifExistProperty:LLModule_ModuleTag] && [LLModuleUtils checkInstance:viewController ifExistProperty:LLModule_ModuleTag]) {
-        NSString *callerVCModule = [callerVC valueForKey:LLModule_ModuleTag];
-        NSString *calleeVCModule = [viewController valueForKey:LLModule_ModuleTag];
-        if (![LLModuleUtils isNilOrEmtpyForString:callerVCModule] && ![LLModuleUtils isNilOrEmtpyForString:calleeVCModule]) {
-            [LLModuleCallStackManager appendCallStackItemWithCallerModule:callerVCModule callerController:NSStringFromClass([callerVC class]) calleeModule:calleeVCModule calleeController:NSStringFromClass([viewController class]) moduleService:@"pushViewController:animated:" serviceType:LLModuleTreeServiceTypePush];
-        }
+    NSString *callerVCModule = [LLModuleUtils getModuleNameWithStr:NSStringFromClass([callerVC class])];
+    NSString *calleeVCModule = [LLModuleUtils getModuleNameWithStr:NSStringFromClass([viewController class])];
+    if (![LLModuleUtils isNilOrEmtpyForString:callerVCModule] && ![LLModuleUtils isNilOrEmtpyForString:calleeVCModule]) {
+        [LLModuleCallStackManager appendCallStackItemWithCallerModule:callerVCModule callerController:NSStringFromClass([callerVC class]) calleeModule:calleeVCModule calleeController:NSStringFromClass([viewController class]) moduleService:@"pushViewController:animated:" serviceType:LLModuleServiceTypePush];
     }
     [self LLModule_pushViewController:viewController animated:animated];
 }
 
 - (nullable UIViewController *)LLModule_popViewControllerAnimated:(BOOL)animated {
     UIViewController *returnVC = [self LLModule_popViewControllerAnimated:animated];
-    [LLModuleCallStackManager popWithControllers:@[NSStringFromClass([returnVC class])] serviceName:@"popViewControllerAnimated:" popType:LLModuleTreeServiceTypePop];
+    [LLModuleCallStackManager popWithControllers:@[NSStringFromClass([returnVC class])] serviceName:@"popViewControllerAnimated:" popType:LLModuleServiceTypePop];
     return returnVC;
 }
 
 - (nullable NSArray<__kindof UIViewController *> *)LLModule_popToViewController:(UIViewController *)viewController animated:(BOOL)animated {
     NSArray<UIViewController *> *viewControllers = [self LLModule_popToViewController:viewController animated:animated];
-    [LLModuleCallStackManager popWithControllers:[self formatViewControllers:viewControllers] serviceName:@"popToViewController:animated:" popType:LLModuleTreeServiceTypePop];
+    [LLModuleCallStackManager popWithControllers:[self formatViewControllers:viewControllers] serviceName:@"popToViewController:animated:" popType:LLModuleServiceTypePop];
     return viewControllers;
 }
 
 - (nullable NSArray<__kindof UIViewController *> *)LLModule_popToRootViewControllerAnimated:(BOOL)animated {
     NSArray<UIViewController *> *viewControllers = [self LLModule_popToRootViewControllerAnimated:animated];
-    [LLModuleCallStackManager popWithControllers:[self formatViewControllers:viewControllers] serviceName:@"popToRootViewControllerAnimated:" popType:LLModuleTreeServiceTypePop];
+    [LLModuleCallStackManager popWithControllers:[self formatViewControllers:viewControllers] serviceName:@"popToRootViewControllerAnimated:" popType:LLModuleServiceTypePop];
     return viewControllers;
 }
 

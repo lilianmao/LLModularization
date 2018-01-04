@@ -15,4 +15,6 @@
 
 + (BOOL)checkInstance:(id)instance ifExistProperty:(NSString *)propertyName;
 
++ (NSString *)getModuleNameWithStr:(NSString *)str;
+
 @end

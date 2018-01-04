@@ -13,10 +13,12 @@
 
 @implementation LLModuleTreeNode
 
-- (instancetype)initTreeNodeWithModuleName:(NSString *)moduleName
-                         andControllerName:(NSString *)controllerName
-                         andSequenceNumber:(int)sequenceNumber {
+- (instancetype)initTreeNodeWithNodeType:(LLModuleTreeNodeType)nodeType
+                              moduleName:(NSString *)moduleName
+                          controllerName:(NSString *)controllerName
+                          sequenceNumber:(int)sequenceNumber {
     if (self = [super init]) {
+        _nodeType = nodeType;
         _moduleName = moduleName;
         _controllerName = controllerName;
         _sequenceNumber = sequenceNumber;
@@ -70,6 +72,7 @@
           callerController:(NSString *)callerController
               calleeModule:(NSString *)calleeModule
           calleeController:(NSString *)calleeController
+                  callType:(LLModuleTreeNodeType)type
               successBlock:(LLBasicSuccessBlock_t)success
               failureBlock:(LLBasicFailureBlock_t)failure {
     if ([LLModuleUtils isNilOrEmtpyForString:callerModule]) {
@@ -83,27 +86,77 @@
     
     // 初始化
     LLModuleTree *tree = [LLModuleTree sharedTree];
-    tree.findNode = nil;
+    tree.findNode = nil;    // TODO: sequenceNum的初始化存在问题
     [tree.tempChain removeAllObjects];
     tree.callChain = @[];
     if (!tree.root) {
-        [tree initTreeWithRootStr:callerModule andViewControllerName:callerController];
+        [tree initTreeWithRootStr:callerModule viewControllerName:callerController nodeType:type];
         tree.tempChain = @[].mutableCopy;
     }
     
-    [tree findNodeInHighestSequenceNumberWithTreeNode:tree.root moduleName:callerModule controllerName:callerController];
-    if (tree.findNode) {
-        // 初始化一个被调用者节点，加载调用者的childs数组中。
-        LLModuleTreeNode *newNode = [[LLModuleTreeNode alloc] initTreeNodeWithModuleName:calleeModule andControllerName:calleeController andSequenceNumber:tree.incrementSeqNumber++];
-        NSMutableArray *childNodes = [tree.findNode.childs mutableCopy];
-        [childNodes addObject:newNode];
-        tree.findNode.childs = [childNodes copy];
-        [tree.stack pushObj:newNode];
+    switch (type) {
+        case LLModuleTreeNodeTypeForeground:
+            [tree appendCallerModule:callerModule callerController:callerController calleeModule:calleeModule calleeController:calleeController successBlock:success failureBlock:failure];
+            break;
+        case LLModuleTreeNodeTypeBackground:
+            [tree appendCallerModule:callerModule calleeModule:calleeModule successBlock:success failureBlock:failure];
+            break;
+        default:
+            break;
+    }
+}
+
+/**
+ page节点压入树
+ 如果find的结果是Service节点，压入两个Page节点
+ 如果find的结果是Page节点，追加一个Page节点
+ */
+- (void)appendCallerModule:(NSString *)callerModule
+          callerController:(NSString *)callerController
+              calleeModule:(NSString *)calleeModule
+          calleeController:(NSString *)calleeController
+              successBlock:(LLBasicSuccessBlock_t)success
+              failureBlock:(LLBasicFailureBlock_t)failure {
+    [self findNodeInHighestSequenceNumberWithTreeNode:self.root moduleName:callerModule controllerName:callerController];
+    if (self.findNode) {
+        LLModuleTreeNode *fatherNode = self.findNode;
+        if (self.findNode.nodeType == LLModuleTreeNodeTypeBackground) {
+            fatherNode = [self appendTreeNode:self.findNode nodeName:callerModule nodeController:callerController nodeType:LLModuleTreeNodeTypeForeground];
+            [self.stack pushObj:fatherNode];
+        }
+        LLModuleTreeNode *newNode = [self appendTreeNode:fatherNode nodeName:calleeModule nodeController:calleeController nodeType:LLModuleTreeNodeTypeForeground];
+        [self.stack pushObj:newNode];
         
         // 获取到被调用者节点的链路
-        [tree getCallChainWithRootNode:tree.root andGivenNode:newNode];
-        if (tree.callChain && tree.callChain.count > 0) {
-            success([tree formatTreeNodesChain:tree.callChain]);
+        [self getCallChainWithRootNode:self.root andGivenNode:newNode];
+        if (self.callChain && self.callChain.count > 0) {
+            success([self formatTreeNodesChain:self.callChain]);
+        } else {
+            NSError *err = [[NSError alloc] initWithDomain:NSStringFromClass([self class]) code:-1 userInfo:@{NSLocalizedDescriptionKey:@"Internal Error."}];
+            failure(err);
+        }
+    } else {
+        NSError *err = [[NSError alloc] initWithDomain:NSStringFromClass([self class]) code:-1 userInfo:@{NSLocalizedDescriptionKey:@"Internal Error."}];
+        failure(err);
+    }
+}
+
+/**
+ service节点压入树
+ 无论find的结果是Service节点还是Page节点，在下面追加一个Service节点即可
+ */
+- (void)appendCallerModule:(NSString *)callerModule
+              calleeModule:(NSString *)calleeModule
+              successBlock:(LLBasicSuccessBlock_t)success
+              failureBlock:(LLBasicFailureBlock_t)failure {
+    [self findNodeInHighestSequenceNumberWithTreeNode:self.root moduleName:callerModule controllerName:nil];
+    if (self.findNode) {
+        LLModuleTreeNode *fatherNode = self.findNode;
+        LLModuleTreeNode *newNode = [self appendTreeNode:fatherNode nodeName:calleeModule nodeController:nil nodeType:LLModuleTreeNodeTypeBackground];
+        
+        [self getCallChainWithRootNode:self.root andGivenNode:newNode];
+        if (self.callChain && self.callChain.count > 0) {
+            success([self formatTreeNodesChain:self.callChain]);
         } else {
             NSError *err = [[NSError alloc] initWithDomain:NSStringFromClass([self class]) code:-1 userInfo:@{NSLocalizedDescriptionKey:@"Internal Error."}];
             failure(err);
@@ -129,11 +182,14 @@
     }
     
     LLModuleTree *tree = [LLModuleTree sharedTree];
+    [tree.tempChain removeAllObjects];
+    tree.callChain = @[];
+    // 返回当前栈顶的节点
     LLModuleTreeNode *previousNode = [tree popStackWithControllers:controllers];
     if (previousNode) {
-        NSArray<LLModuleTreeNode *> *chain = [tree.stack getAllObjects];
-        if (chain.count > 0) {
-            success([tree formatTreeNodesChain:chain]);
+        [tree getCallChainWithRootNode:tree.root andGivenNode:previousNode];
+        if (tree.callChain && tree.callChain.count > 0) {
+            success([tree formatTreeNodesChain:tree.callChain]);
         }
     } else {
         NSError *err = [[NSError alloc] initWithDomain:NSStringFromClass([self class]) code:-1 userInfo:@{NSLocalizedDescriptionKey:@"Invalid operation."}];
@@ -152,11 +208,14 @@
     }
     
     LLModuleTree *tree = [LLModuleTree sharedTree];
+    [tree.tempChain removeAllObjects];
+    tree.callChain = @[];
+    // 返回当前栈顶的节点
     LLModuleTreeNode *previousNode = [tree popStackToController:controller];
     if (previousNode) {
-        NSArray<LLModuleTreeNode *> *chain = [tree.stack getAllObjects];
-        if (chain.count > 0) {
-            success([tree formatTreeNodesChain:chain]);
+        [tree getCallChainWithRootNode:tree.root andGivenNode:previousNode];
+        if (tree.callChain && tree.callChain.count > 0) {
+            success([tree formatTreeNodesChain:tree.callChain]);
         }
     } else {
         NSError *err = [[NSError alloc] initWithDomain:NSStringFromClass([self class]) code:-1 userInfo:@{NSLocalizedDescriptionKey:@"Invalid operation."}];
@@ -168,25 +227,31 @@
 #pragma mark - Tree Method
 
 - (void)initTreeWithRootStr:(NSString *)rootStr
-      andViewControllerName:(NSString *)viewControllerName{
+         viewControllerName:(NSString *)viewControllerName
+                   nodeType:(LLModuleTreeNodeType)nodeType{
     if (!_root) {
-        self.incrementSeqNumber = 0;    // 根节点序号初始化为0
-        _root = [[LLModuleTreeNode alloc] initTreeNodeWithModuleName:rootStr andControllerName:viewControllerName andSequenceNumber:self.incrementSeqNumber++];
-        [self.stack pushObj:_root];     //TODO: 是否要压入root，存在争议。
+        self.incrementSeqNumber = 0;        // 根节点序号初始化为0
+        _root = [[LLModuleTreeNode alloc] initTreeNodeWithNodeType:nodeType moduleName:rootStr controllerName:viewControllerName sequenceNumber:self.incrementSeqNumber++];
+        if (![LLModuleUtils isNilOrEmtpyForString:viewControllerName]) {
+            [self.stack pushObj:_root];     // Page节点push入stack
+        }
     }
 }
 
 /**
- 找到最新的与该节点同名的节点
+ 找到最新的名为module的节点
  */
 - (void)findNodeInHighestSequenceNumberWithTreeNode:(LLModuleTreeNode *)root
                                          moduleName:(NSString *)moduleName
-                                     controllerName:(NSString *)controllerName{
-    if ([root.moduleName isEqualToString:moduleName]&& root.sequenceNumber >= self.findNode.sequenceNumber) {
-        if (controllerName && ![root.controllerName isEqualToString:controllerName]) {
-            return ;
+                                     controllerName:(NSString *)controllerName {
+    if ([root.moduleName isEqualToString:moduleName] && root.sequenceNumber >= self.findNode.sequenceNumber) {
+        if (![LLModuleUtils isNilOrEmtpyForString:controllerName]) {
+            if ([root.controllerName isEqualToString:controllerName]) {
+                self.findNode = root;
+            }
+        } else {
+            self.findNode = root;
         }
-        self.findNode = root;
     }
     if (root.childs.count == 0) {
         return ;
@@ -202,7 +267,7 @@
  */
 - (void)getCallChainWithRootNode:(LLModuleTreeNode *)root
                     andGivenNode:(LLModuleTreeNode *)givenNode {
-    if ([root.controllerName isEqualToString:givenNode.controllerName] && root.sequenceNumber == givenNode.sequenceNumber) {
+    if ([root.moduleName isEqualToString:givenNode.moduleName] && root.sequenceNumber == givenNode.sequenceNumber) {
         [_tempChain addObject:root];
         _callChain = [_tempChain copy];
         return ;
@@ -238,6 +303,30 @@
         [self.stack pop];
     }
     return nil;
+}
+
+/**
+ 在给定的TreeNode上追加一个新的TreeNode
+ */
+- (LLModuleTreeNode *)appendTreeNode:(LLModuleTreeNode *)treeNode
+                            nodeName:(NSString *)moduleName
+                      nodeController:(NSString *)moduleController
+                            nodeType:(LLModuleTreeNodeType)type {
+    if (!treeNode) {
+        NSLog(@"TreeNode is nil.");
+        return nil;
+    }
+    if ([LLModuleUtils isNilOrEmtpyForString:moduleName]) {
+        NSLog(@"moduleName is nil.");
+        return nil;
+    }
+    
+    NSMutableArray *childs = [treeNode.childs mutableCopy];
+    LLModuleTreeNode *newNode = [[LLModuleTreeNode alloc] initTreeNodeWithNodeType:type moduleName:moduleName controllerName:moduleController sequenceNumber:self.incrementSeqNumber++];
+    [childs addObject:newNode];
+    treeNode.childs = [childs copy];
+    
+    return newNode;
 }
 
 - (NSArray<NSString *> *)formatTreeNodesChain:(NSArray<LLModuleTreeNode *> *)nodes {

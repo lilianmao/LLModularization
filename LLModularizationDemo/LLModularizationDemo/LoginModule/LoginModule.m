@@ -1,31 +1,31 @@
 //
-//  LoginModuleConnector.m
+//  LoginModule.m
 //  LLModularizationDemo
 //
-//  Created by 李林 on 2017/12/8.
-//  Copyright © 2017年 lee. All rights reserved.
+//  Created by 李林 on 1/4/18.
+//  Copyright © 2018 lee. All rights reserved.
 //
 
-#import "LoginModuleConnector.h"
+#import "LoginModule.h"
 #import "LoginModuleMainViewController.h"
 
-@interface LoginModuleConnector()
+@interface LoginModule()
 
 @end
 
-@implementation LoginModuleConnector
+@implementation LoginModule
 
 #pragma mark - sharedConnector
 
-+ (instancetype)sharedConnector {
++ (instancetype)sharedModule {
     static dispatch_once_t onceToken;
-    static LoginModuleConnector *sharedConnector = nil;
+    static LoginModule *sharedModule = nil;
     
     dispatch_once(&onceToken, ^{
-        sharedConnector = [[LoginModuleConnector alloc] init];
+        sharedModule = [[LoginModule alloc] init];
     });
     
-    return sharedConnector;
+    return sharedModule;
 }
 
 #pragma mark - register
@@ -54,7 +54,7 @@
 }
 
 + (NSArray *)relyService {
-//    return @[@"ll://login/:query.html"];
+    //    return @[@"ll://login/:query.html"];
     return @[];
 }
 

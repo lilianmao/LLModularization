@@ -24,12 +24,10 @@
 - (void)LLModule_presentViewController:(UIViewController *)viewControllerToPresent animated:(BOOL)flag completion:(void (^ __nullable)(void))completion NS_AVAILABLE_IOS(5_0) {
     UIViewController *callerVC = [LLModuleUtils topMostViewControllerWithRootViewController:self];
     UIViewController *calleeVC = [LLModuleUtils topMostViewControllerWithRootViewController:viewControllerToPresent];
-    if ([LLModuleUtils checkInstance:callerVC ifExistProperty:LLModule_ModuleTag] && [LLModuleUtils checkInstance:calleeVC ifExistProperty:LLModule_ModuleTag]) {
-        NSString *callerVCModule = [callerVC valueForKey:LLModule_ModuleTag];
-        NSString *calleeVCModule = [calleeVC valueForKey:LLModule_ModuleTag];
-        if (![LLModuleUtils isNilOrEmtpyForString:callerVCModule] && ![LLModuleUtils isNilOrEmtpyForString:calleeVCModule]) {
-            [LLModuleCallStackManager appendCallStackItemWithCallerModule:callerVCModule callerController:NSStringFromClass([callerVC class]) calleeModule:calleeVCModule calleeController:NSStringFromClass([calleeVC class]) moduleService:@"presentViewController:animated:completion:" serviceType:LLModuleTreeServiceTypePresent];
-        }
+    NSString *callerVCModule = [LLModuleUtils getModuleNameWithStr:NSStringFromClass([callerVC class])];
+    NSString *calleeVCModule = [LLModuleUtils getModuleNameWithStr:NSStringFromClass([calleeVC class])];
+    if (![LLModuleUtils isNilOrEmtpyForString:callerVCModule] && ![LLModuleUtils isNilOrEmtpyForString:calleeVCModule]) {
+        [LLModuleCallStackManager appendCallStackItemWithCallerModule:callerVCModule callerController:NSStringFromClass([callerVC class]) calleeModule:calleeVCModule calleeController:NSStringFromClass([calleeVC class]) moduleService:@"presentViewController:animated:completion:" serviceType:LLModuleServiceTypePresent];
     }
     [self LLModule_presentViewController:viewControllerToPresent animated:flag completion:completion];
 }
@@ -37,7 +35,7 @@
 - (void)LLModule_dismissViewControllerAnimated: (BOOL)flag completion: (void (^ __nullable)(void))completion NS_AVAILABLE_IOS(5_0) {
     NSString *topVC = NSStringFromClass([[self getPresentingViewController:self.presentingViewController] class]);
     if (topVC) {
-        [LLModuleCallStackManager popToController:topVC serviceName:@"dismissViewControllerAnimated:completion:" popType:LLModuleTreeServiceTypeDismiss];
+        [LLModuleCallStackManager popToController:topVC serviceName:@"dismissViewControllerAnimated:completion:" popType:LLModuleServiceTypeDismiss];
     }
     [self LLModule_dismissViewControllerAnimated:flag completion:completion];
 }

@@ -8,16 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		E02DC04151D04086E728523C /* Pods_LLModularizationDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2953E2ED14F7879A1F052BE5 /* Pods_LLModularizationDemo.framework */; };
+		F251AC5F1FFE032300DC0A7C /* MeModule.m in Sources */ = {isa = PBXBuildFile; fileRef = F251AC5E1FFE032300DC0A7C /* MeModule.m */; };
+		F251AC621FFE03C200DC0A7C /* LoginModule.m in Sources */ = {isa = PBXBuildFile; fileRef = F251AC611FFE03C200DC0A7C /* LoginModule.m */; };
+		F251AC661FFE0F9400DC0A7C /* MeModuleHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F251AC651FFE0F9400DC0A7C /* MeModuleHomeViewController.m */; };
+		F251ACB31FFE150600DC0A7C /* LabelModule.m in Sources */ = {isa = PBXBuildFile; fileRef = F251ACB21FFE150600DC0A7C /* LabelModule.m */; };
 		F25867FF1FDAAF6C00D7B2BF /* LLTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = F25867FE1FDAAF6C00D7B2BF /* LLTabBarController.m */; };
 		F25868021FDAAFA300D7B2BF /* LLNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = F25868011FDAAFA300D7B2BF /* LLNavigationController.m */; };
 		F25868071FDAB42B00D7B2BF /* HomeModuleConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = F25868061FDAB42B00D7B2BF /* HomeModuleConnector.m */; };
-		F258680A1FDAB43B00D7B2BF /* HomeModuleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F25868091FDAB43A00D7B2BF /* HomeModuleViewController.m */; };
 		F258680D1FDAB46000D7B2BF /* MyStudyModuleConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = F258680C1FDAB46000D7B2BF /* MyStudyModuleConnector.m */; };
-		F25868101FDAB4C500D7B2BF /* MyStudyModuleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F258680F1FDAB4C500D7B2BF /* MyStudyModuleViewController.m */; };
-		F25868191FDAB50E00D7B2BF /* LoginModuleConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = F25868181FDAB50E00D7B2BF /* LoginModuleConnector.m */; };
-		F258681C1FDAB52600D7B2BF /* LoginModuleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F258681B1FDAB52600D7B2BF /* LoginModuleViewController.m */; };
-		F258681F1FDB764C00D7B2BF /* MeModuleConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = F258681E1FDB764C00D7B2BF /* MeModuleConnector.m */; };
-		F25868221FDB766800D7B2BF /* MeModuleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F25868211FDB766800D7B2BF /* MeModuleViewController.m */; };
 		F25868291FDB812D00D7B2BF /* UIImage+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = F25868281FDB812D00D7B2BF /* UIImage+Extension.m */; };
 		F258682D1FDB878400D7B2BF /* UIColor+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = F258682C1FDB878400D7B2BF /* UIColor+Extension.m */; };
 		F263E02D1FE2A7E300BD7CBD /* LLUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = F263E02C1FE2A7E300BD7CBD /* LLUtils.m */; };
@@ -63,26 +61,24 @@
 		2953E2ED14F7879A1F052BE5 /* Pods_LLModularizationDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LLModularizationDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		612CE89439B595E5C626E5BF /* Pods-LLModularizationDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LLModularizationDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-LLModularizationDemo/Pods-LLModularizationDemo.release.xcconfig"; sourceTree = "<group>"; };
 		F246B10F1FDBD0EB0066B0CA /* MeModuleProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeModuleProtocol.h; sourceTree = "<group>"; };
+		F251AC5D1FFE032300DC0A7C /* MeModule.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeModule.h; sourceTree = "<group>"; };
+		F251AC5E1FFE032300DC0A7C /* MeModule.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MeModule.m; sourceTree = "<group>"; };
+		F251AC601FFE03C200DC0A7C /* LoginModule.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginModule.h; sourceTree = "<group>"; };
+		F251AC611FFE03C200DC0A7C /* LoginModule.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginModule.m; sourceTree = "<group>"; };
+		F251AC641FFE0F9400DC0A7C /* MeModuleHomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeModuleHomeViewController.h; sourceTree = "<group>"; };
+		F251AC651FFE0F9400DC0A7C /* MeModuleHomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MeModuleHomeViewController.m; sourceTree = "<group>"; };
+		F251AC691FFE127300DC0A7C /* DataStoreModuleProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataStoreModuleProtocol.h; sourceTree = "<group>"; };
+		F251ACB11FFE150600DC0A7C /* LabelModule.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LabelModule.h; sourceTree = "<group>"; };
+		F251ACB21FFE150600DC0A7C /* LabelModule.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LabelModule.m; sourceTree = "<group>"; };
+		F251ACB41FFE153600DC0A7C /* LabelModuleProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LabelModuleProtocol.h; sourceTree = "<group>"; };
 		F25867FD1FDAAF6C00D7B2BF /* LLTabBarController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LLTabBarController.h; sourceTree = "<group>"; };
 		F25867FE1FDAAF6C00D7B2BF /* LLTabBarController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LLTabBarController.m; sourceTree = "<group>"; };
 		F25868001FDAAFA300D7B2BF /* LLNavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LLNavigationController.h; sourceTree = "<group>"; };
 		F25868011FDAAFA300D7B2BF /* LLNavigationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LLNavigationController.m; sourceTree = "<group>"; };
 		F25868051FDAB42B00D7B2BF /* HomeModuleConnector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeModuleConnector.h; sourceTree = "<group>"; };
 		F25868061FDAB42B00D7B2BF /* HomeModuleConnector.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeModuleConnector.m; sourceTree = "<group>"; };
-		F25868081FDAB43A00D7B2BF /* HomeModuleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeModuleViewController.h; sourceTree = "<group>"; };
-		F25868091FDAB43A00D7B2BF /* HomeModuleViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeModuleViewController.m; sourceTree = "<group>"; };
 		F258680B1FDAB46000D7B2BF /* MyStudyModuleConnector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyStudyModuleConnector.h; sourceTree = "<group>"; };
 		F258680C1FDAB46000D7B2BF /* MyStudyModuleConnector.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyStudyModuleConnector.m; sourceTree = "<group>"; };
-		F258680E1FDAB4C500D7B2BF /* MyStudyModuleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyStudyModuleViewController.h; sourceTree = "<group>"; };
-		F258680F1FDAB4C500D7B2BF /* MyStudyModuleViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyStudyModuleViewController.m; sourceTree = "<group>"; };
-		F25868171FDAB50E00D7B2BF /* LoginModuleConnector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginModuleConnector.h; sourceTree = "<group>"; };
-		F25868181FDAB50E00D7B2BF /* LoginModuleConnector.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginModuleConnector.m; sourceTree = "<group>"; };
-		F258681A1FDAB52600D7B2BF /* LoginModuleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginModuleViewController.h; sourceTree = "<group>"; };
-		F258681B1FDAB52600D7B2BF /* LoginModuleViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginModuleViewController.m; sourceTree = "<group>"; };
-		F258681D1FDB764C00D7B2BF /* MeModuleConnector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeModuleConnector.h; sourceTree = "<group>"; };
-		F258681E1FDB764C00D7B2BF /* MeModuleConnector.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MeModuleConnector.m; sourceTree = "<group>"; };
-		F25868201FDB766800D7B2BF /* MeModuleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeModuleViewController.h; sourceTree = "<group>"; };
-		F25868211FDB766800D7B2BF /* MeModuleViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MeModuleViewController.m; sourceTree = "<group>"; };
 		F25868241FDB806800D7B2BF /* LLMacro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LLMacro.h; sourceTree = "<group>"; };
 		F25868271FDB812D00D7B2BF /* UIImage+Extension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+Extension.h"; sourceTree = "<group>"; };
 		F25868281FDB812D00D7B2BF /* UIImage+Extension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Extension.m"; sourceTree = "<group>"; };
@@ -172,6 +168,41 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		F251AC631FFE0F5D00DC0A7C /* TableView */ = {
+			isa = PBXGroup;
+			children = (
+				F2C007541FF3414D001E1FE9 /* MeModuleMainTableViewCell.h */,
+				F2C007551FF3414D001E1FE9 /* MeModuleMainTableViewCell.m */,
+				F2C007361FF24574001E1FE9 /* MeModuleProfileViewController.h */,
+				F2C007371FF24574001E1FE9 /* MeModuleProfileViewController.m */,
+				F2C007391FF24587001E1FE9 /* MeModuleCollectionViewController.h */,
+				F2C0073A1FF24587001E1FE9 /* MeModuleCollectionViewController.m */,
+				F2C007511FF33586001E1FE9 /* MeModuleMyStudyViewController.h */,
+				F2C007521FF33586001E1FE9 /* MeModuleMyStudyViewController.m */,
+				F2C0073C1FF245A0001E1FE9 /* MeModuleSettingViewController.h */,
+				F2C0073D1FF245A0001E1FE9 /* MeModuleSettingViewController.m */,
+			);
+			path = TableView;
+			sourceTree = "<group>";
+		};
+		F251AC671FFE0FE000DC0A7C /* DataStoreModule */ = {
+			isa = PBXGroup;
+			children = (
+				F251AC691FFE127300DC0A7C /* DataStoreModuleProtocol.h */,
+			);
+			path = DataStoreModule;
+			sourceTree = "<group>";
+		};
+		F251AC681FFE101C00DC0A7C /* LabelModule */ = {
+			isa = PBXGroup;
+			children = (
+				F251ACB41FFE153600DC0A7C /* LabelModuleProtocol.h */,
+				F251ACB11FFE150600DC0A7C /* LabelModule.h */,
+				F251ACB21FFE150600DC0A7C /* LabelModule.m */,
+			);
+			path = LabelModule;
+			sourceTree = "<group>";
+		};
 		F25867FC1FDAAF4300D7B2BF /* Main */ = {
 			isa = PBXGroup;
 			children = (
@@ -187,22 +218,13 @@
 			isa = PBXGroup;
 			children = (
 				F246B10F1FDBD0EB0066B0CA /* MeModuleProtocol.h */,
-				F258681D1FDB764C00D7B2BF /* MeModuleConnector.h */,
-				F258681E1FDB764C00D7B2BF /* MeModuleConnector.m */,
-				F25868201FDB766800D7B2BF /* MeModuleViewController.h */,
-				F25868211FDB766800D7B2BF /* MeModuleViewController.m */,
+				F251AC5D1FFE032300DC0A7C /* MeModule.h */,
+				F251AC5E1FFE032300DC0A7C /* MeModule.m */,
 				F2C0074E1FF27697001E1FE9 /* MeModuleMainViewController.h */,
 				F2C0074F1FF27697001E1FE9 /* MeModuleMainViewController.m */,
-				F2C007541FF3414D001E1FE9 /* MeModuleMainTableViewCell.h */,
-				F2C007551FF3414D001E1FE9 /* MeModuleMainTableViewCell.m */,
-				F2C007361FF24574001E1FE9 /* MeModuleProfileViewController.h */,
-				F2C007371FF24574001E1FE9 /* MeModuleProfileViewController.m */,
-				F2C007391FF24587001E1FE9 /* MeModuleCollectionViewController.h */,
-				F2C0073A1FF24587001E1FE9 /* MeModuleCollectionViewController.m */,
-				F2C007511FF33586001E1FE9 /* MeModuleMyStudyViewController.h */,
-				F2C007521FF33586001E1FE9 /* MeModuleMyStudyViewController.m */,
-				F2C0073C1FF245A0001E1FE9 /* MeModuleSettingViewController.h */,
-				F2C0073D1FF245A0001E1FE9 /* MeModuleSettingViewController.m */,
+				F251AC641FFE0F9400DC0A7C /* MeModuleHomeViewController.h */,
+				F251AC651FFE0F9400DC0A7C /* MeModuleHomeViewController.m */,
+				F251AC631FFE0F5D00DC0A7C /* TableView */,
 			);
 			path = MeModule;
 			sourceTree = "<group>";
@@ -211,10 +233,8 @@
 			isa = PBXGroup;
 			children = (
 				F263E01F1FDF745600BD7CBD /* LoginModuleProtocol.h */,
-				F25868171FDAB50E00D7B2BF /* LoginModuleConnector.h */,
-				F25868181FDAB50E00D7B2BF /* LoginModuleConnector.m */,
-				F258681A1FDAB52600D7B2BF /* LoginModuleViewController.h */,
-				F258681B1FDAB52600D7B2BF /* LoginModuleViewController.m */,
+				F251AC601FFE03C200DC0A7C /* LoginModule.h */,
+				F251AC611FFE03C200DC0A7C /* LoginModule.m */,
 				F2C0074B1FF2754D001E1FE9 /* LoginModuleMainViewController.h */,
 				F2C0074C1FF2754D001E1FE9 /* LoginModuleMainViewController.m */,
 				F2C0072D1FF0E487001E1FE9 /* LoginModuleRegisterViewController.h */,
@@ -261,8 +281,6 @@
 			children = (
 				F25868051FDAB42B00D7B2BF /* HomeModuleConnector.h */,
 				F25868061FDAB42B00D7B2BF /* HomeModuleConnector.m */,
-				F25868081FDAB43A00D7B2BF /* HomeModuleViewController.h */,
-				F25868091FDAB43A00D7B2BF /* HomeModuleViewController.m */,
 				F2C007451FF27442001E1FE9 /* HomeModuleMainViewController.h */,
 				F2C007461FF27442001E1FE9 /* HomeModuleMainViewController.m */,
 			);
@@ -274,8 +292,6 @@
 			children = (
 				F258680B1FDAB46000D7B2BF /* MyStudyModuleConnector.h */,
 				F258680C1FDAB46000D7B2BF /* MyStudyModuleConnector.m */,
-				F258680E1FDAB4C500D7B2BF /* MyStudyModuleViewController.h */,
-				F258680F1FDAB4C500D7B2BF /* MyStudyModuleViewController.m */,
 				F2C007481FF27475001E1FE9 /* MyStudyModuleMainViewController.h */,
 				F2C007491FF27475001E1FE9 /* MyStudyModuleMainViewController.m */,
 			);
@@ -310,7 +326,9 @@
 				F258682A1FDB83A200D7B2BF /* Appdelegate */,
 				F25868231FDB803800D7B2BF /* Common */,
 				F25867FC1FDAAF4300D7B2BF /* Main */,
+				F251AC671FFE0FE000DC0A7C /* DataStoreModule */,
 				F2A058721FDA71550039FBCD /* HomeModule */,
+				F251AC681FFE101C00DC0A7C /* LabelModule */,
 				F2A058791FDA71D60039FBCD /* MyStudyModule */,
 				F25868031FDAB22E00D7B2BF /* MeModule */,
 				F25868041FDAB24100D7B2BF /* LoginModule */,
@@ -539,29 +557,27 @@
 			files = (
 				F25868071FDAB42B00D7B2BF /* HomeModuleConnector.m in Sources */,
 				F25868291FDB812D00D7B2BF /* UIImage+Extension.m in Sources */,
-				F258681F1FDB764C00D7B2BF /* MeModuleConnector.m in Sources */,
 				F258682D1FDB878400D7B2BF /* UIColor+Extension.m in Sources */,
 				F2F72C3C1FD96A6E00066F9A /* main.m in Sources */,
 				F258680D1FDAB46000D7B2BF /* MyStudyModuleConnector.m in Sources */,
-				F258681C1FDAB52600D7B2BF /* LoginModuleViewController.m in Sources */,
-				F25868101FDAB4C500D7B2BF /* MyStudyModuleViewController.m in Sources */,
 				F2C0073B1FF24587001E1FE9 /* MeModuleCollectionViewController.m in Sources */,
 				F2F72C2E1FD96A6E00066F9A /* AppDelegate.m in Sources */,
 				F2C007471FF27442001E1FE9 /* HomeModuleMainViewController.m in Sources */,
 				F2C007501FF27697001E1FE9 /* MeModuleMainViewController.m in Sources */,
 				F2C007411FF245FF001E1FE9 /* LoginModuleForgetPwdViewController.m in Sources */,
-				F25868221FDB766800D7B2BF /* MeModuleViewController.m in Sources */,
 				F2C007561FF3414D001E1FE9 /* MeModuleMainTableViewCell.m in Sources */,
 				F2C0074D1FF2754D001E1FE9 /* LoginModuleMainViewController.m in Sources */,
 				F25868021FDAAFA300D7B2BF /* LLNavigationController.m in Sources */,
 				F25867FF1FDAAF6C00D7B2BF /* LLTabBarController.m in Sources */,
+				F251AC661FFE0F9400DC0A7C /* MeModuleHomeViewController.m in Sources */,
 				F2C0072F1FF0E487001E1FE9 /* LoginModuleRegisterViewController.m in Sources */,
+				F251AC5F1FFE032300DC0A7C /* MeModule.m in Sources */,
 				F2C007531FF33586001E1FE9 /* MeModuleMyStudyViewController.m in Sources */,
 				F2C0073E1FF245A0001E1FE9 /* MeModuleSettingViewController.m in Sources */,
-				F258680A1FDAB43B00D7B2BF /* HomeModuleViewController.m in Sources */,
 				F2C007381FF24574001E1FE9 /* MeModuleProfileViewController.m in Sources */,
 				F263E02D1FE2A7E300BD7CBD /* LLUtils.m in Sources */,
-				F25868191FDAB50E00D7B2BF /* LoginModuleConnector.m in Sources */,
+				F251AC621FFE03C200DC0A7C /* LoginModule.m in Sources */,
+				F251ACB31FFE150600DC0A7C /* LabelModule.m in Sources */,
 				F2C0074A1FF27475001E1FE9 /* MyStudyModuleMainViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
