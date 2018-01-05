@@ -12,6 +12,20 @@
 		F251AC621FFE03C200DC0A7C /* LoginModule.m in Sources */ = {isa = PBXBuildFile; fileRef = F251AC611FFE03C200DC0A7C /* LoginModule.m */; };
 		F251AC661FFE0F9400DC0A7C /* MeModuleHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F251AC651FFE0F9400DC0A7C /* MeModuleHomeViewController.m */; };
 		F251ACB31FFE150600DC0A7C /* LabelModule.m in Sources */ = {isa = PBXBuildFile; fileRef = F251ACB21FFE150600DC0A7C /* LabelModule.m */; };
+		F251ACBA1FFF1A1100DC0A7C /* LabelModuleMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F251ACB91FFF1A1100DC0A7C /* LabelModuleMainViewController.m */; };
+		F251ACBF1FFF1B3800DC0A7C /* LabelModuleLabelNode.m in Sources */ = {isa = PBXBuildFile; fileRef = F251ACBE1FFF1B3800DC0A7C /* LabelModuleLabelNode.m */; };
+		F251ACC21FFF1B5900DC0A7C /* LabelModuleLabelCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = F251ACC11FFF1B5900DC0A7C /* LabelModuleLabelCategory.m */; };
+		F251ACC91FFF1DA700DC0A7C /* LabelModuleFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = F251ACC81FFF1DA700DC0A7C /* LabelModuleFooterView.m */; };
+		F251ACCC1FFF1DCE00DC0A7C /* LabelModuleCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = F251ACCB1FFF1DCE00DC0A7C /* LabelModuleCollectionView.m */; };
+		F251ACCF1FFF1E0300DC0A7C /* LabelModuleFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = F251ACCE1FFF1E0300DC0A7C /* LabelModuleFlowLayout.m */; };
+		F251ACD21FFF1E4000DC0A7C /* LabelModuleNodeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F251ACD11FFF1E4000DC0A7C /* LabelModuleNodeCell.m */; };
+		F251ACD51FFF1E5100DC0A7C /* LabelModuleNodeHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F251ACD41FFF1E5100DC0A7C /* LabelModuleNodeHeaderCell.m */; };
+		F251ACD81FFF1E6F00DC0A7C /* LabelModuleNodeHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = F251ACD71FFF1E6F00DC0A7C /* LabelModuleNodeHeader.m */; };
+		F251ACDC1FFF285600DC0A7C /* NSString+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = F251ACDB1FFF285600DC0A7C /* NSString+Extension.m */; };
+		F251ACDE1FFF556600DC0A7C /* YKTMLabel.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F251ACDD1FFF556600DC0A7C /* YKTMLabel.xcassets */; };
+		F251ACE21FFF595800DC0A7C /* LabelModuleViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F251ACE11FFF595800DC0A7C /* LabelModuleViewModel.m */; };
+		F251ACE51FFF604600DC0A7C /* DataStoreModule.m in Sources */ = {isa = PBXBuildFile; fileRef = F251ACE41FFF604600DC0A7C /* DataStoreModule.m */; };
+		F251ACE81FFF7AC100DC0A7C /* LabelModuleLabelManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F251ACE71FFF7AC100DC0A7C /* LabelModuleLabelManager.m */; };
 		F25867FF1FDAAF6C00D7B2BF /* LLTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = F25867FE1FDAAF6C00D7B2BF /* LLTabBarController.m */; };
 		F25868021FDAAFA300D7B2BF /* LLNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = F25868011FDAAFA300D7B2BF /* LLNavigationController.m */; };
 		F25868071FDAB42B00D7B2BF /* HomeModuleConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = F25868061FDAB42B00D7B2BF /* HomeModuleConnector.m */; };
@@ -71,6 +85,34 @@
 		F251ACB11FFE150600DC0A7C /* LabelModule.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LabelModule.h; sourceTree = "<group>"; };
 		F251ACB21FFE150600DC0A7C /* LabelModule.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LabelModule.m; sourceTree = "<group>"; };
 		F251ACB41FFE153600DC0A7C /* LabelModuleProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LabelModuleProtocol.h; sourceTree = "<group>"; };
+		F251ACB81FFF1A1100DC0A7C /* LabelModuleMainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LabelModuleMainViewController.h; sourceTree = "<group>"; };
+		F251ACB91FFF1A1100DC0A7C /* LabelModuleMainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LabelModuleMainViewController.m; sourceTree = "<group>"; };
+		F251ACBD1FFF1B3800DC0A7C /* LabelModuleLabelNode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LabelModuleLabelNode.h; sourceTree = "<group>"; };
+		F251ACBE1FFF1B3800DC0A7C /* LabelModuleLabelNode.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LabelModuleLabelNode.m; sourceTree = "<group>"; };
+		F251ACC01FFF1B5900DC0A7C /* LabelModuleLabelCategory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LabelModuleLabelCategory.h; sourceTree = "<group>"; };
+		F251ACC11FFF1B5900DC0A7C /* LabelModuleLabelCategory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LabelModuleLabelCategory.m; sourceTree = "<group>"; };
+		F251ACC71FFF1DA700DC0A7C /* LabelModuleFooterView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LabelModuleFooterView.h; sourceTree = "<group>"; };
+		F251ACC81FFF1DA700DC0A7C /* LabelModuleFooterView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LabelModuleFooterView.m; sourceTree = "<group>"; };
+		F251ACCA1FFF1DCE00DC0A7C /* LabelModuleCollectionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LabelModuleCollectionView.h; sourceTree = "<group>"; };
+		F251ACCB1FFF1DCE00DC0A7C /* LabelModuleCollectionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LabelModuleCollectionView.m; sourceTree = "<group>"; };
+		F251ACCD1FFF1E0300DC0A7C /* LabelModuleFlowLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LabelModuleFlowLayout.h; sourceTree = "<group>"; };
+		F251ACCE1FFF1E0300DC0A7C /* LabelModuleFlowLayout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LabelModuleFlowLayout.m; sourceTree = "<group>"; };
+		F251ACD01FFF1E4000DC0A7C /* LabelModuleNodeCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LabelModuleNodeCell.h; sourceTree = "<group>"; };
+		F251ACD11FFF1E4000DC0A7C /* LabelModuleNodeCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LabelModuleNodeCell.m; sourceTree = "<group>"; };
+		F251ACD31FFF1E5100DC0A7C /* LabelModuleNodeHeaderCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LabelModuleNodeHeaderCell.h; sourceTree = "<group>"; };
+		F251ACD41FFF1E5100DC0A7C /* LabelModuleNodeHeaderCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LabelModuleNodeHeaderCell.m; sourceTree = "<group>"; };
+		F251ACD61FFF1E6F00DC0A7C /* LabelModuleNodeHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LabelModuleNodeHeader.h; sourceTree = "<group>"; };
+		F251ACD71FFF1E6F00DC0A7C /* LabelModuleNodeHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LabelModuleNodeHeader.m; sourceTree = "<group>"; };
+		F251ACD91FFF22B300DC0A7C /* LabelModuleConsts.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LabelModuleConsts.h; sourceTree = "<group>"; };
+		F251ACDA1FFF285600DC0A7C /* NSString+Extension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+Extension.h"; sourceTree = "<group>"; };
+		F251ACDB1FFF285600DC0A7C /* NSString+Extension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+Extension.m"; sourceTree = "<group>"; };
+		F251ACDD1FFF556600DC0A7C /* YKTMLabel.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = YKTMLabel.xcassets; sourceTree = "<group>"; };
+		F251ACE01FFF595800DC0A7C /* LabelModuleViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LabelModuleViewModel.h; sourceTree = "<group>"; };
+		F251ACE11FFF595800DC0A7C /* LabelModuleViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LabelModuleViewModel.m; sourceTree = "<group>"; };
+		F251ACE31FFF604600DC0A7C /* DataStoreModule.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataStoreModule.h; sourceTree = "<group>"; };
+		F251ACE41FFF604600DC0A7C /* DataStoreModule.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DataStoreModule.m; sourceTree = "<group>"; };
+		F251ACE61FFF7AC100DC0A7C /* LabelModuleLabelManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LabelModuleLabelManager.h; sourceTree = "<group>"; };
+		F251ACE71FFF7AC100DC0A7C /* LabelModuleLabelManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LabelModuleLabelManager.m; sourceTree = "<group>"; };
 		F25867FD1FDAAF6C00D7B2BF /* LLTabBarController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LLTabBarController.h; sourceTree = "<group>"; };
 		F25867FE1FDAAF6C00D7B2BF /* LLTabBarController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LLTabBarController.m; sourceTree = "<group>"; };
 		F25868001FDAAFA300D7B2BF /* LLNavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LLNavigationController.h; sourceTree = "<group>"; };
@@ -189,6 +231,8 @@
 			isa = PBXGroup;
 			children = (
 				F251AC691FFE127300DC0A7C /* DataStoreModuleProtocol.h */,
+				F251ACE31FFF604600DC0A7C /* DataStoreModule.h */,
+				F251ACE41FFF604600DC0A7C /* DataStoreModule.m */,
 			);
 			path = DataStoreModule;
 			sourceTree = "<group>";
@@ -199,8 +243,88 @@
 				F251ACB41FFE153600DC0A7C /* LabelModuleProtocol.h */,
 				F251ACB11FFE150600DC0A7C /* LabelModule.h */,
 				F251ACB21FFE150600DC0A7C /* LabelModule.m */,
+				F251ACD91FFF22B300DC0A7C /* LabelModuleConsts.h */,
+				F251ACB81FFF1A1100DC0A7C /* LabelModuleMainViewController.h */,
+				F251ACB91FFF1A1100DC0A7C /* LabelModuleMainViewController.m */,
+				F251ACDD1FFF556600DC0A7C /* YKTMLabel.xcassets */,
+				F251ACBC1FFF1AFE00DC0A7C /* Model */,
+				F251ACDF1FFF592500DC0A7C /* ViewModel */,
+				F251ACBB1FFF1AC900DC0A7C /* View */,
 			);
 			path = LabelModule;
+			sourceTree = "<group>";
+		};
+		F251ACBB1FFF1AC900DC0A7C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F251ACC31FFF1CCC00DC0A7C /* CollectionView */,
+				F251ACC61FFF1D0300DC0A7C /* footer */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		F251ACBC1FFF1AFE00DC0A7C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F251ACBD1FFF1B3800DC0A7C /* LabelModuleLabelNode.h */,
+				F251ACBE1FFF1B3800DC0A7C /* LabelModuleLabelNode.m */,
+				F251ACC01FFF1B5900DC0A7C /* LabelModuleLabelCategory.h */,
+				F251ACC11FFF1B5900DC0A7C /* LabelModuleLabelCategory.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		F251ACC31FFF1CCC00DC0A7C /* CollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				F251ACC41FFF1CD800DC0A7C /* Section */,
+				F251ACC51FFF1CE100DC0A7C /* Cell */,
+				F251ACCA1FFF1DCE00DC0A7C /* LabelModuleCollectionView.h */,
+				F251ACCB1FFF1DCE00DC0A7C /* LabelModuleCollectionView.m */,
+				F251ACCD1FFF1E0300DC0A7C /* LabelModuleFlowLayout.h */,
+				F251ACCE1FFF1E0300DC0A7C /* LabelModuleFlowLayout.m */,
+			);
+			path = CollectionView;
+			sourceTree = "<group>";
+		};
+		F251ACC41FFF1CD800DC0A7C /* Section */ = {
+			isa = PBXGroup;
+			children = (
+				F251ACD61FFF1E6F00DC0A7C /* LabelModuleNodeHeader.h */,
+				F251ACD71FFF1E6F00DC0A7C /* LabelModuleNodeHeader.m */,
+			);
+			path = Section;
+			sourceTree = "<group>";
+		};
+		F251ACC51FFF1CE100DC0A7C /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				F251ACD01FFF1E4000DC0A7C /* LabelModuleNodeCell.h */,
+				F251ACD11FFF1E4000DC0A7C /* LabelModuleNodeCell.m */,
+				F251ACD31FFF1E5100DC0A7C /* LabelModuleNodeHeaderCell.h */,
+				F251ACD41FFF1E5100DC0A7C /* LabelModuleNodeHeaderCell.m */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		F251ACC61FFF1D0300DC0A7C /* footer */ = {
+			isa = PBXGroup;
+			children = (
+				F251ACC71FFF1DA700DC0A7C /* LabelModuleFooterView.h */,
+				F251ACC81FFF1DA700DC0A7C /* LabelModuleFooterView.m */,
+			);
+			path = footer;
+			sourceTree = "<group>";
+		};
+		F251ACDF1FFF592500DC0A7C /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				F251ACE01FFF595800DC0A7C /* LabelModuleViewModel.h */,
+				F251ACE11FFF595800DC0A7C /* LabelModuleViewModel.m */,
+				F251ACE61FFF7AC100DC0A7C /* LabelModuleLabelManager.h */,
+				F251ACE71FFF7AC100DC0A7C /* LabelModuleLabelManager.m */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		F25867FC1FDAAF4300D7B2BF /* Main */ = {
@@ -263,6 +387,8 @@
 				F25868281FDB812D00D7B2BF /* UIImage+Extension.m */,
 				F258682B1FDB878300D7B2BF /* UIColor+Extension.h */,
 				F258682C1FDB878400D7B2BF /* UIColor+Extension.m */,
+				F251ACDA1FFF285600DC0A7C /* NSString+Extension.h */,
+				F251ACDB1FFF285600DC0A7C /* NSString+Extension.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -471,6 +597,7 @@
 				F2F72C391FD96A6E00066F9A /* LaunchScreen.storyboard in Resources */,
 				F2F72C361FD96A6E00066F9A /* Assets.xcassets in Resources */,
 				F2F72C341FD96A6E00066F9A /* Main.storyboard in Resources */,
+				F251ACDE1FFF556600DC0A7C /* YKTMLabel.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -556,18 +683,27 @@
 			buildActionMask = 2147483647;
 			files = (
 				F25868071FDAB42B00D7B2BF /* HomeModuleConnector.m in Sources */,
+				F251ACC21FFF1B5900DC0A7C /* LabelModuleLabelCategory.m in Sources */,
+				F251ACCF1FFF1E0300DC0A7C /* LabelModuleFlowLayout.m in Sources */,
 				F25868291FDB812D00D7B2BF /* UIImage+Extension.m in Sources */,
 				F258682D1FDB878400D7B2BF /* UIColor+Extension.m in Sources */,
 				F2F72C3C1FD96A6E00066F9A /* main.m in Sources */,
+				F251ACD81FFF1E6F00DC0A7C /* LabelModuleNodeHeader.m in Sources */,
 				F258680D1FDAB46000D7B2BF /* MyStudyModuleConnector.m in Sources */,
+				F251ACE21FFF595800DC0A7C /* LabelModuleViewModel.m in Sources */,
 				F2C0073B1FF24587001E1FE9 /* MeModuleCollectionViewController.m in Sources */,
 				F2F72C2E1FD96A6E00066F9A /* AppDelegate.m in Sources */,
+				F251ACD21FFF1E4000DC0A7C /* LabelModuleNodeCell.m in Sources */,
 				F2C007471FF27442001E1FE9 /* HomeModuleMainViewController.m in Sources */,
+				F251ACD51FFF1E5100DC0A7C /* LabelModuleNodeHeaderCell.m in Sources */,
 				F2C007501FF27697001E1FE9 /* MeModuleMainViewController.m in Sources */,
 				F2C007411FF245FF001E1FE9 /* LoginModuleForgetPwdViewController.m in Sources */,
 				F2C007561FF3414D001E1FE9 /* MeModuleMainTableViewCell.m in Sources */,
+				F251ACE51FFF604600DC0A7C /* DataStoreModule.m in Sources */,
 				F2C0074D1FF2754D001E1FE9 /* LoginModuleMainViewController.m in Sources */,
+				F251ACE81FFF7AC100DC0A7C /* LabelModuleLabelManager.m in Sources */,
 				F25868021FDAAFA300D7B2BF /* LLNavigationController.m in Sources */,
+				F251ACBF1FFF1B3800DC0A7C /* LabelModuleLabelNode.m in Sources */,
 				F25867FF1FDAAF6C00D7B2BF /* LLTabBarController.m in Sources */,
 				F251AC661FFE0F9400DC0A7C /* MeModuleHomeViewController.m in Sources */,
 				F2C0072F1FF0E487001E1FE9 /* LoginModuleRegisterViewController.m in Sources */,
@@ -578,7 +714,11 @@
 				F263E02D1FE2A7E300BD7CBD /* LLUtils.m in Sources */,
 				F251AC621FFE03C200DC0A7C /* LoginModule.m in Sources */,
 				F251ACB31FFE150600DC0A7C /* LabelModule.m in Sources */,
+				F251ACDC1FFF285600DC0A7C /* NSString+Extension.m in Sources */,
+				F251ACBA1FFF1A1100DC0A7C /* LabelModuleMainViewController.m in Sources */,
+				F251ACC91FFF1DA700DC0A7C /* LabelModuleFooterView.m in Sources */,
 				F2C0074A1FF27475001E1FE9 /* MyStudyModuleMainViewController.m in Sources */,
+				F251ACCC1FFF1DCE00DC0A7C /* LabelModuleCollectionView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

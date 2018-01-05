@@ -78,7 +78,7 @@
 }
 
 - (BOOL)checkIfRegisterURLPattern:(NSString *)urlPattern {
-    if ([_urlPatterns indexOfObject:urlPattern]) {
+    if ([_urlPatterns indexOfObject:urlPattern] != NSNotFound) {
         return YES;
     }
     return NO;

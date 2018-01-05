@@ -9,6 +9,7 @@
 #ifndef LLMacro_h
 #define LLMacro_h
 
+typedef void (^LLBlock_t)(void);
 typedef void (^LLSuccessBlock)(id result);
 typedef void (^LLFailureBlock)(NSError *err);
 
@@ -20,5 +21,12 @@ typedef void (^LLFailureBlock)(NSError *err);
 #define LLFColorOpacity(x,a)    [UIColor ll_colorWithRGB:x alpha:a]
 #define LLFColor(x)             LLFColorOpacity(x,1)
 #define LLThemeColor            LLFColor(0x3c4a55)
+
+// screen
+#define JYFUScreenHeight       [[UIScreen mainScreen] bounds].size.height
+#define JYFUScreenWidth        [[UIScreen mainScreen] bounds].size.width
+#define JYFUHeightNavBar          44
+#define JYFUHeightSystemStatus    20
+#define JYFUHeightTopBar          (JYFUHeightNavBar + JYFUHeightSystemStatus)   //status bar和nav bar高度
 
 #endif /* LLMacro_h */

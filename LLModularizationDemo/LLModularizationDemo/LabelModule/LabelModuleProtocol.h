@@ -11,6 +11,9 @@
 
 @protocol LabelModuleProtocol <LLModuleProtocol>
 
-// TODO: 着手完成Demo，Label+DataStore(使用CoreData)
++ (UIViewController *)showLabelModule;
+
+// TODO: 协议化对象
++ (NSArray *)getInterestLabels;
 
 @end

@@ -11,4 +11,7 @@
 
 @protocol DataStoreModuleProtocol <LLModuleProtocol>
 
+// TODO: 临时
+- (BOOL)storeData:(id)data inPath:(NSString *)path;
+
 @end

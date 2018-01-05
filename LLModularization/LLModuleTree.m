@@ -86,7 +86,7 @@
     
     // 初始化
     LLModuleTree *tree = [LLModuleTree sharedTree];
-    tree.findNode = nil;    // TODO: sequenceNum的初始化存在问题
+    tree.findNode = nil;
     [tree.tempChain removeAllObjects];
     tree.callChain = @[];
     if (!tree.root) {
@@ -117,7 +117,7 @@
           calleeController:(NSString *)calleeController
               successBlock:(LLBasicSuccessBlock_t)success
               failureBlock:(LLBasicFailureBlock_t)failure {
-    [self findNodeInHighestSequenceNumberWithTreeNode:self.root moduleName:callerModule controllerName:callerController];
+    [self findNodeInHighestSequenceNumberWithTreeNode:self.root moduleName:callerModule];
     if (self.findNode) {
         LLModuleTreeNode *fatherNode = self.findNode;
         if (self.findNode.nodeType == LLModuleTreeNodeTypeBackground) {
@@ -149,7 +149,7 @@
               calleeModule:(NSString *)calleeModule
               successBlock:(LLBasicSuccessBlock_t)success
               failureBlock:(LLBasicFailureBlock_t)failure {
-    [self findNodeInHighestSequenceNumberWithTreeNode:self.root moduleName:callerModule controllerName:nil];
+    [self findNodeInHighestSequenceNumberWithTreeNode:self.root moduleName:callerModule];
     if (self.findNode) {
         LLModuleTreeNode *fatherNode = self.findNode;
         LLModuleTreeNode *newNode = [self appendTreeNode:fatherNode nodeName:calleeModule nodeController:nil nodeType:LLModuleTreeNodeTypeBackground];
@@ -242,22 +242,22 @@
  找到最新的名为module的节点
  */
 - (void)findNodeInHighestSequenceNumberWithTreeNode:(LLModuleTreeNode *)root
-                                         moduleName:(NSString *)moduleName
-                                     controllerName:(NSString *)controllerName {
+                                         moduleName:(NSString *)moduleName {
     if ([root.moduleName isEqualToString:moduleName] && root.sequenceNumber >= self.findNode.sequenceNumber) {
-        if (![LLModuleUtils isNilOrEmtpyForString:controllerName]) {
-            if ([root.controllerName isEqualToString:controllerName]) {
-                self.findNode = root;
-            }
-        } else {
+        // 下次记一下为什么要加controllerName
+//        if (![LLModuleUtils isNilOrEmtpyForString:controllerName]) {
+//            if ([root.controllerName isEqualToString:controllerName]) {
+//                self.findNode = root;
+//            }
+//        } else {
             self.findNode = root;
-        }
+//        }
     }
     if (root.childs.count == 0) {
         return ;
     } else {
         [root.childs enumerateObjectsUsingBlock:^(LLModuleTreeNode * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            [self findNodeInHighestSequenceNumberWithTreeNode:root.childs[idx] moduleName:moduleName controllerName:controllerName];
+            [self findNodeInHighestSequenceNumberWithTreeNode:root.childs[idx] moduleName:moduleName];
         }];
     }
 }

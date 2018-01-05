@@ -106,6 +106,8 @@ static NSInteger rows = 4;
     // 临时测试
     if (indexPath.section == 0) {
         [self loginBtnAction];
+    } else if (indexPath.section == 1){
+        [self labelAction];
     } else {
         [self accountBtnAction];
     }
@@ -125,6 +127,14 @@ static NSInteger rows = 4;
 - (void)accountBtnAction {
     [[MeModule sharedModule] callServiceWithURL:@"ll://getAccount" parameters:nil navigationMode:LLModuleNavigationModeNone successBlock:^(id result) {
         [SVProgressHUD showSuccessWithStatus:(NSString *)result];
+    } failureBlock:^(NSError *err) {
+        [SVProgressHUD showErrorWithStatus:err.localizedDescription];
+    }];
+}
+
+- (void)labelAction {
+    [[MeModule sharedModule] callServiceWithURL:@"ll://label.show" parameters:nil navigationMode:LLModuleNavigationModePush successBlock:^(id result) {
+        // 处理成功信息
     } failureBlock:^(NSError *err) {
         [SVProgressHUD showErrorWithStatus:err.localizedDescription];
     }];
