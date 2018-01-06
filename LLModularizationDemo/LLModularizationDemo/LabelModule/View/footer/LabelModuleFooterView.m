@@ -7,8 +7,6 @@
 //
 
 #import "LabelModuleFooterView.h"
-#import <PureLayout/PureLayout.h>
-#import "LLMacro.h"
 #import "LabelModuleConsts.h"
 
 static CGFloat topMargin = 30.f;

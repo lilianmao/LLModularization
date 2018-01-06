@@ -7,7 +7,6 @@
 //
 
 #import "LabelModule.h"
-#import "LLUtils.h"
 #import <LLModularization/LLModule.h>
 #import "LabelModuleMainViewController.h"
 #import "LabelModuleLabelManager.h"
@@ -71,13 +70,17 @@
     return labelMainVC;
 }
 
-+ (NSArray *)getInterestLabels {
-//    [[LabelModuleLabelManager sharedLabelManager] getInsterestLabelsSuccessed:^(id result) {
-//        return result;
-//    } failured:^(NSError *err) {
-//        return nil;
-//    }];
-    return @[];
++ (void)getInterestLabelsSuccessed:(LLSuccessBlock)success
+                          failured:(LLFailureBlock)failure {
+    [[LabelModuleLabelManager sharedLabelManager] getInsterestLabelsSuccessed:^(id result) {
+        if (success) {
+            success(result);
+        }
+    } failured:^(NSError *err) {
+        if (failure) {
+            failure(err);
+        }
+    }];
 }
 
 @end

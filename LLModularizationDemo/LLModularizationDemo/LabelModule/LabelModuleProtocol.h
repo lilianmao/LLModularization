@@ -8,12 +8,16 @@
 
 #import <Foundation/Foundation.h>
 #import <LLModularization/LLModuleProtocol.h>
+#import "LabelModuleLabelItemPrt.h"
 
 @protocol LabelModuleProtocol <LLModuleProtocol>
 
 + (UIViewController *)showLabelModule;
 
-// TODO: 协议化对象
-+ (NSArray *)getInterestLabels;
+/**
+ 获取兴趣标签，返回一个协议化对象的数组：NSArray <id<LabelModuleLabelItemPrt>>*
+ */
++ (void)getInterestLabelsSuccessed:(LLSuccessBlock)success
+                          failured:(LLFailureBlock)failure;
 
 @end

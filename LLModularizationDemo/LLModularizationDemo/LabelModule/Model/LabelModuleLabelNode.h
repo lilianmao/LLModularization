@@ -7,20 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "LabelModuleLabelItemPrt.h"
 
-typedef NS_ENUM(NSInteger, LabelModuleNodeState) {
-    LabelModuleNodeStateSelected,
-    LabelModuleNodeStateDeSelect
-};
-
-@interface LabelModuleLabelNode : NSObject <NSCopying>
-
-@property (nonatomic, assign) int64_t labelId;
-@property (nonatomic, assign) BOOL state;
-@property (nonatomic, copy) NSString *name;
-
-- (instancetype)initLabelNodeWithLabelId:(int64_t)labelId
-                                   state:(BOOL)state
-                                    name:(NSString *)name;
+@interface LabelModuleLabelNode : NSObject <NSCopying, LabelModuleLabelItemPrt>{
+    
+}
 
 @end

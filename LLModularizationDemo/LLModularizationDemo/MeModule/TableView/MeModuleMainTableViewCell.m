@@ -7,8 +7,6 @@
 //
 
 #import "MeModuleMainTableViewCell.h"
-#import "LLMacro.h"
-#import <PureLayout/PureLayout.h>
 
 const CGFloat kLeftMargin = 20;
 const CGFloat kRightMargin = 14;

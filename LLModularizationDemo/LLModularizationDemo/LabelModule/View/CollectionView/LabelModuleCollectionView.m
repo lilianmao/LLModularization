@@ -13,11 +13,7 @@
 #import "LabelModuleNodeCell.h"
 #import "LabelModuleNodeHeaderCell.h"
 #import "LabelModuleNodeHeader.h"
-
-#import <PureLayout/PureLayout.h>
 #import "LabelModuleConsts.h"
-#import "LLMacro.h"
-#import "NSString+Extension.h"
 
 @interface LabelModuleCollectionView() <UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UICollectionViewDelegate>
 
