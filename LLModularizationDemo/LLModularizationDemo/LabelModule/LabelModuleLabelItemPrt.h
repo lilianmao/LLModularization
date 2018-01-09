@@ -8,8 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-// TODO: Review协议化对象如何运作的
-
 typedef NS_ENUM(NSInteger, LabelModuleNodeState) {
     LabelModuleNodeStateSelected,
     LabelModuleNodeStateDeSelect
@@ -22,7 +20,7 @@ typedef NS_ENUM(NSInteger, LabelModuleNodeState) {
 @property (nonatomic, assign) BOOL state;
 @property (nonatomic, copy) NSString *__nonnull name;
 
--(nonnull NSString *)description;
+- (nonnull NSString *)description;
 
 @optional
 - (nonnull instancetype)initLabelNodeWithLabelId:(int)labelId

@@ -9,7 +9,7 @@
 #import "LabelModuleLabelNode.h"
 
 /**
- * 注意：协议对象中对协议中定义的property需要提供setter或getter方法；其实就是协议中定义setter和getter方法，必须在协议对象中来实现；
+ * 注意：协议对象中对协议中定义的property需要提供setter或getter方法；其实就是协议中定义setter和getter方法，必须在协议对象中来实现，这里用@synthesize。
  */
 @implementation LabelModuleLabelNode
 
@@ -17,7 +17,7 @@
 @synthesize state = _state;
 @synthesize name = _name;
 
--(nonnull NSString *)description {
+- (nonnull NSString *)description {
     NSString *description = [NSString stringWithFormat:@"LabelModuleLabelNode:labelId = %d, state = %d, name = %@", self.labelId, self.state, self.name];
     return description;
 }

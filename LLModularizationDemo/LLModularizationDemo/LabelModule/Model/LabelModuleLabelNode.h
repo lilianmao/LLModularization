@@ -10,7 +10,6 @@
 #import "LabelModuleLabelItemPrt.h"
 
 @interface LabelModuleLabelNode : NSObject <NSCopying, LabelModuleLabelItemPrt>{
-    
 }
 
 @end

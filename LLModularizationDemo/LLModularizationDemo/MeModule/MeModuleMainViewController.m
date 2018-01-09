@@ -104,7 +104,7 @@ static NSInteger rows = 4;
     } else if (indexPath.section == 1){
         [self labelAction];
     } else {
-        [self accountBtnAction];
+        [self getLabelAction];
     }
     CFRunLoopWakeUp(CFRunLoopGetCurrent());
 }
@@ -135,6 +135,14 @@ static NSInteger rows = 4;
     }];
 }
 
+- (void)getLabelAction {
+    [[MeModule sharedModule] callServiceWithURL:@"ll://label.get" parameters:[self generateGetLabelParams] navigationMode:LLModuleNavigationModeNone successBlock:^(id result) {
+        NSLog(@"%@", result);
+    } failureBlock:^(NSError *err) {
+        
+    }];
+}
+
 - (NSString *)getAccountDataWithParams:(NSDictionary *)params {
     NSLog(@"params : %@", params);
     return @"This is Account Data.";
@@ -155,6 +163,19 @@ static NSInteger rows = 4;
     NSMutableDictionary *params = @{}.mutableCopy;
     
     params[@"key"] = @"value";
+    
+    return [params copy];
+}
+
+- (NSDictionary *)generateGetLabelParams {
+    NSMutableDictionary *params = @{}.mutableCopy;
+    
+    params[@"label_successBlock"] = ^(id result) {
+        NSLog(@"result: %@", result);
+    };
+    params[@"label_failureBlock"] = ^(NSError *err) {
+        NSLog(@"err: %@", err.localizedDescription);
+    };
     
     return [params copy];
 }

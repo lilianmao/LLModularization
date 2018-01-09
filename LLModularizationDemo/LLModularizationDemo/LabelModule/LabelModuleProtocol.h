@@ -10,14 +10,22 @@
 #import <LLModularization/LLModuleProtocol.h>
 #import "LabelModuleLabelItemPrt.h"
 
+/*
+ 这个Module所需要的参数
+ */
+static NSString *const LabelModule_SuccessBlock = @"label_successBlock";
+static NSString *const LabelModule_FailureBlock = @"label_failureBlock";
+
 @protocol LabelModuleProtocol <LLModuleProtocol>
 
 + (UIViewController *)showLabelModule;
 
 /**
- 获取兴趣标签，返回一个协议化对象的数组：NSArray <id<LabelModuleLabelItemPrt>>*
+ URLPattern: ll://label.get
+ function: 获取兴趣标签，返回一个协议化对象的数组：NSArray <id<LabelModuleLabelItemPrt>>*
+ 
+ @param params params为LabelModule_Success和LabelModule_FailureBlock的字典
  */
-+ (void)getInterestLabelsSuccessed:(LLSuccessBlock)success
-                          failured:(LLFailureBlock)failure;
++ (void)getInterestLabelsWithParams:(NSDictionary *)params;
 
 @end

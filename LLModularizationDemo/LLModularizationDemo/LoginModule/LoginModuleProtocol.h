@@ -20,8 +20,8 @@ static NSString *const LoginModule_Password = @"password";
 @required
 
 /**
- 初始化LoginModule。
  URLPattern: ll://login/result?username=value1&password=value2
+ function: 初始化LoginModule。
 
  @param params params为LoginModule_UserName和LoginModule_Password的字典
  @return loginModuleVC

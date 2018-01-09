@@ -34,7 +34,7 @@
 
 + (void)load {
     [[LLModule sharedInstance] registerServiceWithServiceName:NSStringFromSelector(@selector(showLabelModule)) URLPattern:@"ll://label.show" instance:NSStringFromClass(self)];
-    [[LLModule sharedInstance] registerServiceWithServiceName:NSStringFromSelector(@selector(getInterestLabels)) URLPattern:@"ll://label.get" instance:NSStringFromClass(self)];
+    [[LLModule sharedInstance] registerServiceWithServiceName:NSStringFromSelector(@selector(getInterestLabelsWithParams:)) URLPattern:@"ll://label.get" instance:NSStringFromClass(self)];
 }
 
 #pragma mark - LLModuleProtocol
@@ -70,8 +70,9 @@
     return labelMainVC;
 }
 
-+ (void)getInterestLabelsSuccessed:(LLSuccessBlock)success
-                          failured:(LLFailureBlock)failure {
++ (void)getInterestLabelsWithParams:(NSDictionary *)params {
+    LLSuccessBlock success = params[LabelModule_SuccessBlock];
+    LLFailureBlock failure = params[LabelModule_FailureBlock];
     [[LabelModuleLabelManager sharedLabelManager] getInsterestLabelsSuccessed:^(id result) {
         if (success) {
             success(result);
