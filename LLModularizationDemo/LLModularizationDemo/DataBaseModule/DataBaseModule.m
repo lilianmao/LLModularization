@@ -1,28 +1,28 @@
 //
-//  DataStoreModule.m
+//  DataBaseModule.m
 //  LLModularizationDemo
 //
-//  Created by 李林 on 1/5/18.
+//  Created by 李林 on 1/9/18.
 //  Copyright © 2018 lee. All rights reserved.
 //
 
-#import "DataStoreModule.h"
+#import "DataBaseModule.h"
 #import <LLModularization/LLModule.h>
 
-@interface DataStoreModule()
+@interface DataBaseModule()
 
 @end
 
-@implementation DataStoreModule
+@implementation DataBaseModule
 
 #pragma mark - sharedConnector
 
 + (instancetype)sharedModule {
     static dispatch_once_t onceToken;
-    static DataStoreModule *sharedModule = nil;
+    static DataBaseModule *sharedModule = nil;
     
     dispatch_once(&onceToken, ^{
-        sharedModule = [[DataStoreModule alloc] init];
+        sharedModule = [[DataBaseModule alloc] init];
     });
     
     return sharedModule;
@@ -31,7 +31,7 @@
 #pragma mark - register
 
 + (void)load {
-    [[LLModule sharedInstance] registerServiceWithServiceName:NSStringFromSelector(@selector(storeData:inPath:)) URLPattern:@"ll://storeData" instance:NSStringFromClass(self)];
+    [[LLModule sharedInstance] registerServiceWithServiceName:NSStringFromSelector(@selector(operateDataBaseWithParams:)) URLPattern:@"ll://operateDB/:sql" instance:NSStringFromClass(self)];
 }
 
 #pragma mark - LLModuleProtocol
@@ -62,8 +62,10 @@
 
 #pragma mark - DataStoreModuleProtocol
 
-- (BOOL)storeData:(id)data inPath:(NSString *)path {
-    return YES;
++ (id)operateDataBaseWithParams:(NSDictionary *)params {
+    NSLog(@"params:%@", params);
+    
+    return nil;
 }
 
 @end

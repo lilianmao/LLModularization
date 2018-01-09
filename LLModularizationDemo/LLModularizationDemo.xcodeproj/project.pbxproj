@@ -24,13 +24,14 @@
 		F251ACDC1FFF285600DC0A7C /* NSString+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = F251ACDB1FFF285600DC0A7C /* NSString+Extension.m */; };
 		F251ACDE1FFF556600DC0A7C /* YKTMLabel.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F251ACDD1FFF556600DC0A7C /* YKTMLabel.xcassets */; };
 		F251ACE21FFF595800DC0A7C /* LabelModuleViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F251ACE11FFF595800DC0A7C /* LabelModuleViewModel.m */; };
-		F251ACE51FFF604600DC0A7C /* DataStoreModule.m in Sources */ = {isa = PBXBuildFile; fileRef = F251ACE41FFF604600DC0A7C /* DataStoreModule.m */; };
 		F251ACE81FFF7AC100DC0A7C /* LabelModuleLabelManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F251ACE71FFF7AC100DC0A7C /* LabelModuleLabelManager.m */; };
 		F25867FF1FDAAF6C00D7B2BF /* LLTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = F25867FE1FDAAF6C00D7B2BF /* LLTabBarController.m */; };
 		F25868021FDAAFA300D7B2BF /* LLNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = F25868011FDAAFA300D7B2BF /* LLNavigationController.m */; };
 		F25868291FDB812D00D7B2BF /* UIImage+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = F25868281FDB812D00D7B2BF /* UIImage+Extension.m */; };
 		F258682D1FDB878400D7B2BF /* UIColor+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = F258682C1FDB878400D7B2BF /* UIColor+Extension.m */; };
 		F263E02D1FE2A7E300BD7CBD /* LLUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = F263E02C1FE2A7E300BD7CBD /* LLUtils.m */; };
+		F29C93702004DACA006F97C1 /* DataBaseModule.m in Sources */ = {isa = PBXBuildFile; fileRef = F29C936F2004DACA006F97C1 /* DataBaseModule.m */; };
+		F29C93732004EA1F006F97C1 /* DataBase.m in Sources */ = {isa = PBXBuildFile; fileRef = F29C93712004EA1F006F97C1 /* DataBase.m */; };
 		F2C0072F1FF0E487001E1FE9 /* LoginModuleRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F2C0072E1FF0E487001E1FE9 /* LoginModuleRegisterViewController.m */; };
 		F2C007381FF24574001E1FE9 /* MeModuleProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F2C007371FF24574001E1FE9 /* MeModuleProfileViewController.m */; };
 		F2C0073B1FF24587001E1FE9 /* MeModuleCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F2C0073A1FF24587001E1FE9 /* MeModuleCollectionViewController.m */; };
@@ -77,7 +78,6 @@
 		F251AC611FFE03C200DC0A7C /* LoginModule.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginModule.m; sourceTree = "<group>"; };
 		F251AC641FFE0F9400DC0A7C /* MeModuleHomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeModuleHomeViewController.h; sourceTree = "<group>"; };
 		F251AC651FFE0F9400DC0A7C /* MeModuleHomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MeModuleHomeViewController.m; sourceTree = "<group>"; };
-		F251AC691FFE127300DC0A7C /* DataStoreModuleProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataStoreModuleProtocol.h; sourceTree = "<group>"; };
 		F251ACB11FFE150600DC0A7C /* LabelModule.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LabelModule.h; sourceTree = "<group>"; };
 		F251ACB21FFE150600DC0A7C /* LabelModule.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LabelModule.m; sourceTree = "<group>"; };
 		F251ACB41FFE153600DC0A7C /* LabelModuleProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LabelModuleProtocol.h; sourceTree = "<group>"; };
@@ -105,8 +105,6 @@
 		F251ACDD1FFF556600DC0A7C /* YKTMLabel.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = YKTMLabel.xcassets; sourceTree = "<group>"; };
 		F251ACE01FFF595800DC0A7C /* LabelModuleViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LabelModuleViewModel.h; sourceTree = "<group>"; };
 		F251ACE11FFF595800DC0A7C /* LabelModuleViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LabelModuleViewModel.m; sourceTree = "<group>"; };
-		F251ACE31FFF604600DC0A7C /* DataStoreModule.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataStoreModule.h; sourceTree = "<group>"; };
-		F251ACE41FFF604600DC0A7C /* DataStoreModule.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DataStoreModule.m; sourceTree = "<group>"; };
 		F251ACE61FFF7AC100DC0A7C /* LabelModuleLabelManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LabelModuleLabelManager.h; sourceTree = "<group>"; };
 		F251ACE71FFF7AC100DC0A7C /* LabelModuleLabelManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LabelModuleLabelManager.m; sourceTree = "<group>"; };
 		F251ACE92000ABC400DC0A7C /* LabelModuleLabelItemPrt.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LabelModuleLabelItemPrt.h; sourceTree = "<group>"; };
@@ -123,6 +121,11 @@
 		F263E01F1FDF745600BD7CBD /* LoginModuleProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginModuleProtocol.h; sourceTree = "<group>"; };
 		F263E02B1FE2A7E300BD7CBD /* LLUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LLUtils.h; sourceTree = "<group>"; };
 		F263E02C1FE2A7E300BD7CBD /* LLUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LLUtils.m; sourceTree = "<group>"; };
+		F29C936D2004DA93006F97C1 /* DataBaseModuleProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataBaseModuleProtocol.h; sourceTree = "<group>"; };
+		F29C936E2004DACA006F97C1 /* DataBaseModule.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataBaseModule.h; sourceTree = "<group>"; };
+		F29C936F2004DACA006F97C1 /* DataBaseModule.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DataBaseModule.m; sourceTree = "<group>"; };
+		F29C93712004EA1F006F97C1 /* DataBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataBase.m; sourceTree = "<group>"; };
+		F29C93722004EA1F006F97C1 /* DataBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataBase.h; sourceTree = "<group>"; };
 		F2C0072D1FF0E487001E1FE9 /* LoginModuleRegisterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginModuleRegisterViewController.h; sourceTree = "<group>"; };
 		F2C0072E1FF0E487001E1FE9 /* LoginModuleRegisterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginModuleRegisterViewController.m; sourceTree = "<group>"; };
 		F2C007361FF24574001E1FE9 /* MeModuleProfileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeModuleProfileViewController.h; sourceTree = "<group>"; };
@@ -217,14 +220,16 @@
 			path = TableView;
 			sourceTree = "<group>";
 		};
-		F251AC671FFE0FE000DC0A7C /* DataStoreModule */ = {
+		F251AC671FFE0FE000DC0A7C /* DataBaseModule */ = {
 			isa = PBXGroup;
 			children = (
-				F251AC691FFE127300DC0A7C /* DataStoreModuleProtocol.h */,
-				F251ACE31FFF604600DC0A7C /* DataStoreModule.h */,
-				F251ACE41FFF604600DC0A7C /* DataStoreModule.m */,
+				F29C936D2004DA93006F97C1 /* DataBaseModuleProtocol.h */,
+				F29C936E2004DACA006F97C1 /* DataBaseModule.h */,
+				F29C936F2004DACA006F97C1 /* DataBaseModule.m */,
+				F29C93722004EA1F006F97C1 /* DataBase.h */,
+				F29C93712004EA1F006F97C1 /* DataBase.m */,
 			);
-			path = DataStoreModule;
+			path = DataBaseModule;
 			sourceTree = "<group>";
 		};
 		F251AC681FFE101C00DC0A7C /* LabelModule */ = {
@@ -421,7 +426,7 @@
 				F258682A1FDB83A200D7B2BF /* Appdelegate */,
 				F25868231FDB803800D7B2BF /* Common */,
 				F25867FC1FDAAF4300D7B2BF /* Main */,
-				F251AC671FFE0FE000DC0A7C /* DataStoreModule */,
+				F251AC671FFE0FE000DC0A7C /* DataBaseModule */,
 				F251AC681FFE101C00DC0A7C /* LabelModule */,
 				F25868031FDAB22E00D7B2BF /* MeModule */,
 				F25868041FDAB24100D7B2BF /* LoginModule */,
@@ -594,6 +599,7 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-LLModularizationDemo/Pods-LLModularizationDemo-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
+				"${BUILT_PRODUCTS_DIR}/FMDB/FMDB.framework",
 				"${BUILT_PRODUCTS_DIR}/LLModularization/LLModularization.framework",
 				"${BUILT_PRODUCTS_DIR}/PureLayout/PureLayout.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
@@ -601,6 +607,7 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FMDB.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LLModularization.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PureLayout.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
@@ -650,6 +657,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F29C93702004DACA006F97C1 /* DataBaseModule.m in Sources */,
 				F251ACC21FFF1B5900DC0A7C /* LabelModuleLabelCategory.m in Sources */,
 				F251ACCF1FFF1E0300DC0A7C /* LabelModuleFlowLayout.m in Sources */,
 				F25868291FDB812D00D7B2BF /* UIImage+Extension.m in Sources */,
@@ -664,12 +672,12 @@
 				F2C007501FF27697001E1FE9 /* MeModuleMainViewController.m in Sources */,
 				F2C007411FF245FF001E1FE9 /* LoginModuleForgetPwdViewController.m in Sources */,
 				F2C007561FF3414D001E1FE9 /* MeModuleMainTableViewCell.m in Sources */,
-				F251ACE51FFF604600DC0A7C /* DataStoreModule.m in Sources */,
 				F2C0074D1FF2754D001E1FE9 /* LoginModuleMainViewController.m in Sources */,
 				F251ACE81FFF7AC100DC0A7C /* LabelModuleLabelManager.m in Sources */,
 				F25868021FDAAFA300D7B2BF /* LLNavigationController.m in Sources */,
 				F251ACBF1FFF1B3800DC0A7C /* LabelModuleLabelNode.m in Sources */,
 				F25867FF1FDAAF6C00D7B2BF /* LLTabBarController.m in Sources */,
+				F29C93732004EA1F006F97C1 /* DataBase.m in Sources */,
 				F251AC661FFE0F9400DC0A7C /* MeModuleHomeViewController.m in Sources */,
 				F2C0072F1FF0E487001E1FE9 /* LoginModuleRegisterViewController.m in Sources */,
 				F251AC5F1FFE032300DC0A7C /* MeModule.m in Sources */,

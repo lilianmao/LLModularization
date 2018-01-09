@@ -1,15 +1,15 @@
 //
-//  DataStoreModule.h
+//  DataBaseModule.h
 //  LLModularizationDemo
 //
-//  Created by 李林 on 1/5/18.
+//  Created by 李林 on 1/9/18.
 //  Copyright © 2018 lee. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-#import "DataStoreModuleProtocol.h"
+#import "DataBaseModuleProtocol.h"
 
-@interface DataStoreModule : NSObject <DataStoreModuleProtocol>
+@interface DataBaseModule : NSObject <DataBaseModuleProtocol>
 
 + (instancetype)sharedModule;
 

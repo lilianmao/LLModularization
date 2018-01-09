@@ -9,6 +9,7 @@
 #import "LabelModuleLabelManager.h"
 #import "LabelModuleLabelNode.h"
 #import "LabelModuleLabelCategory.h"
+#import "LabelModule.h"
 
 @implementation LabelModuleLabelManager
 
@@ -30,6 +31,13 @@
     if (1) {    // 本地没有，随机生成；本地存在，获取本地数据。
         if (success) {
             success([self generateLabelNode]);
+            
+            // temp: 临时测试
+            [[LabelModule sharedModule] callServiceWithURL:@"ll://operateDB/select * from table;" parameters:@{@"key": @"value"} navigationMode:LLModuleNavigationModeNone successBlock:^(id result) {
+                
+            } failureBlock:^(NSError *err) {
+                NSLog(@"%@", err.localizedDescription);
+            }];
         }
     }
 }
@@ -41,8 +49,6 @@
         success(nil);
     }
 }
-
-#pragma mark - Private Method
 
 #pragma mark - Private Method
 
