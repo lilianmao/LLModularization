@@ -8,12 +8,15 @@
 
 #import "DataBase.h"
 #import <FMDB/FMDB.h>
+#import <objc/runtime.h>
+
+#import "DataBase+LabelModuleLabelNode.h"
 
 static DataBase *_DBCtrl = nil;
 
-@interface DataBase() <NSCopying, NSMutableCopying> {
-    FMDatabase *_db;
-}
+@interface DataBase() <NSCopying, NSMutableCopying>
+
+@property (nonatomic, strong) FMDatabase *db;
 
 @end
 
@@ -60,27 +63,34 @@ static DataBase *_DBCtrl = nil;
     NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
     
     // 文件路径
-    NSString *filePath = [documentsPath stringByAppendingPathComponent:@"model.sqlite"];
+    NSString *filePath = [documentsPath stringByAppendingPathComponent:@"modularizationDemo.db"];
     
     // 实例化FMDataBase对象
     _db = [FMDatabase databaseWithPath:filePath];
-    
-    [_db open];
-    
-    // 初始化数据表
-    NSString *personSql = @"CREATE TABLE 'person' ('id' INTEGER PRIMARY KEY AUTOINCREMENT  NOT NULL ,'person_id' VARCHAR(255),'person_name' VARCHAR(255),'person_age' VARCHAR(255),'person_number'VARCHAR(255)) ";
-    NSString *carSql = @"CREATE TABLE 'car' ('id' INTEGER PRIMARY KEY AUTOINCREMENT  NOT NULL ,'own_id' VARCHAR(255),'car_id' VARCHAR(255),'car_brand' VARCHAR(255),'car_price'VARCHAR(255)) ";
-    
-    [_db executeUpdate:personSql];
-    [_db executeUpdate:carSql];
-
-    [_db close];
 }
 
 #pragma mark - API
 
-- (void)executeSQL:(NSString *)sql {
+- (BOOL)executeUpdateSQL:(NSString *)sql {
+    [_db open];
+
+    // TODO: 分给各个分类执行，需要传入参数objStr
+    BOOL result = [_db executeUpdate:sql];
+    NSLog(@"%d", result);
     
+    [_db close];
+    
+    return result;
+}
+
+// TODO: 设计合理性有待考证，可以使用runtime的执行方法。
+- (NSArray *)executeQuerySQL:(NSString *)sql
+                   tableName:(NSString *)tableName {
+    if ([tableName isEqualToString:NSStringFromClass([LabelModuleLabelNode class])]) {
+        return [self LabelModuleLabelNode_getAllElementsWithSQL:sql];
+    }
+    
+    return nil;
 }
 
 @end

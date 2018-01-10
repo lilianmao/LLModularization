@@ -11,6 +11,12 @@
 #import "LabelModuleLabelCategory.h"
 #import "LabelModule.h"
 
+@interface LabelModuleLabelManager()
+
+@property (nonatomic, assign) BOOL initialized;
+
+@end
+
 @implementation LabelModuleLabelManager
 
 #pragma mark - sharedManager
@@ -20,6 +26,7 @@
     static LabelModuleLabelManager *sharedLabel = nil;
     dispatch_once(&onceToken, ^{
         sharedLabel = [[LabelModuleLabelManager alloc] init];
+        sharedLabel.initialized = NO;
     });
     return sharedLabel;
 }
@@ -28,26 +35,51 @@
 
 - (void)getInsterestLabelsSuccessed:(LLSuccessBlock)success
                            failured:(LLFailureBlock)failure {
-    if (1) {    // 本地没有，随机生成；本地存在，获取本地数据。
-        if (success) {
-            success([self generateLabelNode]);
-            
-            // temp: 临时测试
-            [[LabelModule sharedModule] callServiceWithURL:@"ll://operateDB/select * from table;" parameters:@{@"key": @"value"} navigationMode:LLModuleNavigationModeNone successBlock:^(id result) {
-                
-            } failureBlock:^(NSError *err) {
-                NSLog(@"%@", err.localizedDescription);
-            }];
+    [self loadLabelNodeFromDataBaseSuccessed:^(id result) {
+        NSArray<LabelModuleLabelNode *> *labels = (NSArray<LabelModuleLabelNode *> *)result;
+        NSArray<LabelModuleLabelCategory *> *categories = [self generateLabelNode];
+        if (!labels || labels.count==0) {   // 如果数据库没有数据，自动生成
+            if (success) {
+                success(categories);
+            }
+        } else {                            // 如果数据库有数据，合并数据
+            categories = [self mergeLabels:labels toCategories:categories];
+            if (success) {
+                success(categories);
+            }
         }
-    }
+    } failured:^(NSError *err) {
+        if (failure) {
+            failure(err);
+        }
+    }];
 }
 
 - (void)setInterestLabels:(NSArray<LabelModuleLabelNode *> *)labels
                 successed:(LLSuccessBlock)success
                  failured:(LLFailureBlock)failure {
-    if (success) {
-        success(nil);
+    if (!self.initialized) {    // 如果没有初始化过，那么新建一个table。
+        __weak __typeof(self)weakSelf = self;
+        [[LabelModule sharedModule] callServiceWithURL:[self generateCreateSQL_URL] parameters:nil navigationMode:LLModuleNavigationModeNone successBlock:^(id result) {
+            __strong __typeof(weakSelf) strongSelf = weakSelf;
+            strongSelf.initialized = (BOOL)result;
+        } failureBlock:^(NSError *err) {
+            __strong __typeof(weakSelf) strongSelf = weakSelf;
+            strongSelf.initialized = NO;
+        }];
+    } else {
+        [[LabelModule sharedModule] callServiceWithURL:[self generateTruncateSQL_URL] parameters:nil navigationMode:LLModuleNavigationModeNone successBlock:nil failureBlock:nil];
     }
+    
+    [self saveLabelNodeToDataBaseWithLabels:labels successed:^(id result) {
+        if (success) {
+            success(result);
+        }
+    } failured:^(NSError *err) {
+        if (failure) {
+            failure(err);
+        }
+    }];
 }
 
 #pragma mark - Private Method
@@ -73,12 +105,88 @@
     LabelModuleLabelNode *node12 = [[LabelModuleLabelNode alloc] initLabelNodeWithLabelId:12 state:NO name:@"保险"];
     LabelModuleLabelCategory *cate3 = [[LabelModuleLabelCategory alloc] initLabelCategoryWithName:@"投资理财" nodes:@[node10, node11, node12]];
     
-    
     [categories addObject:cate1];
     [categories addObject:cate2];
     [categories addObject:cate3];
     
     return [categories copy];
+}
+
+- (void)loadLabelNodeFromDataBaseSuccessed:(LLSuccessBlock)success
+                                  failured:(LLFailureBlock)failure {
+    [[LabelModule sharedModule] callServiceWithURL:[self generateQuerySQL_URL] parameters:@{@"key": @"value"} navigationMode:LLModuleNavigationModeNone successBlock:^(id result) {
+        if (success) {
+            success(result);
+        }
+    } failureBlock:^(NSError *err) {
+        if (failure) {
+            failure(err);
+        }
+    }];
+}
+
+- (void)saveLabelNodeToDataBaseWithLabels:(NSArray<LabelModuleLabelNode *> *)labels
+                                successed:(LLSuccessBlock)success
+                                 failured:(LLFailureBlock)failure {
+    [[LabelModule sharedModule] callServiceWithURL:[self generateInsertSQL_WithLabelNode:labels] parameters:nil navigationMode:LLModuleNavigationModeNone successBlock:^(id result) {
+        if (success) {
+            success(result);
+        }
+    } failureBlock:^(NSError *err) {
+        if (failure) {
+            failure(err);
+        }
+    }];
+}
+
+#pragma mark - mergeData
+
+- (NSArray<LabelModuleLabelCategory *> *)mergeLabels:(NSArray<LabelModuleLabelNode *> *)labels toCategories:(NSArray<LabelModuleLabelCategory *> *)categories {
+    NSMutableArray<LabelModuleLabelCategory *> *cates = [categories mutableCopy];
+    
+    for (int i=0; i<cates.count; i++) {
+        NSMutableArray<LabelModuleLabelNode *> *nodes = [cates[i].nodes mutableCopy];
+        for (int j=0; j<nodes.count; j++) {
+            for (int k=0; k<labels.count; k++) {
+                if (labels[k].labelId == nodes[j].labelId) {
+                    nodes[j].state = labels[k].state;
+                }
+            }
+        }
+        cates[i].nodes = [nodes copy];
+    }
+    
+    return [cates copy];
+}
+
+#pragma mark - generateURL
+
+- (NSString *)generateQuerySQL_URL {
+    NSString *labelNodeClsName = NSStringFromClass([LabelModuleLabelNode class]);
+    return [NSString stringWithFormat:@"ll://operateDB/select * from %@/%@", labelNodeClsName, labelNodeClsName];
+}
+
+- (NSString *)generateInsertSQL_WithLabelNode:(NSArray<LabelModuleLabelNode *> *)labels {
+    NSString *labelNodeClsName = NSStringFromClass([LabelModuleLabelNode class]);
+    __block NSString *insertSQL = @"";
+    [labels enumerateObjectsUsingBlock:^(LabelModuleLabelNode * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSString *sql = [NSString stringWithFormat:@"INSERT INTO %@(labelId, state, name) VALUES(%d, %d, %@); ", labelNodeClsName, labels[idx].labelId, labels[idx].state, labels[idx].name];
+        insertSQL = [insertSQL stringByAppendingString:sql];
+    }];
+    
+    return [NSString stringWithFormat:@"ll://operateDB/%@", insertSQL];
+}
+
+- (NSString *)generateCreateSQL_URL {
+    NSString *labelNodeClsName = NSStringFromClass([LabelModuleLabelNode class]);
+    NSString *createSQL = [NSString stringWithFormat:@"ll://operateDB/CREATE TABLE '%@' ('labelId' INTEGER PRIMARY KEY  NOT NULL ,'state' INTEGER,'name' VARCHAR(255))/", labelNodeClsName];
+    return createSQL;
+}
+
+- (NSString *)generateTruncateSQL_URL {
+    NSString *labelNodeClsName = NSStringFromClass([LabelModuleLabelNode class]);
+    NSString *truncateSQL = [NSString stringWithFormat:@"ll://operateDB/TRUNCATE TABLE %@", labelNodeClsName];
+    return truncateSQL;
 }
 
 @end

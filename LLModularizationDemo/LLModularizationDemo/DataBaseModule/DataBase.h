@@ -8,10 +8,17 @@
 
 #import <Foundation/Foundation.h>
 
+@class FMDatabase;
+
 @interface DataBase : NSObject
+
+@property (nonatomic, strong, readonly) FMDatabase *db;
 
 + (instancetype)sharedDataBase;
 
-- (void)executeSQL:(NSString *)sql;
+- (BOOL)executeUpdateSQL:(NSString *)sql;
+
+- (NSArray *)executeQuerySQL:(NSString *)sql
+                   tableName:(NSString *)tableName;
 
 @end

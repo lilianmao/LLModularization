@@ -60,7 +60,7 @@
 }
 
 + (NSArray *)relyService {
-    return @[@"ll://operateDB/:sql"];
+    return @[@"ll://operateDB/:sql/:tableName"];
 }
 
 #pragma mark - LabelModuleProtocol

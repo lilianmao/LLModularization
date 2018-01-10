@@ -11,9 +11,9 @@
 
 @protocol DataBaseModuleProtocol <LLModuleProtocol>
 
-//TODO: 测试有些DataBase功能，看书《第7章》
+// TODO: 这里;解析不出来，需要修改routes的算法。
 /**
- URLPattern: ll://operateDB/:sql?tableName=table
+ URLPattern: ll://operateDB/:sql/:tableName
  function: 操作数据库
  
  @param params params为附加参数

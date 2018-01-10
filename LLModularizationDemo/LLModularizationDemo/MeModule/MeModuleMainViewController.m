@@ -104,7 +104,7 @@ static NSInteger rows = 4;
     } else if (indexPath.section == 1){
         [self labelAction];
     } else {
-        [self getLabelAction];
+//        [self getLabelAction];
     }
     CFRunLoopWakeUp(CFRunLoopGetCurrent());
 }

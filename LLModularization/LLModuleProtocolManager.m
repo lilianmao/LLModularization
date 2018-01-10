@@ -85,7 +85,12 @@
                         navigationMode:(LLModuleNavigationMode)mode
                           successBlock:(LLBasicSuccessBlock_t)success
                           failureBlock:(LLBasicFailureBlock_t)failure {
-    NSParameterAssert(serviceName != nil);
+    if ([LLModuleUtils isNilOrEmtpyForString:serviceName]) {
+        NSString *errMsg = @"serviceName is nil.";
+        NSError *err = [[NSError alloc] initWithDomain:NSStringFromClass([self class]) code:-1 userInfo:@{NSLocalizedDescriptionKey:errMsg}];
+        failure(err);
+        return ;
+    }
     
     NSString *instanceName = [self getInstanceWithService:serviceName];
     Class instance = NSClassFromString(instanceName);
