@@ -10,7 +10,7 @@
 #import <LLModularization/LLModuleProtocol.h>
 
 /*
- 这个Module所需要的参数
+ 这个Module所需要的参数(username和password: required)
  */
 static NSString *const LoginModule_UserName = @"username";
 static NSString *const LoginModule_Password = @"password";

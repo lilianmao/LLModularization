@@ -16,7 +16,9 @@
 
 + (instancetype)sharedDataBase;
 
-- (BOOL)executeUpdateSQL:(NSString *)sql;
+- (BOOL)executeUpdateSQL:(NSString *)sql
+               tableName:(NSString *)tableName
+               objectStr:(NSString *)objStr;
 
 - (NSArray *)executeQuerySQL:(NSString *)sql
                    tableName:(NSString *)tableName;

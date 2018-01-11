@@ -32,8 +32,7 @@
 #pragma mark - register
 
 + (void)load {
-    [[LLModule sharedInstance] registerServiceWithServiceName:NSStringFromSelector(@selector(operateDataBaseWithParams:)) URLPattern:@"ll://operateDB/:sql/:tableName" instance:NSStringFromClass(self)];
-    [[LLModule sharedInstance] registerServiceWithServiceName:NSStringFromSelector(@selector(operateDataBaseWithParams:)) URLPattern:@"ll://operateDB/:sql" instance:NSStringFromClass(self)];
+    [[LLModule sharedInstance] registerServiceWithServiceName:NSStringFromSelector(@selector(operateDataBaseWithParams:)) URLPattern:@"ll://operateDB" instance:NSStringFromClass(self)];
 }
 
 #pragma mark - LLModuleProtocol
@@ -66,13 +65,14 @@
 
 + (id)operateDataBaseWithParams:(NSDictionary *)params {
     NSString *sql = params[@"sql"];
+    NSString *objStr = params[@"objStr"];
     NSString *tableName = params[@"tableName"];
     
     NSRange range = [sql rangeOfString:@"select" options:NSCaseInsensitiveSearch];
     if (range.length > 0) {
         return [[DataBase sharedDataBase] executeQuerySQL:sql tableName:tableName];
     } else {
-        [[DataBase sharedDataBase] executeUpdateSQL:sql];
+        [[DataBase sharedDataBase] executeUpdateSQL:sql tableName:tableName objectStr:objStr];
     }
     
     return nil;

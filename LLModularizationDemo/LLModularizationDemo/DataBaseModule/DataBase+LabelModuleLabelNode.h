@@ -13,8 +13,7 @@
 
 - (NSArray<LabelModuleLabelNode *> *)LabelModuleLabelNode_getAllElementsWithSQL:(NSString *)sql;
 
-// TODO: 完成SQL语句的组装，使用mjExt做模型转换
-- (BOOL)LabelModuleLabelNode_setElement:(NSString *)labelStr
-                                withSQL:(NSString *)sql;
+- (BOOL)LabelModuleLabelNode_setElementwithSQL:(NSString *)sql
+                                      labelStr:(NSString *)labelStr;
 
 @end

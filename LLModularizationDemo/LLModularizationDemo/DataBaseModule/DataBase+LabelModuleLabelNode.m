@@ -9,7 +9,11 @@
 #import "DataBase+LabelModuleLabelNode.h"
 #import <FMDB/FMDB.h>
 
+#import <MJExtension/MJExtension.h>
+
 @implementation DataBase (LabelModuleLabelNode)
+
+#pragma mark - get
 
 - (NSArray<LabelModuleLabelNode *> *)LabelModuleLabelNode_getAllElementsWithSQL:(NSString *)sql {
     NSMutableArray *labels = @[].mutableCopy;
@@ -33,21 +37,66 @@
     return [labels copy];
 }
 
-- (BOOL)LabelModuleLabelNode_setElement:(NSString *)labelStr
-                                withSQL:(NSString *)sql {
+#pragma mark - set
+
+- (BOOL)LabelModuleLabelNode_setElementwithSQL:(NSString *)sql
+                                      labelStr:(NSString *)labelStr {
+    NSRange insertRange = [sql rangeOfString:@"insert" options:NSCaseInsensitiveSearch];
+    NSRange updateRange = [sql rangeOfString:@"update" options:NSCaseInsensitiveSearch];
+    NSRange deleteRange = [sql rangeOfString:@"delete" options:NSCaseInsensitiveSearch];
+    
+    if (insertRange.length > 0) {
+        return [self LabelModuleLabelNode_insertElementsWithSQL:sql labelStr:labelStr];
+    }
+    if (updateRange.length > 0) {
+        return [self LabelModuleLabelNode_updateElementsWithSQL:sql labelStr:labelStr];
+    }
+    if (deleteRange.length > 0) {
+        return [self LabelModuleLabelNode_deleteElementsWithSQL:sql labelStr:labelStr];
+    }
+    
+    return NO;
+}
+
+- (BOOL)LabelModuleLabelNode_insertElementsWithSQL:(NSString *)sql
+                                          labelStr:(NSString *)labelStr {
+    __block BOOL result = NO;
+    NSArray<NSString *> *statements = [sql componentsSeparatedByString:@";"];
+    NSArray<LabelModuleLabelNode *> *labels = [LabelModuleLabelNode mj_objectArrayWithKeyValuesArray:labelStr];
+    
+    // 去掉数组最后一个空字符
+    NSMutableArray *stats = [statements mutableCopy];
+    [stats removeLastObject];
+    statements = [stats copy];
+    
+    if (statements.count != labels.count) {
+        return NO;
+    } else {
+        [self.db open];
+        [statements enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            result = result && [self.db executeUpdate:sql, @(labels[idx].labelId), @(labels[idx].labelId), labels[idx].name];
+        }];
+        [self.db close];
+    }
+    
+    return result;
+}
+
+- (BOOL)LabelModuleLabelNode_updateElementsWithSQL:(NSString *)sql
+                                          labelStr:(NSString *)labelStr {
     return YES;
 }
 
-- (BOOL)LabelModuleLabelNode_insertElementsWithSQL:(NSString *)sql {
-    return YES;
-}
-
-- (BOOL)LabelModuleLabelNode_updateElementsWithSQL:(NSString *)sql {
-    return YES;
-}
-
-- (BOOL)LabelModuleLabelNode_deleteElementsWithSQL:(NSString *)sql {
-    return YES;
+- (BOOL)LabelModuleLabelNode_deleteElementsWithSQL:(NSString *)sql
+                                          labelStr:(NSString *)labelStr {
+    BOOL result = NO;
+    LabelModuleLabelNode *label = [LabelModuleLabelNode mj_objectWithKeyValues:labelStr];
+    
+    [self.db open];
+    [self.db executeUpdate:sql, label.labelId];
+    [self.db close];
+    
+    return result;
 }
 
 @end

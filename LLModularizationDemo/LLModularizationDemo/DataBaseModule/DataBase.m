@@ -71,14 +71,19 @@ static DataBase *_DBCtrl = nil;
 
 #pragma mark - API
 
-- (BOOL)executeUpdateSQL:(NSString *)sql {
-    [_db open];
-
-    // TODO: 分给各个分类执行，需要传入参数objStr
-    BOOL result = [_db executeUpdate:sql];
-    NSLog(@"%d", result);
+- (BOOL)executeUpdateSQL:(NSString *)sql
+               tableName:(NSString *)tableName
+               objectStr:(NSString *)objStr {
+    BOOL result = NO;
     
-    [_db close];
+    if ([tableName isEqualToString:NSStringFromClass([LabelModuleLabelNode class])]) {
+        result = [self LabelModuleLabelNode_setElementwithSQL:sql labelStr:objStr];
+    } else {
+        [_db open];
+        result = [_db executeUpdate:sql];
+        [_db close];
+    }
+    NSLog(@"%d", result);
     
     return result;
 }
