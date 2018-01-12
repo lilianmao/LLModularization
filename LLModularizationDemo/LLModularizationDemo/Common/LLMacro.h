@@ -29,4 +29,9 @@ typedef void (^LLFailureBlock)(NSError *err);
 #define JYFUHeightSystemStatus    20
 #define JYFUHeightTopBar          (JYFUHeightNavBar + JYFUHeightSystemStatus)   //status bar和nav bar高度
 
+// network
+#define LL_NOTI_NETWORK_REQUEST_FAILURE     @"LL_NOTI_NETWORK_REQUEST_FAILURE"
+#define LL_NOTI_NETWORK_BUSINESS_FAILURE    @"LL_NOTI_NETWORK_BUSINESS_FAILURE"
+#define LL_NOTI_NETWORK_TOKEN_EXPIRED       @"LL_NOTI_NETWORK_TOKEN_EXPIRED"
+
 #endif /* LLMacro_h */
