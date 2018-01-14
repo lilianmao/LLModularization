@@ -10,8 +10,6 @@
 
 @interface LLNetworkManager (Report)
 
-// TODO: 写一个crash收集，然后上报来测试。
-
 /**
  上报
  

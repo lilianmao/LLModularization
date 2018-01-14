@@ -101,10 +101,12 @@ static NSInteger rows = 4;
     // 临时测试
     if (indexPath.section == 0) {
         [self loginBtnAction];
-    } else if (indexPath.section == 1){
+    } else if (indexPath.section == 1) {
         [self labelAction];
-    } else {
+    } else if (indexPath.section == 2) {
 //        [self getLabelAction];
+    } else {
+        [self crashAction];
     }
     CFRunLoopWakeUp(CFRunLoopGetCurrent());
 }
@@ -141,6 +143,11 @@ static NSInteger rows = 4;
     } failureBlock:^(NSError *err) {
         
     }];
+}
+
+- (void)crashAction {
+    NSMutableArray *array = @{}.mutableCopy;
+    [array addObject:nil];
 }
 
 - (NSString *)getAccountDataWithParams:(NSDictionary *)params {
