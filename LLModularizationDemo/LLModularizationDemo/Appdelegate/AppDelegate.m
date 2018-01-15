@@ -8,9 +8,7 @@
 
 #import "AppDelegate.h"
 #import "LLTabBarController.h"
-
-#import <signal.h>
-#import <execinfo.h>
+#import "NSObject+CrashCatch.h"
 
 @interface AppDelegate ()
 
@@ -24,7 +22,7 @@
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.rootViewController = [[LLTabBarController alloc] init];
     [self.window makeKeyAndVisible];
-    [self initHandler];
+    [NSObject initCrashCatchHandler];
     
     return YES;
 }
@@ -54,33 +52,6 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-}
-
-#pragma mark - Crash Catch
-
-- (void)initHandler {
-    struct sigaction newSignalAction;
-    memset(&newSignalAction, 0,sizeof(newSignalAction));
-    newSignalAction.sa_handler = &signalHandler;
-    sigaction(SIGABRT, &newSignalAction, NULL);
-    sigaction(SIGILL, &newSignalAction, NULL);
-    sigaction(SIGSEGV, &newSignalAction, NULL);
-    sigaction(SIGFPE, &newSignalAction, NULL);
-    sigaction(SIGBUS, &newSignalAction, NULL);
-    sigaction(SIGPIPE, &newSignalAction, NULL);
-    
-    //异常时调用的函数
-    NSSetUncaughtExceptionHandler(&handleExceptions);
-}
-
-void handleExceptions(NSException *exception) {
-    NSLog(@"exception = %@",exception);
-    NSLog(@"callStackSymbols = %@",[exception callStackSymbols]);
-    // TODO: report call chain
-}
-
-void signalHandler(int sig) {
-    NSLog(@"signal = %d", sig);
 }
 
 

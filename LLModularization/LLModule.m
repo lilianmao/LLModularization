@@ -9,6 +9,7 @@
 #import "LLModuleProtocolManager.h"
 #import "LLModuleURLManager.h"
 #import "LLModuleUtils.h"
+#import "LLModuleCallStackManager.h"
 
 @interface LLModule()
 
@@ -54,6 +55,10 @@
     }
     
     [[LLModuleURLManager sharedManager] callServiceWithCallerConnector:connector URL:url parameters:params navigationMode:mode successBlock:success failureBlock:failure];
+}
+
+- (NSArray *)getModuleCallStack {
+    return [LLModuleCallStackManager getModuleCallStack];
 }
 
 @end

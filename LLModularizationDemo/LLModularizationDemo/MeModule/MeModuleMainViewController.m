@@ -10,6 +10,9 @@
 #import "MeModuleMainTableViewCell.h"
 #import "MeModule.h"
 
+#import <LLModularization/LLModule.h>
+#import "LLNetworkManager+Report.h"
+
 static NSInteger rows = 4;
 
 @implementation MeModuleMainModel
@@ -106,7 +109,7 @@ static NSInteger rows = 4;
     } else if (indexPath.section == 2) {
 //        [self getLabelAction];
     } else {
-        [self crashAction];
+        [self callStackAction];
     }
     CFRunLoopWakeUp(CFRunLoopGetCurrent());
 }
@@ -145,9 +148,13 @@ static NSInteger rows = 4;
     }];
 }
 
-- (void)crashAction {
-    NSMutableArray *array = @{}.mutableCopy;
-    [array addObject:nil];
+- (void)callStackAction {
+    NSArray *callStack = [[LLModule sharedInstance] getModuleCallStack];
+    [[LLNetworkManager sharedManager] reportWithParams:@{@"callStack": callStack} success:^(id result) {
+        NSLog(@"success");
+    } failure:^(NSError *err) {
+        NSLog(@"failure");
+    }];
 }
 
 - (NSString *)getAccountDataWithParams:(NSDictionary *)params {

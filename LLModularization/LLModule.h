@@ -36,4 +36,11 @@
                           successBlock:(LLBasicSuccessBlock_t)success
                           failureBlock:(LLBasicFailureBlock_t)failure;
 
+/**
+ 获取模块调用栈
+
+ @return 模块调用栈，数组形式
+ */
+- (NSArray *)getModuleCallStack;
+
 @end
