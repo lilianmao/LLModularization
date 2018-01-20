@@ -1,0 +1,41 @@
+include ./layout
+
+block content
+    div.container
+        div.rows
+            div.col-lg-12
+                form.form-inline
+                    input.form-control#searchId(type="text" , placeholder="Seach Id")
+                    button.btn.btn-default#search(type="submit") 搜索
+                table.table.table-bordered.table-hover
+                    tr
+                        th ID
+                        th callChain
+                        th service
+                        th serviceType
+                    tbody#infoContainer
+                        each item in result
+                            tr
+                                td #{item.id}
+                                td #{item.callChain}
+                                td #{item.service}
+                                td #{item.serviceType}
+                    tfoot
+        div.modal.fade#myModal(tabindex="-1",role="dialog",aria-labelledby="myModalLabel")
+            div.modal-dialog(role="document")
+                div.modal-content
+                    div.modal-header
+                        h4.modal-title#myModalLabel EditInfo
+                    div.modal-body
+                        form.form-inline
+                            div.form-group
+                                input.form-control#id(type="hidden")
+                                label(for="name") Name
+                                input.form-control#name(type="text")
+                            div.form-group
+                                label(for="age") Age
+                                input.form-control#age(type="text")
+                    div.modal-footer
+                        button(type="button" ,class="btn btn-default" ,data-dismiss="modal") Close
+                        button#save(type="button" ,class="btn btn-default") Save
+    script(src="/javascripts/list.js")

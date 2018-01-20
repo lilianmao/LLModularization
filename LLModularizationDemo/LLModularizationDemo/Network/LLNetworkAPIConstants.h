@@ -22,6 +22,6 @@ typedef NS_ENUM(NSInteger, LLResponseStatus) {
 
 #pragma mark - report
 
-static NSString *const REPORT_CALLCHAIN           = @"/report/callChain";  // report
+static NSString *const REPORT_CALLCHAIN           = @"/callStack/postCallStack";  // report
 
 #endif /* LLNetworkAPIConstants_h */
