@@ -112,6 +112,8 @@
         [strongSelf.navigationController popViewControllerAnimated:YES];
     } failured:^(NSError *err) {
         [SVProgressHUD showErrorWithStatus:@"设置兴趣标签失败"];
+        __strong __typeof(weakSelf) strongSelf = weakSelf;
+        [strongSelf.navigationController popViewControllerAnimated:YES];
     }];
 }
 

@@ -18,18 +18,18 @@
 - (NSArray<LabelModuleLabelNode *> *)LabelModuleLabelNode_getAllElementsWithSQL:(NSString *)sql {
     NSMutableArray *labels = @[].mutableCopy;
     
-    [self.db open];
-    
-    FMResultSet *res = [self.db executeQuery:sql];
-    
-    while ([res next]) {
-        LabelModuleLabelNode *labelNode = [[LabelModuleLabelNode alloc] init];
+    if ([self.db open]) {
+        FMResultSet *res = [self.db executeQuery:sql];
         
-        labelNode.labelId = [[res stringForColumn:@"labelId"] intValue];
-        labelNode.state = [[res stringForColumn:@"state"] integerValue];
-        labelNode.name = [res stringForColumn:@"name"];
-        
-        [labels addObject:labelNode];
+        while ([res next]) {
+            LabelModuleLabelNode *labelNode = [[LabelModuleLabelNode alloc] init];
+            
+            labelNode.labelId = [[res stringForColumn:@"labelId"] intValue];
+            labelNode.state = [[res stringForColumn:@"state"] integerValue];
+            labelNode.name = [res stringForColumn:@"name"];
+            
+            [labels addObject:labelNode];
+        }
     }
     
     [self.db close];
@@ -60,24 +60,30 @@
 
 - (BOOL)LabelModuleLabelNode_insertElementsWithSQL:(NSString *)sql
                                           labelStr:(NSString *)labelStr {
-    __block BOOL result = NO;
-    NSArray<NSString *> *statements = [sql componentsSeparatedByString:@";"];
+    __block BOOL result = YES;      // 初始化设置为YES，不然&&操作全是NO。
     NSArray<LabelModuleLabelNode *> *labels = [LabelModuleLabelNode mj_objectArrayWithKeyValuesArray:labelStr];
     
-    // 去掉数组最后一个空字符
-    NSMutableArray *stats = [statements mutableCopy];
-    [stats removeLastObject];
-    statements = [stats copy];
-    
-    if (statements.count != labels.count) {
-        return NO;
-    } else {
-        [self.db open];
-        [statements enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            result = result && [self.db executeUpdate:sql, @(labels[idx].labelId), @(labels[idx].labelId), labels[idx].name];
-        }];
-        [self.db close];
+    if ([self.db open]) {
+        // 批量增加，加入事务。
+        [self.db beginTransaction];
+        BOOL isRollBack = NO;
+        
+        @try {
+            [labels enumerateObjectsUsingBlock:^(LabelModuleLabelNode * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                result = result && [self.db executeUpdate:sql, @(obj.labelId), @(obj.labelId), obj.name];
+            }];
+        }
+        @catch (NSException *exception) {
+            isRollBack = YES;
+            [self.db rollback];
+        }
+        @finally {
+            if (!isRollBack) {
+                [self.db commit];
+            }
+        }
     }
+    [self.db close];
     
     return result;
 }

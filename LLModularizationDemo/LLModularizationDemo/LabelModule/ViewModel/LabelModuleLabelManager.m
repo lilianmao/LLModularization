@@ -10,6 +10,8 @@
 #import "LabelModuleLabelNode.h"
 #import "LabelModuleLabelCategory.h"
 #import "LabelModule.h"
+#import "DataBase.h"
+#import "DataBase+LabelModuleLabelNode.h"
 
 #import <MJExtension/MJExtension.h>
 
@@ -60,13 +62,11 @@
     [self loadLabelNodeFromDataBaseSuccessed:^(id result) {
         NSArray<LabelModuleLabelNode *> *labels = (NSArray<LabelModuleLabelNode *> *)result;
         if (!labels || labels.count==0) {
-            [[LabelModule sharedModule] callServiceWithURL:@"ll://operateDB" parameters:[self generateCreateSQL_URL] navigationMode:LLModuleNavigationModeNone successBlock:^(id result) {
-                NSLog(@"result: %@", result);
-            } failureBlock:^(NSError *err) {
-                NSLog(@"error: %@", err.localizedDescription);
-            }];
+            NSDictionary *params = [self generateCreateTableSQL_URL];
+            [[DataBase sharedDataBase] executeUpdateSQL:params[@"sql"] tableName:nil objectStr:nil];
         } else {
-            [[LabelModule sharedModule] callServiceWithURL:@"ll://operateDB" parameters:[self generateTruncateSQL_URL] navigationMode:LLModuleNavigationModeNone successBlock:nil failureBlock:nil];
+            NSDictionary *params = [self generateTruncateSQL_URL];
+            [[DataBase sharedDataBase] executeUpdateSQL:params[@"sql"] tableName:nil objectStr:nil];
         }
     } failured:^(NSError *err) {
         NSLog(@"error: %@", err.localizedDescription);
@@ -87,29 +87,25 @@
 
 - (void)loadLabelNodeFromDataBaseSuccessed:(LLSuccessBlock)success
                                   failured:(LLFailureBlock)failure {
-    [[LabelModule sharedModule] callServiceWithURL:@"ll://operateDB" parameters:[self generateQuerySQL_Params] navigationMode:LLModuleNavigationModeNone successBlock:^(id result) {
-        if (success) {
-            success(result);
-        }
-    } failureBlock:^(NSError *err) {
-        if (failure) {
-            failure(err);
-        }
-    }];
+    NSDictionary *params = [self generateQuerySQL_Params];
+    NSArray *results = [[DataBase sharedDataBase] LabelModuleLabelNode_getAllElementsWithSQL:params[@"sql"]];
+    if (results && success) {
+        success(results);
+    } else {
+        failure(nil);
+    }
 }
 
 - (void)saveLabelNodeToDataBaseWithLabels:(NSArray<LabelModuleLabelNode *> *)labels
                                 successed:(LLSuccessBlock)success
                                  failured:(LLFailureBlock)failure {
-    [[LabelModule sharedModule] callServiceWithURL:@"ll://operateDB" parameters:[self generateInsertSQL_WithLabelNode:labels] navigationMode:LLModuleNavigationModeNone successBlock:^(id result) {
-        if (success) {
-            success(result);
-        }
-    } failureBlock:^(NSError *err) {
-        if (failure) {
-            failure(err);
-        }
-    }];
+    NSDictionary *params = [self generateInsertSQL_WithLabelNode:labels];
+    BOOL status = [[DataBase sharedDataBase] LabelModuleLabelNode_setElementwithSQL:params[@"sql"] labelStr:params[@"objStr"]];
+    if (status && success) {
+        success([NSNumber numberWithBool:status]);
+    } else {
+        failure(nil);
+    }
 }
 
 #pragma mark - mergeData
@@ -148,11 +144,7 @@
     NSMutableDictionary *params = @{}.mutableCopy;
     NSString *labelNodeClsName = NSStringFromClass([LabelModuleLabelNode class]);
     
-    __block NSString *insertSQL = @"";
-    [labels enumerateObjectsUsingBlock:^(LabelModuleLabelNode * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        NSString *sql = [NSString stringWithFormat:@"INSERT INTO %@(labelId, state, name) VALUES(?, ?, ?);", labelNodeClsName];
-        insertSQL = [insertSQL stringByAppendingString:sql];
-    }];
+    NSString *insertSQL = [NSString stringWithFormat:@"INSERT INTO %@(labelId, state, name) VALUES(?, ?, ?);", labelNodeClsName];
     params[@"sql"] = insertSQL;
     params[@"objStr"] = [self formatLabels:labels];
     params[@"tableName"] = labelNodeClsName;
@@ -160,7 +152,7 @@
     return [params copy];
 }
 
-- (NSDictionary *)generateCreateSQL_URL {
+- (NSDictionary *)generateCreateTableSQL_URL {
     NSMutableDictionary *params = @{}.mutableCopy;
     NSString *labelNodeClsName = NSStringFromClass([LabelModuleLabelNode class]);
     
@@ -170,11 +162,12 @@
     return [params copy];
 }
 
+// sqlite没有truncate，只能delete from
 - (NSDictionary *)generateTruncateSQL_URL {
     NSMutableDictionary *params = @{}.mutableCopy;
     NSString *labelNodeClsName = NSStringFromClass([LabelModuleLabelNode class]);
     
-    NSString *truncateSQL = [NSString stringWithFormat:@"TRUNCATE TABLE %@", labelNodeClsName];
+    NSString *truncateSQL = [NSString stringWithFormat:@"delete from %@;", labelNodeClsName];
     params[@"sql"] = truncateSQL;
     
     return [params copy];

@@ -78,12 +78,12 @@ static DataBase *_DBCtrl = nil;
     
     if ([tableName isEqualToString:NSStringFromClass([LabelModuleLabelNode class])]) {
         result = [self LabelModuleLabelNode_setElementwithSQL:sql labelStr:objStr];
-    } else {
-        [_db open];
-        result = [_db executeUpdate:sql];
+    } else {        // 执行一些公共语句，例如：create，delete等等。
+        if ([_db open]) {
+            result = [_db executeUpdate:sql];
+        }
         [_db close];
     }
-    NSLog(@"%d", result);
     
     return result;
 }
