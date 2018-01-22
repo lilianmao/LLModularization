@@ -35,6 +35,7 @@
 + (void)load {
     [[LLModule sharedInstance] registerServiceWithServiceName:NSStringFromSelector(@selector(showLabelModule)) URLPattern:@"ll://label.show" instance:NSStringFromClass(self)];
     [[LLModule sharedInstance] registerServiceWithServiceName:NSStringFromSelector(@selector(getInterestLabelsWithParams:)) URLPattern:@"ll://label.get" instance:NSStringFromClass(self)];
+    [[LLModule sharedInstance] registerRelyService:@"ll://login/:query.html"];
 }
 
 #pragma mark - LLModuleProtocol
@@ -57,10 +58,6 @@
     }
     
     [[LLModule sharedInstance] callServiceWithCallerConnector:NSStringFromClass([self class]) URL:url parameters:params navigationMode:mode successBlock:success failureBlock:failure];
-}
-
-+ (NSArray *)relyService {
-    return @[@"ll://operateDB"];
 }
 
 #pragma mark - LabelModuleProtocol

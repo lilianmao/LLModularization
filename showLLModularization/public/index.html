@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>APP调用栈页面</title>
+    <script src="libs/jquery/dist/jquery.min.js"></script>
+</head>
+<body>
+<p>调用信息如下</p>
+<p id="data"></p>
+
+
+<div style="display: none" id="tpl_data">
+    <p>{{item}}}</p>
+    <!--<table border="1">-->
+        <!--<tr>-->
+            <!--<th>id</th>-->
+            <!--<th>callChain</th>-->
+            <!--<th>service</th>-->
+            <!--<th>serviceType</th>-->
+        <!--</tr>-->
+        <!---->
+    <!--</table>-->
+</div>
+</body>
+<script>
+    $.get("/callstack",function(res){
+        document.getElementById("data").innerHTML = JSON.stringify(res);
+        console.log(res);
+        let tpl_html = document.getElementById("tpl_data").innerHTML;
+        console.log(tpl_html);
+        let html = [];
+        res.map((item)=>{
+            let item_html = tpl_html.replace(/{{item}}/g,JSON.stringify(item));
+            html.push(item_html);
+        })
+        console.log(html);
+        document.getElementById("data").innerHTML = html.join("");
+    })
+</script>
+</html>

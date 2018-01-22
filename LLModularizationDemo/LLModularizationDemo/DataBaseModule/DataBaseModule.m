@@ -57,10 +57,6 @@
     [[LLModule sharedInstance] callServiceWithCallerConnector:NSStringFromClass([self class]) URL:url parameters:params navigationMode:mode successBlock:success failureBlock:failure];
 }
 
-+ (NSArray *)relyService {
-    return @[];
-}
-
 #pragma mark - DataStoreModuleProtocol
 
 + (id)operateDataBaseWithParams:(NSDictionary *)params {

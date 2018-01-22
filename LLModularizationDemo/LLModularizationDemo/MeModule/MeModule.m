@@ -32,6 +32,7 @@
 
 + (void)load {
     [[LLModule sharedInstance] registerServiceWithServiceName:NSStringFromSelector(@selector(getMeModuleAccountWithParams:)) URLPattern:@"ll://getAccount" instance:NSStringFromClass(self)];
+    [[LLModule sharedInstance] registerRelyService:nil];
 }
 
 #pragma mark - LLModuleProtocol
@@ -54,10 +55,6 @@
     }
     
     [[LLModule sharedInstance] callServiceWithCallerConnector:NSStringFromClass([self class]) URL:url parameters:params navigationMode:mode successBlock:success failureBlock:failure];
-}
-
-+ (NSArray *)relyService {
-    return @[];
 }
 
 #pragma mark - MeModuleProtocol

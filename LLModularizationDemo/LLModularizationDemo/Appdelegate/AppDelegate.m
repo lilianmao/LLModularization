@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "LLTabBarController.h"
 #import "NSObject+CrashCatch.h"
+#import <LLModularization/LLModule.h>
 
 @interface AppDelegate ()
 
@@ -23,6 +24,7 @@
     self.window.rootViewController = [[LLTabBarController alloc] init];
     [self.window makeKeyAndVisible];
     [NSObject initCrashCatchHandler];
+    [self checkModularization];
     
     return YES;
 }
@@ -52,6 +54,16 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+#pragma mark - Private Method
+
+- (void)checkModularization {
+    NSArray *missingServices = [[LLModule sharedInstance] checkRelyService];
+    if (missingServices.count > 0) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"未注册的服务" message:[missingServices description] delegate:self cancelButtonTitle:@"好的" otherButtonTitles:nil, nil];
+        [alertView show];
+    }
 }
 
 

@@ -3,23 +3,27 @@ var app = new express();
 var router = express.Router();
 var querystring = require('querystring');
 
-var userDao = require('../dao/callStackDao');
+const UserDao = require('../dao/callStackDao');
+const userDao = new UserDao();
 
 var callChainId = 1;
 
 /* GET users listing. */
-router.get('/home.html', function(req, res, next) {
+// next是一个中间件请求
+router.get('/', async function(req, res, next) {
 
-    userDao.queryAll(req, res, next);
+    // ES6新语法：await和promise
+    let result = await userDao.queryAll();
+    res.send(result);
 
 });
 
-router.post('/postCallStack', function(req, res, next) {
+router.post('/', async function(req, res, next) {
     userDao.truncate(req, res, next);
 
     var post = req.body;
+    console.log(post);
 
-    var callStack = '';
     for (var key in post) {
         if (key == "callStack[]") {
             callStack = post[key];
@@ -33,9 +37,9 @@ router.post('/postCallStack', function(req, res, next) {
 
         stacks.push(addSqlParams);
     }
-    console.log("------------------");
-    console.log(stacks);
-    userDao.insert(req, res, next, stacks);
+
+    let result = await userDao.insert(stacks);
+    console.log(result);
 });
 
 function splitCallChain(callChain) {

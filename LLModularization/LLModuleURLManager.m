@@ -13,6 +13,7 @@
 @interface LLModuleURLManager()
 
 @property (nonatomic, copy) NSArray *urlPatterns;
+@property (nonatomic, copy) NSArray *relyURLPatterns;
 
 @end
 
@@ -38,6 +39,13 @@
     return _urlPatterns;
 }
 
+- (NSArray *)relyURLPatterns {
+    if (!_relyURLPatterns) {
+        _relyURLPatterns = @[];
+    }
+    return _relyURLPatterns;
+}
+
 #pragma mark - register & open
 
 - (BOOL)registerServiceWithServiceName:(NSString *)serviceName
@@ -47,9 +55,10 @@
         return NO;
     }
     
+    // 加入到urlPatterns中
     NSMutableArray *urls = [self.urlPatterns mutableCopy];
     [urls addObject:urlPattern];
-    self.urlPatterns = urls;
+    self.urlPatterns = [urls copy];
     
     [LLModuleURLRoutes registerURLPattern:urlPattern toService:serviceName];
     
@@ -77,11 +86,22 @@
     }
 }
 
-- (BOOL)checkIfRegisterURLPattern:(NSString *)urlPattern {
-    if ([_urlPatterns indexOfObject:urlPattern] != NSNotFound) {
-        return YES;
-    }
-    return NO;
+#pragma mark - rely
+
+- (void)registerRelyService:(NSString *)serviceName {
+    NSMutableArray *urls = [self.relyURLPatterns mutableCopy];
+    [urls addObject:serviceName];
+    self.relyURLPatterns = [urls copy];
+}
+
+- (NSArray *)checkRelyService {
+    __block NSMutableArray *missingService = @[].mutableCopy;
+    [self.relyURLPatterns enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([_urlPatterns indexOfObject:obj] == NSNotFound) {
+            [missingService addObject:obj];
+        }
+    }];
+    return [missingService copy];
 }
 
 @end

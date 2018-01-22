@@ -32,6 +32,7 @@
 
 + (void)load {
     [[LLModule sharedInstance] registerServiceWithServiceName:NSStringFromSelector(@selector(openLoginModuleWithParams:)) URLPattern:@"ll://login/:query.html" instance:NSStringFromClass(self)];
+    [[LLModule sharedInstance] registerRelyService:nil];
 }
 
 
@@ -51,11 +52,6 @@
               successBlock:(LLBasicSuccessBlock_t)success
               failureBlock:(LLBasicFailureBlock_t)failure {
     
-}
-
-+ (NSArray *)relyService {
-    //    return @[@"ll://login/:query.html"];
-    return @[];
 }
 
 #pragma mark - LoginModuleProtocol
