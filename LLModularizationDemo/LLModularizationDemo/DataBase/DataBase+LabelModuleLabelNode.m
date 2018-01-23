@@ -98,8 +98,9 @@
     BOOL result = NO;
     LabelModuleLabelNode *label = [LabelModuleLabelNode mj_objectWithKeyValues:labelStr];
     
-    [self.db open];
-    [self.db executeUpdate:sql, label.labelId];
+    if ([self.db open]) {
+        [self.db executeUpdate:sql, label.labelId];
+    }
     [self.db close];
     
     return result;

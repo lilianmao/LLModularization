@@ -7,6 +7,7 @@
 //
 
 #import "NSObject+CrashCatch.h"
+#import "callStackManager.h"
 
 #import <signal.h>
 #import <execinfo.h>
@@ -31,8 +32,10 @@
 }
 
 void handleExceptions(NSException *exception) {
-    NSLog(@"exception = %@",exception);
-    NSLog(@"callStackSymbols = %@",[exception callStackSymbols]);
+    [callStackManager saveCallStackWithType:callStackSubmitTypeCrash];
+    [callStackManager sendCallStack];
+    NSLog(@"exception = %@", exception);
+    NSLog(@"callStackSymbols = %@", [exception callStackSymbols]);
 }
 
 void signalHandler(int sig) {

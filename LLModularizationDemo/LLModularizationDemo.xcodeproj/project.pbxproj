@@ -38,6 +38,9 @@
 		F29C93732004EA1F006F97C1 /* DataBase.m in Sources */ = {isa = PBXBuildFile; fileRef = F29C93712004EA1F006F97C1 /* DataBase.m */; };
 		F29C93762005AC80006F97C1 /* DataBase+LabelModuleLabelNode.m in Sources */ = {isa = PBXBuildFile; fileRef = F29C93752005AC80006F97C1 /* DataBase+LabelModuleLabelNode.m */; };
 		F29C937A200762E9006F97C1 /* LLNetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F29C9379200762E9006F97C1 /* LLNetworkManager.m */; };
+		F2ADA3FB2016123900D71A6F /* callStackManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F2ADA3FA2016123900D71A6F /* callStackManager.m */; };
+		F2ADA3FE2016E26900D71A6F /* DataBase+callStack.m in Sources */ = {isa = PBXBuildFile; fileRef = F2ADA3FD2016E26900D71A6F /* DataBase+callStack.m */; };
+		F2ADA4012016E50100D71A6F /* callStackSubmitModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F2ADA4002016E50100D71A6F /* callStackSubmitModel.m */; };
 		F2C0072F1FF0E487001E1FE9 /* LoginModuleRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F2C0072E1FF0E487001E1FE9 /* LoginModuleRegisterViewController.m */; };
 		F2C007381FF24574001E1FE9 /* MeModuleProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F2C007371FF24574001E1FE9 /* MeModuleProfileViewController.m */; };
 		F2C0073B1FF24587001E1FE9 /* MeModuleCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F2C0073A1FF24587001E1FE9 /* MeModuleCollectionViewController.m */; };
@@ -143,6 +146,12 @@
 		F29C93752005AC80006F97C1 /* DataBase+LabelModuleLabelNode.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "DataBase+LabelModuleLabelNode.m"; sourceTree = "<group>"; };
 		F29C9378200762E9006F97C1 /* LLNetworkManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LLNetworkManager.h; sourceTree = "<group>"; };
 		F29C9379200762E9006F97C1 /* LLNetworkManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LLNetworkManager.m; sourceTree = "<group>"; };
+		F2ADA3F92016123900D71A6F /* callStackManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = callStackManager.h; sourceTree = "<group>"; };
+		F2ADA3FA2016123900D71A6F /* callStackManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = callStackManager.m; sourceTree = "<group>"; };
+		F2ADA3FC2016E26900D71A6F /* DataBase+callStack.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DataBase+callStack.h"; sourceTree = "<group>"; };
+		F2ADA3FD2016E26900D71A6F /* DataBase+callStack.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "DataBase+callStack.m"; sourceTree = "<group>"; };
+		F2ADA3FF2016E50100D71A6F /* callStackSubmitModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = callStackSubmitModel.h; sourceTree = "<group>"; };
+		F2ADA4002016E50100D71A6F /* callStackSubmitModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = callStackSubmitModel.m; sourceTree = "<group>"; };
 		F2C0072D1FF0E487001E1FE9 /* LoginModuleRegisterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginModuleRegisterViewController.h; sourceTree = "<group>"; };
 		F2C0072E1FF0E487001E1FE9 /* LoginModuleRegisterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginModuleRegisterViewController.m; sourceTree = "<group>"; };
 		F2C007361FF24574001E1FE9 /* MeModuleProfileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeModuleProfileViewController.h; sourceTree = "<group>"; };
@@ -253,6 +262,8 @@
 				F29C93712004EA1F006F97C1 /* DataBase.m */,
 				F29C93742005AC80006F97C1 /* DataBase+LabelModuleLabelNode.h */,
 				F29C93752005AC80006F97C1 /* DataBase+LabelModuleLabelNode.m */,
+				F2ADA3FC2016E26900D71A6F /* DataBase+callStack.h */,
+				F2ADA3FD2016E26900D71A6F /* DataBase+callStack.m */,
 			);
 			path = DataBase;
 			sourceTree = "<group>";
@@ -410,8 +421,6 @@
 				F258682C1FDB878400D7B2BF /* UIColor+Extension.m */,
 				F251ACDA1FFF285600DC0A7C /* NSString+Extension.h */,
 				F251ACDB1FFF285600DC0A7C /* NSString+Extension.m */,
-				F27BD6A7200CA6080055A3B9 /* NSObject+CrashCatch.h */,
-				F27BD6A8200CA6080055A3B9 /* NSObject+CrashCatch.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -421,6 +430,7 @@
 			children = (
 				F2F72C2C1FD96A6E00066F9A /* AppDelegate.h */,
 				F2F72C2D1FD96A6E00066F9A /* AppDelegate.m */,
+				F2ADA3F82016100200D71A6F /* callStack */,
 			);
 			path = Appdelegate;
 			sourceTree = "<group>";
@@ -439,6 +449,19 @@
 				F219594C200852AD0025F5E1 /* LLNetworkResponseEntity.m */,
 			);
 			path = Network;
+			sourceTree = "<group>";
+		};
+		F2ADA3F82016100200D71A6F /* callStack */ = {
+			isa = PBXGroup;
+			children = (
+				F27BD6A7200CA6080055A3B9 /* NSObject+CrashCatch.h */,
+				F27BD6A8200CA6080055A3B9 /* NSObject+CrashCatch.m */,
+				F2ADA3F92016123900D71A6F /* callStackManager.h */,
+				F2ADA3FA2016123900D71A6F /* callStackManager.m */,
+				F2ADA3FF2016E50100D71A6F /* callStackSubmitModel.h */,
+				F2ADA4002016E50100D71A6F /* callStackSubmitModel.m */,
+			);
+			path = callStack;
 			sourceTree = "<group>";
 		};
 		F2F72C201FD96A6E00066F9A = {
@@ -708,6 +731,7 @@
 			files = (
 				F251ACC21FFF1B5900DC0A7C /* LabelModuleLabelCategory.m in Sources */,
 				F251ACCF1FFF1E0300DC0A7C /* LabelModuleFlowLayout.m in Sources */,
+				F2ADA3FB2016123900D71A6F /* callStackManager.m in Sources */,
 				F25868291FDB812D00D7B2BF /* UIImage+Extension.m in Sources */,
 				F258682D1FDB878400D7B2BF /* UIColor+Extension.m in Sources */,
 				F2F72C3C1FD96A6E00066F9A /* main.m in Sources */,
@@ -725,6 +749,7 @@
 				F2C007561FF3414D001E1FE9 /* MeModuleMainTableViewCell.m in Sources */,
 				F2C0074D1FF2754D001E1FE9 /* LoginModuleMainViewController.m in Sources */,
 				F29C93762005AC80006F97C1 /* DataBase+LabelModuleLabelNode.m in Sources */,
+				F2ADA4012016E50100D71A6F /* callStackSubmitModel.m in Sources */,
 				F251ACE81FFF7AC100DC0A7C /* LabelModuleLabelManager.m in Sources */,
 				F25868021FDAAFA300D7B2BF /* LLNavigationController.m in Sources */,
 				F251ACBF1FFF1B3800DC0A7C /* LabelModuleLabelNode.m in Sources */,
@@ -744,6 +769,7 @@
 				F251ACBA1FFF1A1100DC0A7C /* LabelModuleMainViewController.m in Sources */,
 				F251ACC91FFF1DA700DC0A7C /* LabelModuleFooterView.m in Sources */,
 				F251ACCC1FFF1DCE00DC0A7C /* LabelModuleCollectionView.m in Sources */,
+				F2ADA3FE2016E26900D71A6F /* DataBase+callStack.m in Sources */,
 				F27BD6A9200CA6080055A3B9 /* NSObject+CrashCatch.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

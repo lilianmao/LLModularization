@@ -18,7 +18,7 @@
                              andService:(NSString *)service
                          andServiceType:(LLModuleServiceType)serviceType {
     if (self = [super init]) {
-        _moduleCallChain = callChain;
+        _moduleCallChain = [callChain componentsJoinedByString:@"->"];
         _service = service;
         _serviceType = serviceType;
     }
@@ -26,8 +26,7 @@
 }
 
 - (NSString *)description {
-    NSString *callChainStr = [_moduleCallChain componentsJoinedByString:@"->"];
-    return [NSString stringWithFormat:@"<callChain = %@, service = %@, serviceType = %@>", callChainStr, _service, [self formatToString:_serviceType]];
+    return [NSString stringWithFormat:@"<callChain = %@, service = %@, serviceType = %@>", _moduleCallChain, _service, [self formatToString:_serviceType]];
 }
 
 - (NSString *)formatToString:(LLModuleServiceType)type {

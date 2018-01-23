@@ -12,6 +12,7 @@
 
 #import <LLModularization/LLModule.h>
 #import "LLNetworkManager+Report.h"
+#import "callStackManager.h"
 
 static NSInteger rows = 4;
 
@@ -109,7 +110,7 @@ static NSInteger rows = 4;
     } else if (indexPath.section == 2) {
 //        [self getLabelAction];
     } else {
-        [self callStackAction];
+        [self testAction];
     }
     CFRunLoopWakeUp(CFRunLoopGetCurrent());
 }
@@ -148,13 +149,12 @@ static NSInteger rows = 4;
     }];
 }
 
-- (void)callStackAction {
-    NSArray *callStack = [[LLModule sharedInstance] getModuleCallStack];
-    [[LLNetworkManager sharedManager] reportWithParams:@{@"callStack": callStack} success:^(id result) {
-        NSLog(@"success");
-    } failure:^(NSError *err) {
-        NSLog(@"failure");
-    }];
+- (void)testAction {
+//    NSMutableArray *arr = @[].mutableCopy;
+//    NSObject *obj = nil;
+//    [arr addObject:obj];
+    [callStackManager saveCallStackWithType:callStackSubmitTypeSampling];
+    [callStackManager sendCallStack];
 }
 
 - (NSString *)getAccountDataWithParams:(NSDictionary *)params {

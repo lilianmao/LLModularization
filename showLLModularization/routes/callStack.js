@@ -6,8 +6,6 @@ var querystring = require('querystring');
 const UserDao = require('../dao/callStackDao');
 const userDao = new UserDao();
 
-var callChainId = 1;
-
 /* GET users listing. */
 // next是一个中间件请求
 router.get('/', async function(req, res, next) {
@@ -22,10 +20,9 @@ router.post('/', async function(req, res, next) {
     userDao.truncate(req, res, next);
 
     var post = req.body;
-    console.log(post);
 
     for (var key in post) {
-        if (key == "callStack[]") {
+        if (key == "callStacks[]") {
             callStack = post[key];
         }
     }
@@ -33,29 +30,37 @@ router.post('/', async function(req, res, next) {
     var stacks = new Array();
     for (var item in callStack) {
         var callChain = splitCallChain(callStack[item]);
-        var addSqlParams = [(callChainId++).toString(), callChain[0], callChain[1], callChain[2]];
-
-        stacks.push(addSqlParams);
+        stacks.push(callChain);
     }
-
+    console.log(stacks);
     let result = await userDao.insert(stacks);
     console.log(result);
 });
 
 function splitCallChain(callChain) {
-    var array = new Array(3);
+    var array = new Array(6);
     var len = callChain.length;
+
+    var chainPos = callChain.indexOf('callChain');
     var servicePos = callChain.indexOf('service');
     var serviceTypePos = callChain.indexOf('serviceType');
+    var submitTypePos = callChain.indexOf('submitType');
+    var datePos = callChain.indexOf('date');
 
     // TODO: 解析字符串，存在一些hard code。
-    var chain = callChain.substr(13, servicePos-15);
-    var service = callChain.substr(servicePos+10, serviceTypePos-servicePos-12);
-    var serviceType = callChain.substr(serviceTypePos+14, len-serviceTypePos-15);
+    var id = callChain.substr(3, chainPos-5);
+    var chain = callChain.substr(chainPos+10, servicePos-chainPos-12);
+    var service = callChain.substr(servicePos+8, serviceTypePos-servicePos-10);
+    var serviceType = callChain.substr(serviceTypePos+12, submitTypePos-serviceTypePos-14);
+    var submitType = callChain.substr(submitTypePos+11, datePos-submitTypePos-13);
+    var date = callChain.substr(datePos+5, len-datePos-4);
 
-    array[0] = chain;
-    array[1] = service;
-    array[2] = serviceType;
+    array[0] = id;
+    array[1] = chain;
+    array[2] = service;
+    array[3] = serviceType;
+    array[4] = submitType;
+    array[5] = date;
 
     return array;
 }

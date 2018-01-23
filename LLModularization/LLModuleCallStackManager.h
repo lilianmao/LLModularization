@@ -22,7 +22,7 @@ typedef NS_ENUM(NSInteger, LLModuleServiceType) {
  */
 @interface LLModuleCallStackItem : NSObject
 
-@property (nonatomic, copy) NSArray *moduleCallChain;
+@property (nonatomic, copy) NSString *moduleCallChain;
 @property (nonatomic, copy) NSString *service;
 @property (nonatomic, assign) LLModuleServiceType serviceType;
 

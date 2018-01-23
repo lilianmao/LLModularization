@@ -1,6 +1,6 @@
 var callStackSQL = {
-    insert:'INSERT INTO callStack(id, callChain, service, serviceType) VALUES(?,?,?,?)',
-    batchInsert:'INSERT INTO callStack(id, callChain, service, serviceType) VALUES ?',
+    insert:'INSERT INTO callStack(id, callChain, service, serviceType, submitType, date) VALUES(?,?,?,?,?,?)',
+    batchInsert:'INSERT INTO callStack(id, callChain, service, serviceType, submitType, date) VALUES ?',
     queryAll:'SELECT * FROM callStack',
     getUserById:'SELECT * FROM callStack WHERE id = ? ',
     truncate:'truncate table callStack',
