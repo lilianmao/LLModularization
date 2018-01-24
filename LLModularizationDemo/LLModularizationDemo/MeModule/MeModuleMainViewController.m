@@ -150,11 +150,11 @@ static NSInteger rows = 4;
 }
 
 - (void)testAction {
-//    NSMutableArray *arr = @[].mutableCopy;
-//    NSObject *obj = nil;
-//    [arr addObject:obj];
-    [callStackManager saveCallStackWithType:callStackSubmitTypeSampling];
-    [callStackManager sendCallStack];
+    NSMutableArray *arr = @[].mutableCopy;
+    NSObject *obj = nil;
+    [arr addObject:obj];
+//    [callStackManager saveCallStackWithType:callStackSubmitTypeSampling];
+//    [callStackManager sendCallStack];
 }
 
 - (NSString *)getAccountDataWithParams:(NSDictionary *)params {

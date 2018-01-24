@@ -42,6 +42,10 @@
     [[callStackManager sharedManager] sendCallStack];
 }
 
++ (void)sendIfNeedWhenLanuch {
+    [[callStackManager sharedManager] sendIfNeedWhenLanuch];
+}
+
 - (void)saveCallStackWithType:(callStackSubmitType)submitType {
     [self loadCallStackFromDataBaseSuccessed:^(id result) {
         // table存在，无操作。
@@ -57,12 +61,25 @@
 - (void)sendCallStack {
     [self loadCallStackFromDataBaseSuccessed:^(id result) {
         [[LLNetworkManager sharedManager] reportWithParams:@{@"callStacks": result} success:^(id result) {
-            NSLog(@"success");
+            // send成功清理数据库
+            [[DataBase sharedDataBase] executeUpdateSQL:@"DELETE FROM callStack;" tableName:nil objectStr:nil];
         } failure:^(NSError *err) {
             NSLog(@"failure");
         }];
     } failured:^(NSError *err) {
         NSLog(@"%@", err.localizedDescription);
+    }];
+}
+
+- (void)sendIfNeedWhenLanuch {
+    [self loadCallStackFromDataBaseSuccessed:^(id result) {
+        NSArray *callStacks = (NSArray *)result;
+        callStackSubmitModel *lastObj = (callStackSubmitModel *)[callStacks lastObject];
+        if (lastObj.submitType == callStackSubmitTypeCrash) {
+            [self sendCallStack];
+        }
+    } failured:^(NSError *err) {
+        NSLog(@"failure");
     }];
 }
 

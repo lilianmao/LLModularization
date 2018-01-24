@@ -11,8 +11,6 @@
 
 @interface callStackManager : NSObject
 
-// TODO: test采样和crash两种情况
-
 /**
  存本次调用栈
  
@@ -24,5 +22,10 @@
  向服务端发送调用栈（包含本地APP启动以来的调用栈）
  */
 + (void)sendCallStack;
+
+/**
+ 向服务端发送调用栈（当启动时，上一次APP可能因为crash存入数据库一些数据，第二次启动发送）
+ */
++ (void)sendIfNeedWhenLanuch;
 
 @end

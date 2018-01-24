@@ -9,6 +9,7 @@
 #import "NSObject+CrashCatch.h"
 #import "callStackManager.h"
 
+#import <objc/runtime.h>
 #import <signal.h>
 #import <execinfo.h>
 
@@ -33,7 +34,7 @@
 
 void handleExceptions(NSException *exception) {
     [callStackManager saveCallStackWithType:callStackSubmitTypeCrash];
-    [callStackManager sendCallStack];
+    // 此时不发，因为发请求是一个耗时的操作，需要资源很多；而系统处理crash会回收资源，处理时间很短，故等到下次启动APP的时候发送。
     NSLog(@"exception = %@", exception);
     NSLog(@"callStackSymbols = %@", [exception callStackSymbols]);
 }

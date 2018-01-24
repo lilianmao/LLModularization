@@ -20,6 +20,7 @@ router.post('/', async function(req, res, next) {
     userDao.truncate(req, res, next);
 
     var post = req.body;
+    console.log(post);
 
     for (var key in post) {
         if (key == "callStacks[]") {
@@ -32,7 +33,7 @@ router.post('/', async function(req, res, next) {
         var callChain = splitCallChain(callStack[item]);
         stacks.push(callChain);
     }
-    console.log(stacks);
+
     let result = await userDao.insert(stacks);
     console.log(result);
 });
@@ -40,7 +41,7 @@ router.post('/', async function(req, res, next) {
 function splitCallChain(callChain) {
     var array = new Array(6);
     var len = callChain.length;
-
+    console.log(callChain);
     var chainPos = callChain.indexOf('callChain');
     var servicePos = callChain.indexOf('service');
     var serviceTypePos = callChain.indexOf('serviceType');

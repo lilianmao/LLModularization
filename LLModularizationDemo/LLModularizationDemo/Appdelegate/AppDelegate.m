@@ -29,6 +29,7 @@
     [self.window makeKeyAndVisible];
     
     [NSObject initCrashCatchHandler];
+    [self sendCallStackIfNeed];
     [self initModularization];
     
     return YES;
@@ -60,7 +61,8 @@
 - (void)applicationWillTerminate:(UIApplication *)application {
     // save + 一定条件的send(即最简单的取样)
     [callStackManager saveCallStackWithType:callStackSubmitTypeSampling];
-    if (_callStackSamplingNum%10 == 0) {
+    NSLog(@"-------------");
+    if (_callStackSamplingNum) {
         [callStackManager sendCallStack];
     }
 }
@@ -84,5 +86,8 @@
     _callStackSamplingNum = arc4random() % 10;
 }
 
+- (void)sendCallStackIfNeed {
+    [callStackManager sendIfNeedWhenLanuch];
+}
 
 @end
