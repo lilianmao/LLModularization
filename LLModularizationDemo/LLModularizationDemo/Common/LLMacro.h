@@ -14,6 +14,11 @@ typedef void (^LLSuccessBlock)(id result);
 typedef void (^LLFailureBlock)(NSError *err);
 
 #import "UIColor+Extension.h"
+#import "AppDelegate.h"
+
+// AppDelegate
+
+#define APP_DELEGATE ((AppDelegate*)[UIApplication sharedApplication].delegate)
 
 // color
 #define LLURGBA(r, g, b, a)     [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:a]

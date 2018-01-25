@@ -22,7 +22,7 @@ class CallStackDao{
                     if(rows == params.count) {
                         result = {
                             code: 200,
-                            msg:'查询成功'
+                            msg:'插入成功'
                         };
                     }
 

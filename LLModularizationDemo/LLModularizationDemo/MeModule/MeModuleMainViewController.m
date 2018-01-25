@@ -75,7 +75,7 @@ static NSInteger rows = 4;
     [self.models addObject:profileModel];
     MeModuleMainModel *interestModel = [[MeModuleMainModel alloc] initWithImgName:@"account-tag" title:@"学习兴趣"];
     [self.models addObject:interestModel];
-    MeModuleMainModel *myStudyModel = [[MeModuleMainModel alloc] initWithImgName:@"account-balance" title:@"我的学习"];
+    MeModuleMainModel *myStudyModel = [[MeModuleMainModel alloc] initWithImgName:@"account-balance" title:@"测试专用"];
     [self.models addObject:myStudyModel];
     MeModuleMainModel *settingModel = [[MeModuleMainModel alloc] initWithImgName:@"account-setting" title:@"设置"];
     [self.models addObject:settingModel];
@@ -104,30 +104,47 @@ static NSInteger rows = 4;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     // 临时测试
     if (indexPath.section == 0) {
-        [self loginBtnAction];
+        [self profileBtnAction];
     } else if (indexPath.section == 1) {
         [self labelAction];
     } else if (indexPath.section == 2) {
-//        [self getLabelAction];
+//        [self testAction];
     } else {
-        [self testAction];
+        [self setBtnAction];
     }
     CFRunLoopWakeUp(CFRunLoopGetCurrent());
 }
 
 #pragma mark - Action
 
+- (void)profileBtnAction {
+    if (APP_DELEGATE.isLogin) {
+        [[MeModule sharedModule] callServiceWithURL:@"ll://profile.show" parameters:nil navigationMode:LLModuleNavigationModeNone successBlock:^(id result) {
+            // 处理成功信息
+        } failureBlock:^(NSError *err) {
+            [SVProgressHUD showErrorWithStatus:err.localizedDescription];
+        }];
+    } else {
+        [self loginBtnAction];
+    }
+}
+
+- (void)setBtnAction {
+    if (APP_DELEGATE.isLogin) {
+        [[MeModule sharedModule] callServiceWithURL:@"ll://setting.show" parameters:nil navigationMode:LLModuleNavigationModePush successBlock:^(id result) {
+            // 处理成功信息
+        } failureBlock:^(NSError *err) {
+            [SVProgressHUD showErrorWithStatus:err.localizedDescription];
+        }];
+    } else {
+        [self loginBtnAction];
+    }
+}
+
 - (void)loginBtnAction {
     [[MeModule sharedModule] callServiceWithURL:[self generateLoginURL] parameters:[self generateLoginParams] navigationMode:LLModuleNavigationModePresent successBlock:^(id result) {
         // 处理你操作其他模块返回的数据。
-    } failureBlock:^(NSError *err) {
-        [SVProgressHUD showErrorWithStatus:err.localizedDescription];
-    }];
-}
-
-- (void)accountBtnAction {
-    [[MeModule sharedModule] callServiceWithURL:@"ll://getAccount" parameters:nil navigationMode:LLModuleNavigationModeNone successBlock:^(id result) {
-        [SVProgressHUD showSuccessWithStatus:(NSString *)result];
+        APP_DELEGATE.isLogin = YES;
     } failureBlock:^(NSError *err) {
         [SVProgressHUD showErrorWithStatus:err.localizedDescription];
     }];

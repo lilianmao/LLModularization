@@ -36,6 +36,7 @@ router.post('/', async function(req, res, next) {
 
     let result = await userDao.insert(stacks);
     console.log(result);
+    res.send('respond with a resource');
 });
 
 function splitCallChain(callChain) {

@@ -35,8 +35,6 @@ typedef NS_ENUM(NSInteger, LLModuleTreeNodeType) {
 
 @property (nonatomic, strong, readonly) LLModuleTreeNode *root;
 
-// TODO: 情况复杂，需要完整测试
-
 /**
  向树中添加一个页面节点
  */

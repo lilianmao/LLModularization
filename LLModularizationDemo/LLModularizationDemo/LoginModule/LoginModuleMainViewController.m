@@ -14,7 +14,7 @@
 @property (nonatomic, strong) UILabel *loginPageLabel;
 @property (nonatomic, strong) UILabel *messageLabel;
 @property (nonatomic, strong) UIButton *registerBtn;
-@property (nonatomic, strong) UIButton *forgetPwdBtn;
+@property (nonatomic, strong) UIButton *loginBtn;
 
 @end
 
@@ -25,14 +25,16 @@
     
     self.view.backgroundColor = [UIColor whiteColor];
     self.title = @"登录";
-    
-    [self setupViews];
-    [self layoutViews];
 }
 
-- (void)updateWithUserName:(NSString *)username
-                  password:(NSString *)password {
-    _messageLabel.text = [NSString stringWithFormat:@"username:%@ password:%@", username, password];
+- (instancetype)initWithUserName:(NSString *)username
+                        password:(NSString *)password {
+    if (self = [super init]) {
+        [self setupViews];
+        [self layoutViews];
+        _messageLabel.text = [NSString stringWithFormat:@"username : %@ password : %@", username, password];
+    }
+    return self;
 }
 
 #pragma mark - setup & layout
@@ -45,40 +47,40 @@
     
     _messageLabel = [[UILabel alloc] init];
     [self.view addSubview:_messageLabel];
-    _messageLabel.text = @"";
+    _messageLabel.text = @"message";
     _messageLabel.font = [UIFont systemFontOfSize:20.f];
     
     _registerBtn = [[UIButton alloc] init];
     [self.view addSubview:_registerBtn];
     _registerBtn.backgroundColor = LLURGB(58, 199, 215);
-    [_registerBtn setTitle:@"注册" forState:UIControlStateNormal];
+    [_registerBtn setTitle:@"注册账号" forState:UIControlStateNormal];
     _registerBtn.titleLabel.font = [UIFont systemFontOfSize:18.f];
     _registerBtn.layer.cornerRadius = 5.f;
     [_registerBtn addTarget:self action:@selector(registerBtnAction) forControlEvents:UIControlEventTouchUpInside];
     
-    _forgetPwdBtn = [[UIButton alloc] init];
-    [self.view addSubview:_forgetPwdBtn];
-    _forgetPwdBtn.backgroundColor = LLURGB(58, 199, 215);
-    [_forgetPwdBtn setTitle:@"忘记密码" forState:UIControlStateNormal];
-    _forgetPwdBtn.titleLabel.font = [UIFont systemFontOfSize:18.f];
-    _forgetPwdBtn.layer.cornerRadius = 5.f;
-    [_forgetPwdBtn addTarget:self action:@selector(forgetPwdBtnAction) forControlEvents:UIControlEventTouchUpInside];
+    _loginBtn = [[UIButton alloc] init];
+    [self.view addSubview:_loginBtn];
+    _loginBtn.backgroundColor = LLURGB(58, 199, 215);
+    [_loginBtn setTitle:@"登录" forState:UIControlStateNormal];
+    _loginBtn.titleLabel.font = [UIFont systemFontOfSize:18.f];
+    _loginBtn.layer.cornerRadius = 5.f;
+    [_loginBtn addTarget:self action:@selector(loginBtnAction) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)layoutViews {
-    [_loginPageLabel autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:200.f];
+    [_loginPageLabel autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:120.f];
     [_loginPageLabel autoAlignAxisToSuperviewAxis:ALAxisVertical];
     
+    [_messageLabel autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_loginPageLabel withOffset:50.f];
     [_messageLabel autoAlignAxisToSuperviewAxis:ALAxisVertical];
-    [_messageLabel autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_loginPageLabel withOffset:10.f];
     
+    [_registerBtn autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:50.f];
+    [_registerBtn autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_messageLabel withOffset:50.f];
     [_registerBtn autoSetDimensionsToSize:CGSizeMake(100.f, 50.f)];
-    [_registerBtn autoAlignAxisToSuperviewAxis:ALAxisVertical];
-    [_registerBtn autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_loginPageLabel withOffset:50.f];
     
-    [_forgetPwdBtn autoSetDimensionsToSize:CGSizeMake(120.f, 50.f)];
-    [_forgetPwdBtn autoAlignAxisToSuperviewAxis:ALAxisVertical];
-    [_forgetPwdBtn autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_registerBtn withOffset:50.f];
+    [_loginBtn autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:50.f];
+    [_loginBtn autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_messageLabel withOffset:50.f];
+    [_loginBtn autoSetDimensionsToSize:CGSizeMake(120.f, 50.f)];
 }
 
 #pragma mark - Action
@@ -88,8 +90,9 @@
     [self.navigationController pushViewController:registerVC animated:YES];
 }
 
-- (void)forgetPwdBtnAction {
-    
+- (void)loginBtnAction {
+    [SVProgressHUD showSuccessWithStatus:@"登录成功"];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

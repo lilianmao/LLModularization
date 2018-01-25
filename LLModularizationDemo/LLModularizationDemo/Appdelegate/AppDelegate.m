@@ -61,8 +61,7 @@
 - (void)applicationWillTerminate:(UIApplication *)application {
     // save + 一定条件的send(即最简单的取样)
     [callStackManager saveCallStackWithType:callStackSubmitTypeSampling];
-    NSLog(@"-------------");
-    if (_callStackSamplingNum) {
+    if (_callStackSamplingNum%10 == 0) {
         [callStackManager sendCallStack];
     }
 }

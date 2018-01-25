@@ -1,15 +1,15 @@
 //
-//  LoginModule.h
+//  ProfileModule.h
 //  LLModularizationDemo
 //
-//  Created by 李林 on 1/4/18.
+//  Created by 李林 on 1/25/18.
 //  Copyright © 2018 lee. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-#import "LoginModuleProtocol.h"
+#import "ProfileModuleProtocol.h"
 
-@interface LoginModule : NSObject <LoginModuleProtocol>
+@interface ProfileModule : NSObject <ProfileModuleProtocol>
 
 + (instancetype)sharedModule;
 

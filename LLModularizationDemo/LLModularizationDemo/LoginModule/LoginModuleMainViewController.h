@@ -10,7 +10,7 @@
 
 @interface LoginModuleMainViewController : UIViewController
 
-- (void)updateWithUserName:(NSString *)username
-                  password:(NSString *)password;
+- (instancetype)initWithUserName:(NSString *)username
+                        password:(NSString *)password;
 
 @end

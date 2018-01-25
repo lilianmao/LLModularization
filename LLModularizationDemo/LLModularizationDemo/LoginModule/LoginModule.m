@@ -9,6 +9,8 @@
 #import "LoginModule.h"
 #import "LoginModuleMainViewController.h"
 
+#import <LLModularization/LLModule.h>
+
 @interface LoginModule()
 
 @end
@@ -57,12 +59,11 @@
 #pragma mark - LoginModuleProtocol
 
 + (UIViewController *)openLoginModuleWithParams:(NSDictionary *)params {
-    LoginModuleMainViewController *loginVC = [[LoginModuleMainViewController alloc] init];
-    
-    NSLog(@"params : %@", params);
     NSString *username = params[LoginModule_UserName];
     NSString *password = params[LoginModule_Password];
-    [loginVC updateWithUserName:username password:password];
+    NSLog(@"params : %@", params);
+    
+    LoginModuleMainViewController *loginVC = [[LoginModuleMainViewController alloc] initWithUserName:username password:password];
     
     return loginVC;
 }

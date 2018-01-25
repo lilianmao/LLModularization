@@ -10,7 +10,8 @@
 
 @interface LoginModuleRegisterViewController ()
 
-@property (nonatomic, strong) UIButton *dismissBtn;
+@property (nonatomic, strong) UILabel *registerPageLabel;
+@property (nonatomic, strong) UIButton *registerBtn;
 
 @end
 
@@ -27,24 +28,33 @@
 #pragma mark - setup & layout
 
 - (void)setupViews {
-    _dismissBtn = [[UIButton alloc] init];
-    [self.view addSubview:_dismissBtn];
-    _dismissBtn.backgroundColor = LLURGB(58, 199, 215);
-    [_dismissBtn setTitle:@"dismiss" forState:UIControlStateNormal];
-    _dismissBtn.titleLabel.font = [UIFont systemFontOfSize:18.f];
-    _dismissBtn.layer.cornerRadius = 5.f;
-    [_dismissBtn addTarget:self action:@selector(dismissBtnAction) forControlEvents:UIControlEventTouchUpInside];
+    _registerPageLabel = [[UILabel alloc] init];
+    [self.view addSubview:_registerPageLabel];
+    _registerPageLabel.text = @"我是注册页";
+    _registerPageLabel.font = [UIFont systemFontOfSize:20.f];
+    
+    _registerBtn = [[UIButton alloc] init];
+    [self.view addSubview:_registerBtn];
+    _registerBtn.backgroundColor = LLURGB(58, 199, 215);
+    [_registerBtn setTitle:@"注册" forState:UIControlStateNormal];
+    _registerBtn.titleLabel.font = [UIFont systemFontOfSize:18.f];
+    _registerBtn.layer.cornerRadius = 5.f;
+    [_registerBtn addTarget:self action:@selector(registerBtnAction) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)layoutViews {
-    [_dismissBtn autoSetDimensionsToSize:CGSizeMake(100.f, 50.f)];
-    [_dismissBtn autoAlignAxisToSuperviewAxis:ALAxisVertical];
-    [_dismissBtn autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:200.f];
+    [_registerPageLabel autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:200.f];
+    [_registerPageLabel autoAlignAxisToSuperviewAxis:ALAxisVertical];
+    
+    [_registerBtn autoSetDimensionsToSize:CGSizeMake(100.f, 50.f)];
+    [_registerBtn autoAlignAxisToSuperviewAxis:ALAxisVertical];
+    [_registerBtn autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_registerPageLabel withOffset:50.f];
 }
 
 #pragma mark - Action
 
-- (void)dismissBtnAction {
+- (void)registerBtnAction {
+    [SVProgressHUD showSuccessWithStatus:@"注册成功"];
     [self dismissViewControllerAnimated:YES completion:nil];
 ////    [self.navigationController popToRootViewControllerAnimated:YES];
 //    NSArray *viewControllers = self.navigationController.viewControllers;
