@@ -3,25 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <title>APP调用栈页面</title>
+
     <script src="libs/jquery/dist/jquery.min.js"></script>
+    <link href = libs/bootstrap/dist/css/bootstrap.min.css rel="stylesheet">
+    <script src="libs/bootstrap/dist/js/bootstrap.js"></script>
 </head>
 <body>
 <p>调用信息如下</p>
 <p id="data"></p>
 
 
-<div style="display: none" id="tpl_data">
-    <p>{{item}}}</p>
-    <!--<table border="1">-->
-        <!--<tr>-->
-            <!--<th>id</th>-->
-            <!--<th>callChain</th>-->
-            <!--<th>service</th>-->
-            <!--<th>serviceType</th>-->
-        <!--</tr>-->
-        <!---->
-    <!--</table>-->
-</div>
+    <div style="display: none" id="tpl_data">
+        <p>{{item}}}</p>
+        <!--<table border="1">-->
+            <!--<tr>-->
+                <!--<th>id</th>-->
+                <!--<th>callChain</th>-->
+                <!--<th>service</th>-->
+                <!--<th>serviceType</th>-->
+            <!--</tr>-->
+            <!---->
+        <!--</table>-->
+    </div>
 </body>
 <script>
     $.get("/callstack",function(res){
