@@ -9,13 +9,27 @@ const userDao = new UserDao();
 /* GET users listing. */
 // next是一个中间件请求
 router.get('/', async function(req, res, next) {
-
     // ES6新语法：await和promise
-    let result = await userDao.queryAll();
+    let result = await userDao.queryCount();
     res.send(result);
-
 });
 
+router.get('/getpage/', async function(req, res, next) {
+    let pageNum = req.query['pagenum'];
+    let pageSize = req.query['pagesize'];
+    let pageContent = req.query['content'];
+    let result = await userDao.queryByPage(pageNum, pageSize, pageContent);
+    res.send(result);
+});
+
+router.get('/getcount/', async function(req, res, next) {
+    let content = req.query['content'];
+    let result = await userDao.queryCount(content);
+    res.send(result);
+});
+
+
+/* POST users listing. */
 router.post('/', async function(req, res, next) {
     userDao.truncate(req, res, next);
 
