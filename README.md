@@ -8,7 +8,7 @@ LLModularization是一个iOS组件化系统，结合了URLRouter和Protocol-clas
 
 showLLModularization是对LLModularization调用关系的展示，用nodejs完成的。
 
-<!--## 项目的设计
+## 项目的设计
 
 ### 模块图
 
@@ -27,7 +27,7 @@ LLModularization主要分注册和访问两个部分。
 
 #### 访问
 ![访问](https://github.com/lilianmao/LLModularization/blob/feature/callChain_rootVC/Design/LLModularization_%E5%BA%8F%E5%88%97%E5%9B%BE(%E8%AE%BF%E9%97%AE).jpg?raw=true)
--->
+
 ## 项目的运行
 
 项目分两个部分：LLModularization和showLLModularization。
@@ -37,7 +37,7 @@ LLModularization主要分注册和访问两个部分。
 如果直接运行下载该框架可以在podfile里引入
 
 ```
-
+pod 'LLModularization', '~> 1.0.0’
 ```
 
 建议先下载demo，下载完成后
