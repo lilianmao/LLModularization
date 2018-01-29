@@ -2,6 +2,7 @@ var express = require('express');
 var app = new express();
 var router = express.Router();
 var querystring = require('querystring');
+const path = require('path');
 
 const UserDao = require('../dao/callStackDao');
 const userDao = new UserDao();
@@ -26,6 +27,14 @@ router.get('/getcount/', async function(req, res, next) {
     let content = req.query['content'];
     let result = await userDao.queryCount(content);
     res.send(result);
+});
+
+router.get('/searchWord', async function (req, res, next) {
+    console.log("----------");
+    let searchContent = req.query["search_content"];
+    // let result = await userDao.queryByPage(0, 10, searchContent);
+    let pathName = path.resolve(__dirname, '../public/searchword.html');
+    res.sendFile(pathName);
 });
 
 

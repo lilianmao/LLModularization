@@ -9,19 +9,19 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>APP组件调用栈</title>
+    <title>Search</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Timeline CSS -->
-    <link href="stylesheets/timeline.css" rel="stylesheet">
+    <link href="../stylesheets/timeline.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="stylesheets/sb-admin-2.css" rel="stylesheet">
+    <link href="../stylesheets/sb-admin-2.css" rel="stylesheet">
 
     <!---->
-    <link href="stylesheets/jquery.bdt.css" type="text/css" rel="stylesheet">
+    <link href="../stylesheets/jquery.bdt.css" type="text/css" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -134,20 +134,25 @@
 <a name="buttom" id="buttom"></a>
 
 <!-- jQuery -->
-<script src="libs/jquery/dist/jquery.min.js"></script>
-<script src="javascripts/vendor/jquery.sortelements.js" type="text/javascript"></script>
-<script src="javascripts/jquery.bdt.js" type="text/javascript"></script>
+<script src="../libs/jquery/dist/jquery.min.js"></script>
+<script src="../javascripts/vendor/jquery.sortelements.js" type="text/javascript"></script>
+<script src="../javascripts/jquery.bdt.js" type="text/javascript"></script>
 
 <!-- Bootstrap Core JavaScript -->
-<script src="libs/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="../libs/bootstrap/dist/js/bootstrap.min.js"></script>
 
 <!-- 发送请求 -->
-<script type="text/javascript" src="javascripts/jquery.twbsPagination.min.js"></script>
-<script type="text/javascript" src="javascripts/refreshTable.js"></script>>
+<script type="text/javascript" src="../javascripts/jquery.twbsPagination.min.js"></script>
+<script type="text/javascript" src="../javascripts/refreshTable.js"></script>>
 <script>
     var pageSize = 10;              // 请求每页页数
-    var content;
     var $pagination = $("#myPager");
+
+    let searchContent = window.location.search;
+    let searchContentPos = searchContent.indexOf("=");
+    var content = searchContent.substr(searchContentPos+1);
+
+    document.title = "Search · "+content;
 
     function loadData(pageIndex) {      //这个参数就是点击的那个分页的页数索引值，第一页为0，上面提到了，下面这部分就是AJAX传值了。
         let url;
@@ -163,7 +168,6 @@
             dataType: "json",
             success: function (data) {
                 $("#myTable").empty();
-                // refreshPager();
                 refreshTable(data, content);
             },
             error: function () {
@@ -172,7 +176,7 @@
         });
     };
 
-    $.get("/callstack", function (res) {
+    $.get("/callstack/getcount?content="+content, function (res) {
         var total = res[0]["count(*)"]; // 请求总页数
         var visiblePages = Math.ceil(total / pageSize);
         $(function () {
@@ -186,11 +190,6 @@
             });
         });
     })
-
-    function searchWord() {
-        content = $("#searchContent")[0].value;           //获取id为"content"输入框的数据
-        loadData(0, content);
-    }
 </script>
 
 </body>
