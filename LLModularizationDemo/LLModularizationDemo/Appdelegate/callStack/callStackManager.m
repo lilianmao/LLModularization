@@ -75,7 +75,7 @@
     [self loadCallStackFromDataBaseSuccessed:^(id result) {
         NSArray *callStacks = (NSArray *)result;
         callStackSubmitModel *lastObj = (callStackSubmitModel *)[callStacks lastObject];
-        if (lastObj.submitType == callStackSubmitTypeCrash) {
+        if (callStacks.count!=0 && lastObj.submitType == callStackSubmitTypeCrash) {
             [self sendCallStack];
         }
     } failured:^(NSError *err) {
@@ -86,7 +86,7 @@
 - (void)loadCallStackFromDataBaseSuccessed:(LLBasicSuccessBlock_t)success
                                   failured:(LLBasicFailureBlock_t)failure {
     NSArray *callStacks = [[DataBase sharedDataBase] callStack_getAllElementsWithSQL:@"Select * from callStack;"];
-    if (!callStacks || callStacks.count == 0) {
+    if (!callStacks) {
         if (failure) {
             failure(nil);
         }

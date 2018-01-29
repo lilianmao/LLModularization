@@ -1,4 +1,4 @@
-// 刷新table
+// table数据展示通用的函数
 function refreshTable(data) {
     for (item in data) {
         // 创建tr和td DOM节点

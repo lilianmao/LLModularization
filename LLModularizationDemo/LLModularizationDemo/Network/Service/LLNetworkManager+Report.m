@@ -14,9 +14,13 @@
                  success:(LLSuccessBlock)success
                  failure:(LLFailureBlock)failure {
     [self postRequestWithSubPath:REPORT_CALLCHAIN parameters:params businessSuccess:^(LLNetworkResponseEntity *bizSuccessEntity) {
-        
+        if (success) {
+            success(bizSuccessEntity);
+        }
     } businessFailure:^(LLNetworkResponseEntity *bizFailureEntity) {
-        
+        if (failure) {
+            failure(nil);
+        }
     }];
 }
 
