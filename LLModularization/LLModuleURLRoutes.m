@@ -67,13 +67,16 @@ NSString *const LLRoutesParameters = @"LLRoutesParameters";
     url = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSMutableDictionary *parameters = [[self sharedInstance] extractParametersFromURL:url];
     
-    NSMutableDictionary *infoDict = userInfo.mutableCopy;
+    NSMutableDictionary *infoDict = @{}.mutableCopy;
+    if (userInfo.count > 0) {
+        [infoDict addEntriesFromDictionary:userInfo];
+    }
     [parameters enumerateKeysAndObjectsUsingBlock:^(id key, NSString *obj, BOOL *stop) {
         if ([obj isKindOfClass:[NSString class]]) {
             parameters[key] = [obj stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         }
         if (key != LLRoutesService) {
-            [infoDict setObject:obj forKey:key];
+            infoDict[key] = obj;
             [parameters removeObjectForKey:key];
         }
     }];

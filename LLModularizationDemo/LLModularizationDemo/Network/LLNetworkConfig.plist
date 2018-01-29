@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Base Server Schema</key>
+	<string>http://</string>
+	<key>Base Server Address Dev</key>
+	<string>腾讯云:123.206.121.92:8080    bbp.czbank.com</string>
+	<key>Base Server Address Test</key>
+	<string>127.0.0.1:3000</string>
+	<key>Base Server Address Dis</key>
+	<string>刘 10.0.69.199  李 172.16.100.155:8080 验证环境 10.32.244.181</string>
+	<key>Timeout Interval</key>
+	<integer>20</integer>
+</dict>
+</plist>

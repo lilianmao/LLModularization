@@ -6,6 +6,7 @@
 //
 
 #import "LLModuleUtils.h"
+#import <objc/runtime.h>
 
 @interface LLModuleUtils()
 
@@ -18,6 +19,38 @@
         return YES;
     }
     return NO;
+}
+
++ (UIViewController *)topMostViewControllerWithRootViewController:(UIViewController *)rootViewController {
+    if ([rootViewController isKindOfClass:[UITabBarController class]]) {
+        UITabBarController *tabBarController = (UITabBarController *)rootViewController;
+        return [self topMostViewControllerWithRootViewController:tabBarController.selectedViewController];
+    } else if ([rootViewController isKindOfClass:[UINavigationController class]]) {
+        UINavigationController *navController = (UINavigationController *)rootViewController;
+        return [self topMostViewControllerWithRootViewController:navController.topViewController];
+    } else if (rootViewController.presentedViewController) {
+        UIViewController *presentedController = rootViewController.presentedViewController;
+        return [self topMostViewControllerWithRootViewController:presentedController];
+    } else {
+        return rootViewController;
+    }
+}
+
++ (BOOL)checkInstance:(id)instance ifExistProperty:(NSString *)propertyName {
+    const char *property = [propertyName cStringUsingEncoding:NSUTF8StringEncoding];
+    Ivar ivar = class_getInstanceVariable([instance class], property);
+    if (!ivar) {
+        return YES;
+    }
+    return NO;
+}
+
++ (NSString *)getModuleNameWithStr:(NSString *)str {
+    NSRange range = [str rangeOfString:@"Module"];
+    if (range.length > 0) {
+        return [str substringWithRange:NSMakeRange(0, range.location+range.length)];
+    }
+    return nil;
 }
 
 @end

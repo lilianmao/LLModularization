@@ -12,4 +12,8 @@
 
 + (BOOL)isNilOrEmtpyForString:(NSString *)aString;
 
++ (NSString *)formatDate:(NSDate *)date;
+
++ (NSDate *)formatString:(NSString *)str;
+
 @end

@@ -8,17 +8,26 @@
 #import <Foundation/Foundation.h>
 #import "LLModuleConst.h"
 
+typedef NS_ENUM(NSInteger, LLModuleTreeNodeType) {
+    LLModuleTreeNodeTypeForeground = 0,         // 前端页面节点
+    LLModuleTreeNodeTypeBackground = 1          // 后台服务节点
+};
+
 /**
  树的节点
  */
 @interface LLModuleTreeNode : NSObject
 
 @property (nonatomic, strong) NSArray<LLModuleTreeNode *> *childs;
+@property (nonatomic, assign) LLModuleTreeNodeType nodeType;
 @property (nonatomic, copy) NSString *moduleName;
+@property (nonatomic, copy) NSString *controllerName;
 @property (nonatomic, assign) int sequenceNumber;
 
-- (instancetype)initTreeNodeWithModuleName:(NSString *)moduleName
-                         andSequenceNumber:(int)sequenceNumber;
+- (instancetype)initTreeNodeWithNodeType:(LLModuleTreeNodeType)nodeType
+                              moduleName:(NSString *)moduleName
+                          controllerName:(NSString *)controllerName
+                          sequenceNumber:(int)sequenceNumber;
 
 @end
 
@@ -26,25 +35,29 @@
 
 @property (nonatomic, strong, readonly) LLModuleTreeNode *root;
 
-+ (void)appendCaller:(NSString *)callerStr
-           andCallee:(NSString *)calleeStr
-        successBlock:(LLBasicSuccessBlock_t)success
-        failureBlock:(LLBasicFailureBlock_t)failure;
+/**
+ 向树中添加一个页面节点
+ */
++ (void)appendCallerModule:(NSString *)callerModule
+          callerController:(NSString *)callerController
+              calleeModule:(NSString *)calleeModule
+          calleeController:(NSString *)calleeController
+                  callType:(LLModuleTreeNodeType)type
+              successBlock:(LLBasicSuccessBlock_t)success
+              failureBlock:(LLBasicFailureBlock_t)failure;
+
+/**
+ popWithPage: pop页面
+ */
++ (void)popWithController:(NSArray<NSString *> *)controllers
+             successBlock:(LLBasicSuccessBlock_t)success
+             failureBlock:(LLBasicFailureBlock_t)failure;
 
 /**
  popToPage: pop到指定页面
  */
-+ (void)popToPage:(NSString *)page
-     successBlock:(LLBasicSuccessBlock_t)success
-     failureBlock:(LLBasicFailureBlock_t)failure;
-
-/**
- popWithPage: 指定页面无法获取，传入最近的module，向上一级寻找page
- */
-+ (void)popWithPage:(NSString *)page
-       successBlock:(LLBasicSuccessBlock_t)success
-       failureBlock:(LLBasicFailureBlock_t)failure;
-
-#warning 1. 写一个全面的demo(包括非法pop一次或者多次)
++ (void)popToController:(NSString *)controllers
+           successBlock:(LLBasicSuccessBlock_t)success
+           failureBlock:(LLBasicFailureBlock_t)failure;
 
 @end

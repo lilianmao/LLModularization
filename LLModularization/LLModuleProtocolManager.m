@@ -10,11 +10,11 @@
 #import <objc/runtime.h>
 #import "LLModuleNavigator.h"
 #import "LLModuleCallStackManager.h"
+#import "LLModuleURLManager.h"
 
 @interface LLModuleProtocolManager()
 
 @property (nonatomic, strong) NSMutableDictionary<NSString *, NSString *> *serviceInstance_Dict;           // service和Instance的映射
-@property (nonatomic, strong) NSMutableDictionary<NSString *, NSString *> *viewControllerInstance_dict;    // ViewController和Instance(VC的实现者，模块的发言人)的映射
 @property (nonatomic, strong) NSRecursiveLock *lock;
 
 @end
@@ -41,13 +41,6 @@
         _serviceInstance_Dict = @{}.mutableCopy;
     }
     return _serviceInstance_Dict;
-}
-
-- (NSMutableDictionary<NSString *,NSString *> *)viewControllerInstance_dict {
-    if (!_viewControllerInstance_dict) {
-        _viewControllerInstance_dict = @{}.mutableCopy;
-    }
-    return _viewControllerInstance_dict;
 }
 
 - (NSRecursiveLock *)lock {
@@ -92,7 +85,12 @@
                         navigationMode:(LLModuleNavigationMode)mode
                           successBlock:(LLBasicSuccessBlock_t)success
                           failureBlock:(LLBasicFailureBlock_t)failure {
-    NSParameterAssert(serviceName != nil);
+    if ([LLModuleUtils isNilOrEmtpyForString:serviceName]) {
+        NSString *errMsg = @"serviceName is nil.";
+        NSError *err = [[NSError alloc] initWithDomain:NSStringFromClass([self class]) code:-1 userInfo:@{NSLocalizedDescriptionKey:errMsg}];
+        failure(err);
+        return ;
+    }
     
     NSString *instanceName = [self getInstanceWithService:serviceName];
     Class instance = NSClassFromString(instanceName);
@@ -112,33 +110,15 @@
     }
     
     id result = [self safePerformAction:service target:instance params:params];
-    if (result != nil) {
-        if ([result isKindOfClass:[UIViewController class]]) {
-            UIViewController *showingVC = (UIViewController *)result;
-            NSArray<UIViewController *> *showVCs = [LLModuleNavigator showController:showingVC withNavigationMode:mode];
-            // 同时将push和被push的VC和他们对应的module记录下来。
-            [self setShowViewControllers:showVCs toInstance:connector];
-            [self setShowViewControllers:@[showingVC] toInstance:instanceName];
-            
-            [LLModuleCallStackManager appendCallStackItemWithCallerConnector:connector calleeConnector:instanceName moduleService:serviceName serviceType:LLModuleTreeServiceTypeForeground];
-        } else {
-            // 记录链路
-            [LLModuleCallStackManager appendCallStackItemWithCallerConnector:connector calleeConnector:instanceName moduleService:serviceName serviceType:LLModuleTreeServiceTypeBackground];
-        }
-        
-        success(result);
+    if ([result isKindOfClass:[UIViewController class]]) {
+        UIViewController *showingVC = (UIViewController *)result;
+        [LLModuleNavigator showController:showingVC withNavigationMode:mode];
     } else {
-        NSError *err = [[NSError alloc] initWithDomain:NSStringFromClass([self class]) code:-1 userInfo:@{NSLocalizedDescriptionKey:@"Instance execute selector failured."}];
-        failure(err);
+        // 输出链路
+        [LLModuleCallStackManager appendCallStackItemWithCallerModule:connector callerController:nil calleeModule:instanceName calleeController:nil moduleService:serviceName serviceType:LLModuleServiceTypeBackground];
     }
-}
-
-- (NSString *)getInstanceWithViewController:(NSString *)viewControllerStr {
-    NSString *instanceStr = [[self viewControllerInstance_dict] objectForKey:viewControllerStr];
-    if (instanceStr.length > 0) {
-        return instanceStr;
-    }
-    return nil;
+    
+    success(result);
 }
 
 #pragma mark - unregister
@@ -153,6 +133,7 @@
     return NO;
 }
 
+
 - (NSString *)getInstanceWithService:(NSString *)serviceName {
     NSString *instanceStr = [[self serviceDict] objectForKey:serviceName];
     return instanceStr;
@@ -163,22 +144,6 @@
     NSDictionary *dict = [self.serviceInstance_Dict copy];
     [self.lock unlock];
     return dict;
-}
-
-- (NSDictionary *)viewControllerDict {
-    [self.lock lock];
-    NSDictionary *dict = [self.viewControllerInstance_dict copy];
-    [self.lock unlock];
-    return dict;
-}
-
-- (void)setShowViewControllers:(NSArray<UIViewController *> *)viewControllers
-                    toInstance:(NSString *)instanceName {
-    [self.lock lock];
-    [viewControllers enumerateObjectsUsingBlock:^(UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        [self.viewControllerInstance_dict setObject:instanceName forKey:NSStringFromClass([obj class])];
-    }];
-    [self.lock unlock];
 }
 
 - (id)safePerformAction:(SEL)action target:(Class)target params:(NSDictionary *)params {

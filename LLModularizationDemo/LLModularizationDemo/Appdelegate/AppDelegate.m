@@ -9,7 +9,13 @@
 #import "AppDelegate.h"
 #import "LLTabBarController.h"
 
+#import "NSObject+CrashCatch.h"
+#import <LLModularization/LLModule.h>
+#import "callStackManager.h"
+
 @interface AppDelegate ()
+
+@property (nonatomic, assign) NSInteger callStackSamplingNum;
 
 @end
 
@@ -21,6 +27,10 @@
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.rootViewController = [[LLTabBarController alloc] init];
     [self.window makeKeyAndVisible];
+    
+    [NSObject initCrashCatchHandler];
+    [self sendCallStackIfNeed];
+    [self initModularization];
     
     return YES;
 }
@@ -49,8 +59,34 @@
 
 
 - (void)applicationWillTerminate:(UIApplication *)application {
-    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    // save + 一定条件的send(即最简单的取样)
+    [callStackManager saveCallStackWithType:callStackSubmitTypeSampling];
+    if (_callStackSamplingNum%10 == 0) {
+        [callStackManager sendCallStack];
+    }
 }
 
+#pragma mark - Private Method
+
+- (void)initModularization {
+    [self checkModularization];
+    [self generateRandomNumber];
+}
+
+- (void)checkModularization {
+    NSArray *missingServices = [[LLModule sharedInstance] checkRelyService];
+    if (missingServices.count > 0) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"未注册的服务" message:[missingServices description] delegate:self cancelButtonTitle:@"好的" otherButtonTitles:nil, nil];
+        [alertView show];
+    }
+}
+
+- (void)generateRandomNumber {
+    _callStackSamplingNum = arc4random() % 10;
+}
+
+- (void)sendCallStackIfNeed {
+    [callStackManager sendIfNeedWhenLanuch];
+}
 
 @end

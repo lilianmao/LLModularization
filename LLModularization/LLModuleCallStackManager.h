@@ -8,16 +8,13 @@
 #import <Foundation/Foundation.h>
 #import "LLModuleProtocol.h"
 
-typedef NS_ENUM(NSInteger, LLModuleTreeServiceType) {
-    LLModuleTreeServiceTypeNone = 0,
-    LLModuleTreeServiceTypeForeground = 1,      // 前台，一般是页面跳转。
-    LLModuleTreeServiceTypeBackground = 2       // 后台，一般是非页面跳转，请求数据服务。
-};
-
-typedef NS_ENUM(NSInteger, LLModuleTreePopType) {
-    LLModuleTreePopTypeNone = 0,
-    LLModuleTreePopTypePop = 1,
-    LLModuleTreePopTypeDismiss = 2
+typedef NS_ENUM(NSInteger, LLModuleServiceType) {
+    LLModuleServiceTypeNone = 0,
+    LLModuleServiceTypePush = 1,        // Push
+    LLModuleServiceTypePresent = 2,     // Present
+    LLModuleServiceTypePop = 3,         // Pop
+    LLModuleServiceTypeDismiss = 4,     // Dismiss
+    LLModuleServiceTypeBackground = 5,  // 后台，一般是非页面跳转，请求数据服务。
 };
 
 /**
@@ -25,13 +22,13 @@ typedef NS_ENUM(NSInteger, LLModuleTreePopType) {
  */
 @interface LLModuleCallStackItem : NSObject
 
-@property (nonatomic, copy) NSArray *moduleCallChain;
+@property (nonatomic, copy) NSString *moduleCallChain;
 @property (nonatomic, copy) NSString *service;
-@property (nonatomic, assign) LLModuleTreeServiceType serviceType;
+@property (nonatomic, assign) LLModuleServiceType serviceType;
 
 - (instancetype)initWithModuleCallChain:(NSArray *)callChain
                              andService:(NSString *)service
-                         andServiceType:(LLModuleTreeServiceType)serviceType;
+                         andServiceType:(LLModuleServiceType)serviceType;
 
 @end
 
@@ -39,14 +36,20 @@ typedef NS_ENUM(NSInteger, LLModuleTreePopType) {
 
 + (NSArray *)getModuleCallStack;
 
-+ (void)appendCallStackItemWithCallerConnector:(NSString *)callerConnector
-                               calleeConnector:(NSString *)calleeConnector
-                                 moduleService:(NSString *)service
-                                   serviceType:(LLModuleTreeServiceType)type;
++ (void)appendCallStackItemWithCallerModule:(NSString *)callerModule
+                           callerController:(NSString *)callerController
+                               calleeModule:(NSString *)calleeModule
+                           calleeController:(NSString *)calleeController
+                              moduleService:(NSString *)service
+                                serviceType:(LLModuleServiceType)type;
 
-+ (void)popToPage:(NSString *)page withPopType:(LLModuleTreePopType)type;
++ (void)popWithControllers:(NSArray<NSString *> *)controllers
+               serviceName:(NSString *)serviceName
+                   popType:(LLModuleServiceType)type;
 
-+ (void)popWithPage:(NSString *)page withPopType:(LLModuleTreePopType)type;
++ (void)popToController:(NSString *)controller
+            serviceName:(NSString *)serviceName
+                popType:(LLModuleServiceType)type;
 
 @end
 

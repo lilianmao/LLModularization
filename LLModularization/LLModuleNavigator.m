@@ -6,6 +6,7 @@
 //
 
 #import "LLModuleNavigator.h"
+#import "LLModuleUtils.h"
 
 @interface LLModuleNavigator()
 
@@ -28,18 +29,18 @@
 
 #pragma mark - showVC
 
-+ (NSArray<UIViewController *> *)showController:(UIViewController *)controller
-                             withNavigationMode:(LLModuleNavigationMode)mode {
++ (void)showController:(UIViewController *)controller
+    withNavigationMode:(LLModuleNavigationMode)mode {
     if (mode == LLModuleNavigationModeNone) {
         mode = LLModuleNavigationModePush;
     }
     
     switch (mode) {
         case LLModuleNavigationModePush:
-            return [[LLModuleNavigator sharedNavigator] pushViewController:controller];
+            [[LLModuleNavigator sharedNavigator] pushViewController:controller];
             break;
         case LLModuleNavigationModePresent:
-            return [[LLModuleNavigator sharedNavigator] presentViewController:controller];
+            [[LLModuleNavigator sharedNavigator] presentViewController:controller];
             break;
         case LLModuleNavigationModeNone:
             NSLog(@"Internal error.");
@@ -47,11 +48,10 @@
         default:
             break;
     }
-    return nil;
 }
 
-- (NSArray<UIViewController *> *)pushViewController:(UIViewController *)controller {
-    UIViewController *topViewController = [self topMostViewControllerWithRootViewController:[UIApplication sharedApplication].keyWindow.rootViewController];
+- (void)pushViewController:(UIViewController *)controller {
+    UIViewController *topViewController = [LLModuleUtils topMostViewControllerWithRootViewController:[UIApplication sharedApplication].keyWindow.rootViewController];
     
     if ([topViewController isKindOfClass:[UINavigationController class]]) {
         [(UINavigationController *)topViewController pushViewController:controller animated:YES];
@@ -61,20 +61,13 @@
         UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:controller];
         [topViewController presentViewController:navController animated:YES completion:nil];
     }
-    
-    NSMutableArray *viewControllerArrays = @[].mutableCopy;
-    [viewControllerArrays addObject:topViewController];
-    if (topViewController.presentingViewController) {
-        [viewControllerArrays addObject:topViewController.presentingViewController];
-    }
-    return [viewControllerArrays copy];
 }
 
-- (NSArray<UIViewController *> *)presentViewController:(UIViewController *)controller {
-    UIViewController *topViewController = [self topMostViewControllerWithRootViewController:[UIApplication sharedApplication].keyWindow.rootViewController];
+- (void)presentViewController:(UIViewController *)controller {
+    UIViewController *topViewController = [LLModuleUtils topMostViewControllerWithRootViewController:[UIApplication sharedApplication].keyWindow.rootViewController];
     
     if ([topViewController isKindOfClass:[UITabBarController class]] || [topViewController isKindOfClass:[UINavigationController class]]) {
-        return nil;
+        return ;
     }
     
     if (topViewController.presentedViewController) {
@@ -83,25 +76,6 @@
     
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:controller];
     [topViewController presentViewController:navController animated:YES completion:nil];
-    
-    return @[topViewController];
-}
-
-#pragma mark - Private Method
-
-- (UIViewController *)topMostViewControllerWithRootViewController:(UIViewController *)rootViewController {
-    if ([rootViewController isKindOfClass:[UITabBarController class]]) {
-        UITabBarController *tabBarController = (UITabBarController *)rootViewController;
-        return [self topMostViewControllerWithRootViewController:tabBarController.selectedViewController];
-    } else if ([rootViewController isKindOfClass:[UINavigationController class]]) {
-        UINavigationController *navController = (UINavigationController *)rootViewController;
-        return [self topMostViewControllerWithRootViewController:navController.topViewController];
-    } else if (rootViewController.presentedViewController) {
-        UIViewController *presentedController = rootViewController.presentedViewController;
-        return [self topMostViewControllerWithRootViewController:presentedController];
-    } else {
-        return rootViewController;
-    }
 }
 
 @end

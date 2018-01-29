@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>APP组件调用栈</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Timeline CSS -->
+    <link href="stylesheets/timeline.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="stylesheets/sb-admin-2.css" rel="stylesheet">
+
+    <!---->
+    <link href="stylesheets/jquery.bdt.css" type="text/css" rel="stylesheet">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+<a name="top" id="top"></a>
+<div id="wrapper">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="index.html">李林</a>
+        </div>
+
+        <div class="navbar-default sidebar" role="navigation">
+            <div class="sidebar-nav navbar-collapse" id="mymenu">
+                <ul class="nav" id="side-menu">
+                    <li>
+                        <a href="#top" target="_self"><i class="fa fa-bar-chart-o fa-fw"></i> 网易云课堂 </a>
+                    </li>
+                    <li>
+                        <a href="#buttom" target="_self"><i class="fa fa-dashboard fa-fw"></i> 中国大学MOOC </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.sidebar-collapse -->
+        </div>
+        <!-- /.navbar-static-side -->
+    </nav>
+
+    <div id="page-wrapper">
+        <div class="row">
+            <div class='col-lg-9'>
+                <h1 class="page-header">
+                    iOS组件化系统
+                </h1>
+            </div>
+            <div class="col-lg-3">
+                <form action="/callstack/searchWord" method="get" id="searchFrom">
+                    <div class="input-group page-header" style="border:none">
+                        <input name="search_content" type="text" class="form-control" placeholder="Search..."
+                               id="searchContent">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">
+                                <i class="glyphicon glyphicon-search"></i>
+                            </button>
+                        </span>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <i class="fa fa-bar-chart-o fa-fw"></i>Data Show
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <table border="0" class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th>id</th>
+                                <th>callChain</th>
+                                <th>service</th>
+                                <th>serviceType</th>
+                                <th>submitType</th>
+                                <th>date</th>
+                            </tr>
+                            </thead>
+                            <!-- myTable的数据从下面js中获取 -->
+                            <tbody id="myTable">
+
+                            </tbody>
+                        </table>
+                        <div class="col-md-12 text-right">
+                            <ul class="pagination" id="myPager">
+                                <li><a href="#">&laquo;</a></li>
+                                <li><a href="#" id="perPage">1</a></li>
+                                <li><a href="#">&raquo;</a></li>
+                            </ul>
+                        </div>
+
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+
+
+            </div>
+
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /#page-wrapper -->
+
+</div>
+<a name="buttom" id="buttom"></a>
+
+<!-- jQuery -->
+<script src="libs/jquery/dist/jquery.min.js"></script>
+<script src="javascripts/vendor/jquery.sortelements.js" type="text/javascript"></script>
+<script src="javascripts/jquery.bdt.js" type="text/javascript"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="libs/bootstrap/dist/js/bootstrap.min.js"></script>
+
+<!-- 发送请求 -->
+<script type="text/javascript" src="javascripts/jquery.twbsPagination.min.js"></script>
+<script type="text/javascript" src="javascripts/refreshTable.js"></script>>
+<script>
+    var pageSize = 10;              // 请求每页页数
+    var content;
+    var $pagination = $("#myPager");
+
+    function loadData(pageIndex) {      //这个参数就是点击的那个分页的页数索引值，第一页为0，上面提到了，下面这部分就是AJAX传值了。
+        let url;
+        if (typeof(content) != "undefined") {
+            url = "/callstack/getpage?pagenum=" + pageIndex * pageSize + "&pagesize=" + pageSize + "&content=" + content;
+        } else {
+            url = "/callstack/getpage?pagenum=" + pageIndex * pageSize + "&pagesize=" + pageSize;
+        }
+        $.ajax({
+            type: "get",
+            url: url,
+            async: false,
+            dataType: "json",
+            success: function (data) {
+                $("#myTable").empty();
+                // refreshPager();
+                refreshTable(data, content);
+            },
+            error: function () {
+                alert("请求超时，请重试！");
+            }
+        });
+    };
+
+    $.get("/callstack", function (res) {
+        var total = res[0]["count(*)"]; // 请求总页数
+        var visiblePages = Math.ceil(total / pageSize);
+        $(function () {
+            $pagination.twbsPagination({
+                totalPages: visiblePages,
+                visiblePages: visiblePages,
+                startPage: 1,
+                onPageClick: function (event, page) {
+                    loadData(page - 1, content);
+                }
+            });
+        });
+    })
+
+    function searchWord() {
+        content = $("#searchContent")[0].value;           //获取id为"content"输入框的数据
+        loadData(0, content);
+    }
+</script>
+
+</body>
+
+
+</html>

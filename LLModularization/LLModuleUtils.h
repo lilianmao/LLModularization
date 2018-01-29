@@ -11,4 +11,10 @@
 
 + (BOOL)isNilOrEmtpyForString:(NSString *)aString;
 
++ (UIViewController *)topMostViewControllerWithRootViewController:(UIViewController *)rootViewController;
+
++ (BOOL)checkInstance:(id)instance ifExistProperty:(NSString *)propertyName;
+
++ (NSString *)getModuleNameWithStr:(NSString *)str;
+
 @end

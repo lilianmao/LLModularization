@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "LLModularization"
-  s.version      = "0.0.1"
+  s.version      = "1.0.0"
   s.summary      = "iOS Modularization System"
 
   # This description is used to generate tags and improve search results.
@@ -53,9 +53,9 @@ Pod::Spec.new do |s|
   #  profile URL.
   #
 
-  s.author             = { "李林" => "hzlilin3@corp.netease.com" }
+  s.author             = { "李林" => "lilin123569@outlook.com" }
   # Or just: s.author    = "李林"
-  # s.authors            = { "李林" => "hzlilin3@corp.netease.com" }
+  # s.authors            = { "李林" => "lilin123569@outlook.com" }
   # s.social_media_url   = "http://twitter.com/李林"
 
   # ――― Platform Specifics ――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -65,7 +65,7 @@ Pod::Spec.new do |s|
   #
 
   # s.platform     = :ios
-  # s.platform     = :ios, "8.0"
+  s.platform     = :ios, "8.0"
 
   #  When using multiple platforms
   # s.ios.deployment_target = "5.0"

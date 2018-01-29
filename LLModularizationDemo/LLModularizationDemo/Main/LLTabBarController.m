@@ -8,9 +8,8 @@
 
 #import "LLTabBarController.h"
 #import "LLNavigationController.h"
-#import "HomeModuleViewController.h"
-#import "MeModuleViewController.h"
-#import "LLMacro.h"
+#import "MeModuleHomeViewController.h"
+#import "MeModuleMainViewController.h"
 
 @interface LLTabBarController ()
 
@@ -31,10 +30,10 @@
 }
 
 - (void)setupBarItems {
-    HomeModuleViewController *home = [[HomeModuleViewController alloc] init];
+    MeModuleHomeViewController *home = [[MeModuleHomeViewController alloc] init];
     UIViewController *homeNav = [self addChildVcWithViewController:home name:@"首页" imageName:@"tab-home" selectedImageName:@"tab-home-hl"];
     
-    MeModuleViewController *me = [[MeModuleViewController alloc] init];
+    MeModuleMainViewController *me = [[MeModuleMainViewController alloc] init];
     UIViewController *meNav = [self addChildVcWithViewController:me name:@"账号" imageName:@"tab-account" selectedImageName:@"tab-account-hl"];
     
     self.viewControllers =@[homeNav, meNav];

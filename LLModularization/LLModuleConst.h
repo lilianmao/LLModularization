@@ -10,6 +10,8 @@
 
 #import <Foundation/Foundation.h>
 
+#define LLModule_ModuleTag @"moduleTag"
+
 typedef void (^LLBasicBlock_t)(void);
 typedef void (^LLBasicSuccessBlock_t)(id result);
 typedef void (^LLBasicFailureBlock_t)(NSError *err);

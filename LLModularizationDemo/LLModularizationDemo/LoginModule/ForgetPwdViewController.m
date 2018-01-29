@@ -6,13 +6,13 @@
 //  Copyright © 2017 lee. All rights reserved.
 //
 
-#import "ForgetPwdViewController.h"
+#import "LoginModuleForgetPwdViewController.h"
 
-@interface ForgetPwdViewController ()
+@interface LoginModuleForgetPwdViewController ()
 
 @end
 
-@implementation ForgetPwdViewController
+@implementation LoginModuleForgetPwdViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

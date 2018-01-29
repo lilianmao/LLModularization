@@ -9,6 +9,7 @@
 #import "LLModuleProtocolManager.h"
 #import "LLModuleURLManager.h"
 #import "LLModuleUtils.h"
+#import "LLModuleCallStackManager.h"
 
 @interface LLModule()
 
@@ -54,6 +55,23 @@
     }
     
     [[LLModuleURLManager sharedManager] callServiceWithCallerConnector:connector URL:url parameters:params navigationMode:mode successBlock:success failureBlock:failure];
+}
+
+- (void)registerRelyService:(NSString *)serviceName {
+    if ([LLModuleUtils isNilOrEmtpyForString:serviceName]) {
+//        NSLog(@"rely service is empty.");
+        return ;
+    }
+    
+    [[LLModuleURLManager sharedManager] registerRelyService:serviceName];
+}
+
+- (NSArray *)checkRelyService {
+    return [[LLModuleURLManager sharedManager] checkRelyService];
+}
+
+- (NSArray *)getModuleCallStack {
+    return [LLModuleCallStackManager getModuleCallStack];
 }
 
 @end

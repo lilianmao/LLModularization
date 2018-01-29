@@ -17,16 +17,27 @@
 #pragma mark - Method Swizzling
 
 + (void)load {
-    method_exchangeImplementations(class_getInstanceMethod([self class], @selector(dismissViewControllerAnimated:completion:)), class_getInstanceMethod([self class], @selector(my_dismissViewControllerAnimated:completion:)));
+    method_exchangeImplementations(class_getInstanceMethod([self class], @selector(presentViewController:animated:completion:)), class_getInstanceMethod([self class], @selector(LLModule_presentViewController:animated:completion:)));
+    method_exchangeImplementations(class_getInstanceMethod([self class], @selector(dismissViewControllerAnimated:completion:)), class_getInstanceMethod([self class], @selector(LLModule_dismissViewControllerAnimated:completion:)));
 }
 
-- (void)my_dismissViewControllerAnimated: (BOOL)flag completion: (void (^ __nullable)(void))completion NS_AVAILABLE_IOS(5_0) {
-    NSString *topVC = NSStringFromClass([[self getPresentingViewController:self.presentingViewController] class]);
-    NSString *instance = [[LLModuleProtocolManager sharedManager] getInstanceWithViewController:topVC];
-    if (![LLModuleUtils isNilOrEmtpyForString:instance]) {
-        [LLModuleCallStackManager popToPage:instance withPopType:LLModuleTreePopTypeDismiss];
+- (void)LLModule_presentViewController:(UIViewController *)viewControllerToPresent animated:(BOOL)flag completion:(void (^ __nullable)(void))completion NS_AVAILABLE_IOS(5_0) {
+    UIViewController *callerVC = [LLModuleUtils topMostViewControllerWithRootViewController:self];
+    UIViewController *calleeVC = [LLModuleUtils topMostViewControllerWithRootViewController:viewControllerToPresent];
+    NSString *callerVCModule = [LLModuleUtils getModuleNameWithStr:NSStringFromClass([callerVC class])];
+    NSString *calleeVCModule = [LLModuleUtils getModuleNameWithStr:NSStringFromClass([calleeVC class])];
+    if (![LLModuleUtils isNilOrEmtpyForString:callerVCModule] && ![LLModuleUtils isNilOrEmtpyForString:calleeVCModule]) {
+        [LLModuleCallStackManager appendCallStackItemWithCallerModule:callerVCModule callerController:NSStringFromClass([callerVC class]) calleeModule:calleeVCModule calleeController:NSStringFromClass([calleeVC class]) moduleService:@"presentViewController:animated:completion:" serviceType:LLModuleServiceTypePresent];
     }
-    [self my_dismissViewControllerAnimated:flag completion:completion];
+    [self LLModule_presentViewController:viewControllerToPresent animated:flag completion:completion];
+}
+
+- (void)LLModule_dismissViewControllerAnimated: (BOOL)flag completion: (void (^ __nullable)(void))completion NS_AVAILABLE_IOS(5_0) {
+    NSString *topVC = NSStringFromClass([[self getPresentingViewController:self.presentingViewController] class]);
+    if (topVC) {
+        [LLModuleCallStackManager popToController:topVC serviceName:@"dismissViewControllerAnimated:completion:" popType:LLModuleServiceTypeDismiss];
+    }
+    [self LLModule_dismissViewControllerAnimated:flag completion:completion];
 }
 
 - (UIViewController *)getPresentingViewController:(UIViewController *)presentingVC {
