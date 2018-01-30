@@ -34,11 +34,11 @@ LLModularization主要分注册和访问两个部分。
 
 ### LLModularization
 
-<!--如果直接运行下载该框架可以在podfile里引入
+如果想直接运行下载该框架，可以在podfile里引入
 
 ```
 pod 'LLModularization', '~> 1.0.0’
-```-->
+```
 
 建议先下载demo，下载完成后
 
