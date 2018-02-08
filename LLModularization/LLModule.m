@@ -35,7 +35,16 @@
 - (BOOL)registerServiceWithServiceName:(NSString *)serviceName
                             URLPattern:(NSString *)urlPattern
                               instance:(NSString *)instanceName {
-    if ([LLModuleUtils isNilOrEmtpyForString:urlPattern] || [LLModuleUtils isNilOrEmtpyForString:serviceName] || [LLModuleUtils isNilOrEmtpyForString:instanceName]) {
+    if ([LLModuleUtils isNilOrEmtpyForString:urlPattern]) {
+        NSLog(@"urlPattern is empty.");
+        return NO;
+    }
+    if ([LLModuleUtils isNilOrEmtpyForString:serviceName]) {
+        NSLog(@"serviceName is empty.");
+        return NO;
+    }
+    if ([LLModuleUtils isNilOrEmtpyForString:instanceName]) {
+        NSLog(@"instanceName is empty.");
         return NO;
     }
     
@@ -48,8 +57,13 @@
                         navigationMode:(LLModuleNavigationMode)mode
                           successBlock:(LLBasicSuccessBlock_t)success
                           failureBlock:(LLBasicFailureBlock_t)failure {
-    if ([LLModuleUtils isNilOrEmtpyForString:url] || !connector) {
-        NSError *err = [[NSError alloc] initWithDomain:NSStringFromClass([self class]) code:-1 userInfo:@{NSLocalizedDescriptionKey:@"URL or Connector is empty."}];
+    if ([LLModuleUtils isNilOrEmtpyForString:url]) {
+        NSError *err = [[NSError alloc] initWithDomain:NSStringFromClass([self class]) code:-1 userInfo:@{NSLocalizedDescriptionKey:@"URL is empty."}];
+        failure(err);
+        return ;
+    }
+    if ([LLModuleUtils isNilOrEmtpyForString:connector]) {
+        NSError *err = [[NSError alloc] initWithDomain:NSStringFromClass([self class]) code:-1 userInfo:@{NSLocalizedDescriptionKey:@"Connector is empty."}];
         failure(err);
         return ;
     }
@@ -59,7 +73,7 @@
 
 - (void)registerRelyService:(NSString *)serviceName {
     if ([LLModuleUtils isNilOrEmtpyForString:serviceName]) {
-//        NSLog(@"rely service is empty.");
+        NSLog(@"rely service is empty.");
         return ;
     }
     

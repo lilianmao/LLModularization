@@ -52,6 +52,7 @@
                             URLPattern:(NSString *)urlPattern
                               instance:(NSString *)instanceName {
     if ([LLModuleUtils isNilOrEmtpyForString:urlPattern] || [LLModuleUtils isNilOrEmtpyForString:serviceName]) {
+        NSLog(@"urlPattern or serviceName is empty.");
         return NO;
     }
     
