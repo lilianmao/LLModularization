@@ -33,8 +33,8 @@
 #pragma mark - register
 
 + (void)load {
-    [[LLModule sharedInstance] registerServiceWithServiceName:NSStringFromSelector(@selector(showLabelModule)) URLPattern:@"ll://label.show" instance:NSStringFromClass(self)];
-    [[LLModule sharedInstance] registerServiceWithServiceName:NSStringFromSelector(@selector(getInterestLabelsWithParams:)) URLPattern:@"ll://label.get" instance:NSStringFromClass(self)];
+    [[LLModule sharedInstance] registerServiceWithServiceName:NSStringFromSelector(@selector(showLabelModule)) URLPattern:@"ll://label/show" instance:NSStringFromClass(self)];
+    [[LLModule sharedInstance] registerServiceWithServiceName:NSStringFromSelector(@selector(getInterestLabelsWithParams:)) URLPattern:@"ll://label/get" instance:NSStringFromClass(self)];
     [[LLModule sharedInstance] registerRelyService:@"ll://login/:query.html"];
 }
 

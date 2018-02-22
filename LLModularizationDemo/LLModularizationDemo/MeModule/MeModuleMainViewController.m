@@ -119,7 +119,7 @@ static NSInteger rows = 4;
 
 - (void)profileBtnAction {
     if (APP_DELEGATE.isLogin) {
-        [[MeModule sharedModule] callServiceWithURL:@"ll://profile.show" parameters:nil navigationMode:LLModuleNavigationModeNone successBlock:^(id result) {
+        [[MeModule sharedModule] callServiceWithURL:@"ll://profile/show" parameters:nil navigationMode:LLModuleNavigationModeNone successBlock:^(id result) {
             // 处理成功信息
         } failureBlock:^(NSError *err) {
             [SVProgressHUD showErrorWithStatus:err.localizedDescription];
@@ -131,7 +131,7 @@ static NSInteger rows = 4;
 
 - (void)setBtnAction {
     if (APP_DELEGATE.isLogin) {
-        [[MeModule sharedModule] callServiceWithURL:@"ll://setting.show" parameters:nil navigationMode:LLModuleNavigationModePush successBlock:^(id result) {
+        [[MeModule sharedModule] callServiceWithURL:@"ll://setting/show" parameters:nil navigationMode:LLModuleNavigationModePush successBlock:^(id result) {
             // 处理成功信息
         } failureBlock:^(NSError *err) {
             [SVProgressHUD showErrorWithStatus:err.localizedDescription];
@@ -151,7 +151,7 @@ static NSInteger rows = 4;
 }
 
 - (void)labelAction {
-    [[MeModule sharedModule] callServiceWithURL:@"ll://label.show" parameters:nil navigationMode:LLModuleNavigationModePush successBlock:^(id result) {
+    [[MeModule sharedModule] callServiceWithURL:@"ll://label/show" parameters:nil navigationMode:LLModuleNavigationModePush successBlock:^(id result) {
         // 处理成功信息
     } failureBlock:^(NSError *err) {
         [SVProgressHUD showErrorWithStatus:err.localizedDescription];
@@ -159,7 +159,7 @@ static NSInteger rows = 4;
 }
 
 - (void)getLabelAction {
-    [[MeModule sharedModule] callServiceWithURL:@"ll://label.get" parameters:[self generateGetLabelParams] navigationMode:LLModuleNavigationModeNone successBlock:^(id result) {
+    [[MeModule sharedModule] callServiceWithURL:@"ll://label/get" parameters:[self generateGetLabelParams] navigationMode:LLModuleNavigationModeNone successBlock:^(id result) {
         NSLog(@"%@", result);
     } failureBlock:^(NSError *err) {
         

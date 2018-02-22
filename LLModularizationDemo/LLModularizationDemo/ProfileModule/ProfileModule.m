@@ -33,7 +33,7 @@
 #pragma mark - register
 
 + (void)load {
-    [[LLModule sharedInstance] registerServiceWithServiceName:NSStringFromSelector(@selector(showProfileModule)) URLPattern:@"ll://profile.show" instance:NSStringFromClass(self)];
+    [[LLModule sharedInstance] registerServiceWithServiceName:NSStringFromSelector(@selector(showProfileModule)) URLPattern:@"ll://profile/show" instance:NSStringFromClass(self)];
     [[LLModule sharedInstance] registerRelyService:nil];
 }
 

@@ -109,6 +109,7 @@
     __weak __typeof(self)weakSelf = self;
     [_viewModel setInterestLabels:labels successed:^(id result) {
         __strong __typeof(weakSelf) strongSelf = weakSelf;
+        [SVProgressHUD showSuccessWithStatus:@"设置兴趣标签成功"];
         [strongSelf.navigationController popViewControllerAnimated:YES];
     } failured:^(NSError *err) {
         [SVProgressHUD showErrorWithStatus:@"设置兴趣标签失败"];
