@@ -27,7 +27,6 @@ static NSInteger rows = 3;
     self.view.backgroundColor = [UIColor whiteColor];
     [self setupViews];
     [self layoutViews];
-    [self loadData];
 }
 
 #pragma mark - setupViews
@@ -47,12 +46,8 @@ static NSInteger rows = 3;
 
 #pragma mark - loadData
 
-- (void)loadData {
-    self.data = @{
-                  @"昵称：" : @"HZS7895李林",
-                  @"性别：" : @"男",
-                  @"介绍：" : @"我今年18岁"
-                  };
+- (void)setDataWithParams:(NSDictionary *)params {
+    self.data = params;
 }
 
 #pragma mark - UITableView

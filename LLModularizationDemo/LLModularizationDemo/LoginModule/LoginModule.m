@@ -61,9 +61,10 @@
 + (UIViewController *)openLoginModuleWithParams:(NSDictionary *)params {
     NSString *username = params[LoginModule_UserName];
     NSString *password = params[LoginModule_Password];
-    NSLog(@"params : %@", params);
+    NSLog(@"username : %@, password : %@", username, password);
     
-    LoginModuleMainViewController *loginVC = [[LoginModuleMainViewController alloc] initWithUserName:username password:password];
+    // 数据的传递放到打开profile页面
+    LoginModuleMainViewController *loginVC = [[LoginModuleMainViewController alloc] init];
     
     return loginVC;
 }

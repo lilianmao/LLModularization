@@ -33,7 +33,7 @@
 #pragma mark - register
 
 + (void)load {
-    [[LLModule sharedInstance] registerServiceWithServiceName:NSStringFromSelector(@selector(showProfileModule)) URLPattern:@"ll://profile/show" instance:NSStringFromClass(self)];
+    [[LLModule sharedInstance] registerServiceWithServiceName:NSStringFromSelector(@selector(showProfileModuleWithParams:)) URLPattern:@"ll://profile/show" instance:NSStringFromClass(self)];
     [[LLModule sharedInstance] registerRelyService:nil];
 }
 
@@ -58,8 +58,9 @@
 
 #pragma mark - ProfileModule
 
-+ (UIViewController *)showProfileModule {
++ (UIViewController *)showProfileModuleWithParams:(NSDictionary *)params {
     ProfileModuleMainViewController *profileMainVC = [[ProfileModuleMainViewController alloc] init];
+    [profileMainVC setDataWithParams:params];
     return profileMainVC;
 }
 

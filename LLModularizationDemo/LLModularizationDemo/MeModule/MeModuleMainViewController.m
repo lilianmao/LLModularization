@@ -14,6 +14,9 @@
 #import "LLNetworkManager+Report.h"
 #import "callStackManager.h"
 
+#import "LoginModuleMainViewController.h"
+#import "LLNavigationController.h"
+
 static NSInteger rows = 4;
 
 @implementation MeModuleMainModel
@@ -118,8 +121,10 @@ static NSInteger rows = 4;
 #pragma mark - Action
 
 - (void)profileBtnAction {
+    // 临时测试
+//    APP_DELEGATE.isLogin = NO;
     if (APP_DELEGATE.isLogin) {
-        [[MeModule sharedModule] callServiceWithURL:@"ll://profile/show" parameters:nil navigationMode:LLModuleNavigationModeNone successBlock:^(id result) {
+        [[MeModule sharedModule] callServiceWithURL:@"ll://profile/show" parameters:[self generateProfileParams] navigationMode:LLModuleNavigationModeNone successBlock:^(id result) {
             // 处理成功信息
         } failureBlock:^(NSError *err) {
             [SVProgressHUD showErrorWithStatus:err.localizedDescription];
@@ -142,12 +147,21 @@ static NSInteger rows = 4;
 }
 
 - (void)loginBtnAction {
+    CFAbsoluteTime start = CFAbsoluteTimeGetCurrent();
+    
     [[MeModule sharedModule] callServiceWithURL:[self generateLoginURL] parameters:[self generateLoginParams] navigationMode:LLModuleNavigationModePresent successBlock:^(id result) {
         // 处理你操作其他模块返回的数据。
         APP_DELEGATE.isLogin = YES;
     } failureBlock:^(NSError *err) {
         [SVProgressHUD showErrorWithStatus:err.localizedDescription];
     }];
+    
+//    LoginModuleMainViewController *loginVC = [[LoginModuleMainViewController alloc] initWithUserName:@"lilin" password:@"123456"];
+//    [self presentViewController:[[LLNavigationController alloc] initWithRootViewController:loginVC] animated:YES completion:nil];
+    
+    CFAbsoluteTime end = CFAbsoluteTimeGetCurrent();
+    
+    NSLog(@"Present的时间: %f", end - start);
 }
 
 - (void)labelAction {
@@ -207,6 +221,16 @@ static NSInteger rows = 4;
     params[@"label_failureBlock"] = ^(NSError *err) {
         NSLog(@"err: %@", err.localizedDescription);
     };
+    
+    return [params copy];
+}
+
+- (NSDictionary *)generateProfileParams {
+    NSMutableDictionary *params = @{}.mutableCopy;
+    
+    params[@"Username : "] = @"HZS7895李林";
+    params[@"Sex : "] = @"男";
+    params[@"Introduction : "] = @"我今年18岁";
     
     return [params copy];
 }

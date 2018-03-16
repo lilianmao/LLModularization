@@ -10,4 +10,6 @@
 
 @interface ProfileModuleMainViewController : UIViewController
 
+- (void)setDataWithParams:(NSDictionary *)params;
+
 @end

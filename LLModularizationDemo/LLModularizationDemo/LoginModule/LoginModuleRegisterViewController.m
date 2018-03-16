@@ -7,10 +7,14 @@
 //
 
 #import "LoginModuleRegisterViewController.h"
+#import "LoginModuleTableViewCell.h"
 
-@interface LoginModuleRegisterViewController ()
+static CGFloat cellHeight = 60.f;
 
-@property (nonatomic, strong) UILabel *registerPageLabel;
+@interface LoginModuleRegisterViewController ()  <UITableViewDataSource, UITableViewDelegate>
+
+@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) NSMutableArray *cellNames;
 @property (nonatomic, strong) UIButton *registerBtn;
 
 @end
@@ -23,15 +27,18 @@
     self.view.backgroundColor = [UIColor whiteColor];
     [self setupViews];
     [self layoutViews];
+    [self loadData];
 }
 
 #pragma mark - setup & layout
 
 - (void)setupViews {
-    _registerPageLabel = [[UILabel alloc] init];
-    [self.view addSubview:_registerPageLabel];
-    _registerPageLabel.text = @"我是注册页";
-    _registerPageLabel.font = [UIFont systemFontOfSize:20.f];
+    _tableView = [[UITableView alloc] init];
+    [self.view addSubview:_tableView];
+    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    _tableView.dataSource = self;
+    _tableView.delegate = self;
+    [_tableView registerClass:[LoginModuleTableViewCell class] forCellReuseIdentifier:NSStringFromClass([LoginModuleTableViewCell class])];
     
     _registerBtn = [[UIButton alloc] init];
     [self.view addSubview:_registerBtn];
@@ -43,12 +50,39 @@
 }
 
 - (void)layoutViews {
-    [_registerPageLabel autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:200.f];
-    [_registerPageLabel autoAlignAxisToSuperviewAxis:ALAxisVertical];
-    
-    [_registerBtn autoSetDimensionsToSize:CGSizeMake(100.f, 50.f)];
-    [_registerBtn autoAlignAxisToSuperviewAxis:ALAxisVertical];
-    [_registerBtn autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_registerPageLabel withOffset:50.f];
+    [_tableView autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:50.f];
+    [_tableView autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:40.f];
+    [_tableView autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:40.f];
+ 
+    [_registerBtn autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:40.f];
+    [_registerBtn autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:40.f];
+    [_registerBtn autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_tableView withOffset:20.f];
+    [_registerBtn autoSetDimension:ALDimensionHeight toSize:50.f];
+}
+
+- (void)loadData {
+    _cellNames = @[@"手机 : +86", @"验证码 : ", @"设置密码 :"].mutableCopy;
+    [_tableView autoSetDimension:ALDimensionHeight toSize:(_cellNames.count) * cellHeight];
+}
+
+#pragma mark - UITableView DataSource & Delegate
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return _cellNames.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    LoginModuleTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([LoginModuleTableViewCell class])];
+    [cell setCellDataWithName:_cellNames[indexPath.row]];
+    return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return cellHeight;
 }
 
 #pragma mark - Action

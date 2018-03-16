@@ -34,6 +34,7 @@
 		F25868291FDB812D00D7B2BF /* UIImage+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = F25868281FDB812D00D7B2BF /* UIImage+Extension.m */; };
 		F258682D1FDB878400D7B2BF /* UIColor+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = F258682C1FDB878400D7B2BF /* UIColor+Extension.m */; };
 		F263E02D1FE2A7E300BD7CBD /* LLUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = F263E02C1FE2A7E300BD7CBD /* LLUtils.m */; };
+		F2670B7D205B63710005F2C7 /* LoginModuleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F2670B7C205B63710005F2C7 /* LoginModuleTableViewCell.m */; };
 		F27BD6A9200CA6080055A3B9 /* NSObject+CrashCatch.m in Sources */ = {isa = PBXBuildFile; fileRef = F27BD6A8200CA6080055A3B9 /* NSObject+CrashCatch.m */; };
 		F29C93732004EA1F006F97C1 /* DataBase.m in Sources */ = {isa = PBXBuildFile; fileRef = F29C93712004EA1F006F97C1 /* DataBase.m */; };
 		F29C93762005AC80006F97C1 /* DataBase+LabelModuleLabelNode.m in Sources */ = {isa = PBXBuildFile; fileRef = F29C93752005AC80006F97C1 /* DataBase+LabelModuleLabelNode.m */; };
@@ -139,6 +140,8 @@
 		F263E01F1FDF745600BD7CBD /* LoginModuleProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginModuleProtocol.h; sourceTree = "<group>"; };
 		F263E02B1FE2A7E300BD7CBD /* LLUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LLUtils.h; sourceTree = "<group>"; };
 		F263E02C1FE2A7E300BD7CBD /* LLUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LLUtils.m; sourceTree = "<group>"; };
+		F2670B7B205B63710005F2C7 /* LoginModuleTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginModuleTableViewCell.h; sourceTree = "<group>"; };
+		F2670B7C205B63710005F2C7 /* LoginModuleTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginModuleTableViewCell.m; sourceTree = "<group>"; };
 		F27BD6A7200CA6080055A3B9 /* NSObject+CrashCatch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+CrashCatch.h"; sourceTree = "<group>"; };
 		F27BD6A8200CA6080055A3B9 /* NSObject+CrashCatch.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+CrashCatch.m"; sourceTree = "<group>"; };
 		F29C93712004EA1F006F97C1 /* DataBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataBase.m; sourceTree = "<group>"; };
@@ -384,6 +387,8 @@
 				F2C0074C1FF2754D001E1FE9 /* LoginModuleMainViewController.m */,
 				F2C0072D1FF0E487001E1FE9 /* LoginModuleRegisterViewController.h */,
 				F2C0072E1FF0E487001E1FE9 /* LoginModuleRegisterViewController.m */,
+				F2670B7B205B63710005F2C7 /* LoginModuleTableViewCell.h */,
+				F2670B7C205B63710005F2C7 /* LoginModuleTableViewCell.m */,
 			);
 			path = LoginModule;
 			sourceTree = "<group>";
@@ -753,6 +758,7 @@
 				F25868291FDB812D00D7B2BF /* UIImage+Extension.m in Sources */,
 				F258682D1FDB878400D7B2BF /* UIColor+Extension.m in Sources */,
 				F2F72C3C1FD96A6E00066F9A /* main.m in Sources */,
+				F2670B7D205B63710005F2C7 /* LoginModuleTableViewCell.m in Sources */,
 				F219594A2008522A0025F5E1 /* LLNetworkUtils.m in Sources */,
 				F251ACD81FFF1E6F00DC0A7C /* LabelModuleNodeHeader.m in Sources */,
 				F2ADA4072019777A00D71A6F /* ProfileModule.m in Sources */,
