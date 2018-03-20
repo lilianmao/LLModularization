@@ -14,6 +14,11 @@
 
 @implementation LLModuleUtils
 
++ (void)recordNowTime {
+    NSTimeInterval time = [[NSDate date] timeIntervalSince1970];
+    NSLog(@"%f", time);
+}
+
 + (BOOL)isNilOrEmtpyForString:(NSString *)aString {
     if ([aString isEqual:[NSNull null]] || !aString || !aString.length) {
         return YES;

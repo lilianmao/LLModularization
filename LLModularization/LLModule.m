@@ -57,6 +57,7 @@
                         navigationMode:(LLModuleNavigationMode)mode
                           successBlock:(LLBasicSuccessBlock_t)success
                           failureBlock:(LLBasicFailureBlock_t)failure {
+    [LLModuleUtils recordNowTime];
     if ([LLModuleUtils isNilOrEmtpyForString:url]) {
         NSError *err = [[NSError alloc] initWithDomain:NSStringFromClass([self class]) code:-1 userInfo:@{NSLocalizedDescriptionKey:@"URL is empty."}];
         failure(err);
@@ -69,6 +70,7 @@
     }
     
     [[LLModuleURLManager sharedManager] callServiceWithCallerConnector:connector URL:url parameters:params navigationMode:mode successBlock:success failureBlock:failure];
+    [LLModuleUtils recordNowTime];
 }
 
 - (void)registerRelyService:(NSString *)serviceName {

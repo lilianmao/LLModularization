@@ -9,6 +9,8 @@
 
 @interface LLModuleUtils : NSObject
 
++ (void)recordNowTime;
+
 + (BOOL)isNilOrEmtpyForString:(NSString *)aString;
 
 + (UIViewController *)topMostViewControllerWithRootViewController:(UIViewController *)rootViewController;
