@@ -29,7 +29,7 @@
     [self.window makeKeyAndVisible];
     
     [NSObject initCrashCatchHandler];
-    [self sendCallStackIfNeed];
+    [callStackManager sendIfNeedWhenLanuch];
     [self initModularization];
     
     return YES;
@@ -83,10 +83,6 @@
 
 - (void)generateRandomNumber {
     _callStackSamplingNum = arc4random() % 10;
-}
-
-- (void)sendCallStackIfNeed {
-    [callStackManager sendIfNeedWhenLanuch];
 }
 
 @end

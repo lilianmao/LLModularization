@@ -48,14 +48,14 @@
 
 - (void)saveCallStackWithType:(callStackSubmitType)submitType {
     [self loadCallStackFromDataBaseSuccessed:^(id result) {
-        // table存在，无操作。
+        NSString *submitModelsStr = [self generateSubmitModelsStrWithType:submitType];
+        [[DataBase sharedDataBase] callStack_setElementwithSQL:@"INSERT INTO callStack(callStackItemId, callChain, service, serviceType, submitType, date) VALUES(?, ?, ?, ?, ?, ?);" callStackStr:submitModelsStr];
     } failured:^(NSError *err) {
-        // table不存在，创建table。
         [[DataBase sharedDataBase] executeUpdateSQL:@"CREATE TABLE callStack ('callStackItemId' INTEGER PRIMARY KEY  NOT NULL ,'callChain' VARCHAR(255),'service' VARCHAR(255),'serviceType' INTEGER,'submitType' INTEGER, 'date' date)" tableName:nil objectStr:nil];
+        
+        NSString *submitModelsStr = [self generateSubmitModelsStrWithType:submitType];
+        [[DataBase sharedDataBase] callStack_setElementwithSQL:@"INSERT INTO callStack(callStackItemId, callChain, service, serviceType, submitType, date) VALUES(?, ?, ?, ?, ?, ?);" callStackStr:submitModelsStr];
     }];
-    
-    NSString *submitModelsStr = [self generateSubmitModelsStrWithType:submitType];
-    [[DataBase sharedDataBase] callStack_setElementwithSQL:@"INSERT INTO callStack(callStackItemId, callChain, service, serviceType, submitType, date) VALUES(?, ?, ?, ?, ?, ?);" callStackStr:submitModelsStr];
 }
 
 - (void)sendCallStack {
@@ -86,7 +86,7 @@
 - (void)loadCallStackFromDataBaseSuccessed:(LLBasicSuccessBlock_t)success
                                   failured:(LLBasicFailureBlock_t)failure {
     NSArray *callStacks = [[DataBase sharedDataBase] callStack_getAllElementsWithSQL:@"Select * from callStack;"];
-    if (!callStacks) {
+    if (!callStacks || callStacks.count == 0) {
         if (failure) {
             failure(nil);
         }

@@ -111,7 +111,7 @@ static NSInteger rows = 4;
     } else if (indexPath.section == 1) {
         [self labelAction];
     } else if (indexPath.section == 2) {
-//        [self testAction];
+        [self testAction];
     } else {
         [self setBtnAction];
     }
@@ -181,11 +181,11 @@ static NSInteger rows = 4;
 }
 
 - (void)testAction {
-    NSMutableArray *arr = @[].mutableCopy;
-    NSObject *obj = nil;
-    [arr addObject:obj];
-//    [callStackManager saveCallStackWithType:callStackSubmitTypeSampling];
-//    [callStackManager sendCallStack];
+//    NSMutableArray *arr = @[].mutableCopy;
+//    NSObject *obj = nil;
+//    [arr addObject:obj];
+    [callStackManager saveCallStackWithType:callStackSubmitTypeSampling];
+    [callStackManager sendCallStack];
 }
 
 - (NSString *)getAccountDataWithParams:(NSDictionary *)params {
