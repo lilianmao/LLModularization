@@ -35,7 +35,8 @@ git_push(){
 #    [alias] chs = git add --all && git commit -m $commitMsg && git push
     git add --all
     git commit -m "$commitMsg"
-    git push
+    pushMsg=git push
+    echo $pushMsg
 }
 
 main() {
