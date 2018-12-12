@@ -32,9 +32,10 @@ git_merge(){
 }
 
 git_push(){
-	git add .
-	git commit $commitMsg
-#    git push
+#    [alias] chs = git add --all && git commit -m $commitMsg && git push
+    git add --all
+    git commit -m "$commitMsg"
+    git push
 }
 
 main() {
