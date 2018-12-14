@@ -28,7 +28,7 @@ git_merge(){
     echo $current_date_time
 	git stash save $current_date_time
 	git pull
-	git stash apply
+	git merge master
 
     conflictMsg=''
     git diff --name-only --diff-filter=U | $conflictMsg
