@@ -29,6 +29,10 @@ git_merge(){
 	git stash save $current_date_time
 	git pull
 	git stash apply
+
+    conflictMsg=''
+    git diff --name-only --diff-filter=U | $conflictMsg
+    echo "This is conflict messages: ${conflictMsg}"
 }
 
 git_push(){
@@ -41,7 +45,7 @@ git_push(){
 main() {
     get_Input_Message
 	git_merge
-	git_push
+#    git_push
 }
 
 main
