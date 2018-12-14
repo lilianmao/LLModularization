@@ -30,8 +30,7 @@ git_merge(){
 	git pull
 	git merge master
 
-    conflictMsg=''
-    git diff --name-only --diff-filter=U | awk '{print $2}'
+    conflictMsg=$(git diff --name-only --diff-filter=U)
     echo "This is conflict messages: ${conflictMsg}"
 }
 
