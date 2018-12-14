@@ -162,6 +162,7 @@ static NSInteger rows = 4;
     CFAbsoluteTime end = CFAbsoluteTimeGetCurrent();
     
     NSLog(@"Present的时间: %f", end - start);
+    NSLog(@"This is a new commit By master");
 }
 
 - (void)labelAction {
