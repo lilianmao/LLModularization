@@ -8,22 +8,34 @@
 #History:
 #2018/12/12    Netease study
 
-
+export directory=''
 export commitMessage=''
 export buildXcodeChoice=''
+export selectedScheme=''
 
-get_Input_Message() {
+function get_Input_Message() {
     read -p "请输入你的commit信息:（默认用户+提交时间） " commitMessage
     read -p "请输入你是否要编译工程(y/n)（默认n）: " buildXcodeChoice
-    
+    read -p "请输入你选择的scheme: " selectedScheme
+    xcodebuildList=$(xcodebuild -list)
+    echo "zhelishi${xcodebuildList}"
+    array=(${xcodebuildList//Schemes:/})
+    if [ -z "$array"]; then
+        for i in $(echo $array | tr "\n")
+        do
+            echo "hahahaha:${i}"
+        done
+    fi
+
     if [ -z "$commitMessage"]; then
         commitMsg="$USER commit at `date +%Y年%m月%d日%H:%M:%S`"
     fi
-    echo "这是你的提交信息: ${conflictMsg}"
+    echo "这是你的提交信息: ${commitMessage}"
     echo "这是你的编译选择: ${buildXcodeChoice}"
+    echo "这是你的编译scheme: ${selectedScheme}"
 }
 
-git_merge(){
+function git_merge() {
 	git fetch origin
 	current_date_time="`date +%Y%m%d%H%M%S`"
     echo "这是你的stash: ${current_date_time}"
@@ -35,16 +47,32 @@ git_merge(){
     echo "This is conflict messages: ${conflictMsg}"
 }
 
-git_push(){
+function git_push() {
 #    [alias] chs = git add --all && git commit -m $commitMsg && git push
     git add --all
     git commit -m "$commitMsg"
     git push
 }
 
-run_xcworkspace(){
-    cd LLModularizationDemo
-    xcodebuild -workspace LLModularizationDemo.xcworkspace -scheme LLModularizationDemo
+function get_xcworkspace_directory() {
+    xcworkspaceCount="$(find ./ -name "*.xcworkspace" | grep -v '.xcodeproj' | wc -l)"
+    echo "xcworkspaceCount:${xcworkspaceCount}"
+    if [[ "$xcworkspaceCount" -eq 1 ]] ; then
+        directory=$(find ./ -name "*.xcworkspace" | grep -v '.xcodeproj')
+        return 0
+    else
+        if [[ "$xcworkspaceCount" -gt 1 ]]; then
+            echo "找到超过1个xcworkspace"
+            return 1
+        else
+            echo "没有xcworkspace可执行"
+            return 1
+        fi
+    fi
+}
+
+function run_xcworkspace(){
+    xcodebuild -workspace ${vdirectoryar##*/} -scheme ${selectedScheme}
 
     if [ $? -eq 0 ]; then
         echo "Build Success"
@@ -54,12 +82,18 @@ run_xcworkspace(){
 }
 
 main() {
-    get_Input_Message
-    git_merge
-    if [ "$buildXcodeChoice" = "y" ]; then
-        run_xcworkspace
+    get_xcworkspace_directory
+    if [ $? -eq 0 ]; then
+        cd ${directory%/*}
+        get_Input_Message
+        git_merge
+        if [ "$buildXcodeChoice" = "y" ]; then
+            run_xcworkspace
+        fi
+        git_push
+    else
+        echo "执行失败"
     fi
-    git_push
 }
 
 main
