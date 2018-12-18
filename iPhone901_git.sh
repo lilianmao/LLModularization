@@ -9,26 +9,27 @@
 #2018/12/12    Netease study
 
 
-export commitMsg=''
+export commitMessage=''
+export buildXcodeChoice=''
 
 get_Input_Message() {
-    read -p "Please input commit message: " commitMsg
+    read -p "请输入你的commit信息:（默认用户+h提交时间） " commitMessage
+    read -p "请输入你是否要编译工程(y/n)（默认n）: " buildXcodeChoice
     
-    if test -z "$username"; then
-    commitMsg="$USER commit at `date +%Y年%m月%d日%H:%M:%S`"
+    if [ -z "$commitMessage"]; then
+        commitMsg="$USER commit at `date +%Y年%m月%d日%H:%M:%S`"
     fi
-    echo $commitMsg
-    
-    export commitMsg
+    echo "这是你的提交信息: ${conflictMsg}"
+    echo "这是你的编译选择: ${buildXcodeChoice}"
 }
 
 git_merge(){
 	git fetch origin
 	current_date_time="`date +%Y%m%d%H%M%S`"
-    echo $current_date_time
+    echo "这是你的stash: ${current_date_time}"
 	git stash save $current_date_time
 	git pull
-	git merge master
+	git stash apply
 
     conflictMsg=$(git diff --name-only --diff-filter=U)
     echo "This is conflict messages: ${conflictMsg}"
@@ -41,10 +42,24 @@ git_push(){
     git push
 }
 
+run_xcworkspace(){
+    cd LLModularizationDemo
+    xcodebuild -workspace LLModularizationDemo.xcworkspace -scheme LLModularizationDemo
+
+    if [ $? -eq 0 ]; then
+        echo "Build Success"
+    else
+        echo "Build Failed"
+    fi
+}
+
 main() {
     get_Input_Message
-	git_merge
-#    git_push
+    git_merge
+    if [ "$buildXcodeChoice" = "y" ]; then
+        run_xcworkspace
+    fi
+    git_push
 }
 
 main
