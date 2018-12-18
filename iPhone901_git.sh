@@ -13,7 +13,7 @@ export commitMessage=''
 export buildXcodeChoice=''
 
 get_Input_Message() {
-    read -p "请输入你的commit信息:（默认用户+h提交时间） " commitMessage
+    read -p "请输入你的commit信息:（默认用户+提交时间） " commitMessage
     read -p "请输入你是否要编译工程(y/n)（默认n）: " buildXcodeChoice
     
     if [ -z "$commitMessage"]; then
