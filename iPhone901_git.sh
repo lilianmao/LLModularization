@@ -13,26 +13,63 @@ export commitMessage=''
 export buildXcodeChoice=''
 export selectedScheme=''
 
+commit_dev="@dev"
+commit_bugfix="@bugfix"
+commit_misc="@misc"
+
+commit_libs=(${commit_dev}
+             ${commit_bugfix}
+             ${commit_misc})
+
 function get_Input_Message() {
+    # 处理commit信息
     read -p "请输入你的commit信息:（默认用户+提交时间） " commitMessage
-    read -p "请输入你是否要编译工程(y/n)（默认n）: " buildXcodeChoice
-    read -p "请输入你选择的scheme: " selectedScheme
-    xcodebuildList=$(xcodebuild -list)
-    echo "zhelishi${xcodebuildList}"
-    array=(${xcodebuildList//Schemes:/})
-    if [ -z "$array"]; then
-        for i in $(echo $array | tr "\n")
-        do
-            echo "hahahaha:${i}"
-        done
+
+    if [ "$commitMessage" == "" ]; then
+        commitMessage="$USER commit at `date +%Y年%m月%d日%H:%M:%S`"
     fi
 
-    if [ -z "$commitMessage"]; then
-        commitMsg="$USER commit at `date +%Y年%m月%d日%H:%M:%S`"
+    flag=0
+    for index in "${!commit_libs[@]}"
+    do
+        temp=${commit_libs[index]}
+        if [[ "${commitMessage}" =~ ^"$temp" ]]; then
+            flag=1
+        fi
+    done
+
+    if [[ "$flag" -ne 1 ]] ; then
+        commitMessage="@misc $commitMessage"
+        echo "commit信息不合法，给你自动添加了@misc"
     fi
-    echo "这是你的提交信息: ${commitMessage}"
-    echo "这是你的编译选择: ${buildXcodeChoice}"
-    echo "这是你的编译scheme: ${selectedScheme}"
+    echo "commit信息：${commitMessage}"
+
+    # 处理build选择
+    read -p "请输入你是否要编译工程(y/n)（默认n）: " buildXcodeChoice
+    if [ "$buildXcodeChoice" = "y" ]; then
+        get_xcodebuild_list
+    fi
+}
+
+function get_xcodebuild_list() {
+    xcodebuildList=`xcodebuild -list`
+    array=(${xcodebuildList//:/ })
+
+    i=0
+    schemes=()          # schemes数组
+    for index in "${!array[@]}"
+    do
+        if [[ "$i" -eq 1 ]] ; then
+            schemes+=(${array[index]})
+            echo "$((i-1)) ${array[index]}"
+        fi
+        if [ "${array[index]}" = "Schemes" ]; then
+            ((i++));
+        fi
+    done
+
+    read -p "请输入你选择的scheme: " selectedScheme
+    echo "你选择的Scheme是：${schemes[selectedScheme]}"
 }
 
 function git_merge() {
@@ -48,7 +85,6 @@ function git_merge() {
 }
 
 function git_push() {
-#    [alias] chs = git add --all && git commit -m $commitMsg && git push
     git add --all
     git commit -m "$commitMsg"
     git push
@@ -56,7 +92,6 @@ function git_push() {
 
 function get_xcworkspace_directory() {
     xcworkspaceCount="$(find ./ -name "*.xcworkspace" | grep -v '.xcodeproj' | wc -l)"
-    echo "xcworkspaceCount:${xcworkspaceCount}"
     if [[ "$xcworkspaceCount" -eq 1 ]] ; then
         directory=$(find ./ -name "*.xcworkspace" | grep -v '.xcodeproj')
         return 0
