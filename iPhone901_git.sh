@@ -23,7 +23,7 @@ commit_libs=(${commit_dev}
 
 function get_Input_Message() {
     # 处理commit信息
-    read -p "请输入你的commit信息:（默认用户+提交时间） " commitMessage
+    read -p "请输入你的commit信息（默认用户+提交时间）：" commitMessage
 
     flag=0
     for index in "${!commit_libs[@]}"
@@ -35,6 +35,7 @@ function get_Input_Message() {
     done
 
     if [[ "$flag" -ne 1 ]] ; then
+        echo "以下可供选择commit信息的类型："
         for index in "${!commit_libs[@]}"
         do
             echo "$index ${commit_libs[index]}"
@@ -55,6 +56,7 @@ function get_xcodebuild_list() {
     xcodebuildList=`xcodebuild -list`
     array=(${xcodebuildList//:/ })
 
+    echo "以下是你的schemes："
     i=0
     schemes=()          # schemes数组
     for index in "${!array[@]}"
