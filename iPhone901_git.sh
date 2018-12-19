@@ -40,6 +40,7 @@ function get_Input_Message() {
             echo "$index ${commit_libs[index]}"
         done
         read -p "请输入你选择commit类型: " choice
+        commitMessage="${commit_libs[choice]} $commitMessage"
     fi
     echo "你的commit信息：${commitMessage}"
 
@@ -107,7 +108,7 @@ function get_xcworkspace_directory() {
 }
 
 function run_xcworkspace(){
-    xcodebuild -workspace ${vdirectoryar##*/} -scheme ${selectedScheme}
+    xcodebuild -workspace ${directory##*/} -scheme ${selectedScheme}
 
     if [ $? -eq 0 ]; then
         echo "Build Success"
