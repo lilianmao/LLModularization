@@ -25,10 +25,6 @@ function get_Input_Message() {
     # 处理commit信息
     read -p "请输入你的commit信息:（默认用户+提交时间） " commitMessage
 
-    if [ "$commitMessage" == "" ]; then
-        commitMessage="$USER commit at `date +%Y年%m月%d日%H:%M:%S`"
-    fi
-
     flag=0
     for index in "${!commit_libs[@]}"
     do
@@ -39,10 +35,13 @@ function get_Input_Message() {
     done
 
     if [[ "$flag" -ne 1 ]] ; then
-        commitMessage="@misc $commitMessage"
-        echo "commit信息不合法，给你自动添加了@misc"
+        for index in "${!commit_libs[@]}"
+        do
+            echo "$index ${commit_libs[index]}"
+        done
+        read -p "请输入你选择commit类型: " choice
     fi
-    echo "commit信息：${commitMessage}"
+    echo "你的commit信息：${commitMessage}"
 
     # 处理build选择
     read -p "请输入你是否要编译工程(y/n)（默认n）: " buildXcodeChoice
@@ -68,8 +67,9 @@ function get_xcodebuild_list() {
         fi
     done
 
-    read -p "请输入你选择的scheme: " selectedScheme
-    echo "你选择的Scheme是：${schemes[selectedScheme]}"
+    read -p "请输入你选择的scheme: " choice
+    echo "你选择的Scheme是：${schemes[choice]}"
+    selectedScheme=${schemes[choice]}
 }
 
 function git_merge() {
