@@ -115,6 +115,7 @@ function run_xcworkspace(){
     else
         echo "Build Failed"
     fi
+    return $?
 }
 
 main() {
@@ -125,8 +126,12 @@ main() {
         git_merge
         if [ "$buildXcodeChoice" = "y" ]; then
             run_xcworkspace
+            if [ $? -eq 0 ]; then
+                git_push
+            fi
+        else
+            git_push
         fi
-        git_push
     else
         echo "执行失败"
     fi
