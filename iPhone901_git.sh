@@ -87,7 +87,7 @@ function git_merge() {
 
 function git_push() {
     git add --all
-    git commit -m "$commitMsg"
+    git commit -m "$commitMessage"
     git push
 }
 
