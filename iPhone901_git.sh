@@ -8,6 +8,14 @@
 #History:
 #2018/12/12    Netease study
 
+
+#脚本功能：帮助你拉取新代码，apply stash，build工程，推送代码
+#
+#使用方法：
+#1. 添加脚本执行权限：chmod +x iPhone901_git.sh
+#2. 运行脚本：./iPhone901_git.sh
+#3. 需要输入你提交的commit信息，你是否要build工程，如果需要build工程，需要选择scheme，如果不需要build，则不需要选择scheme
+
 export directory=''
 export commitMessage=''
 export buildXcodeChoice=''
@@ -84,7 +92,12 @@ function git_merge() {
 	git stash apply
 
     conflictMsg=$(git diff --name-only --diff-filter=U)
-    echo "This is conflict messages: ${conflictMsg}"
+    if [ ! -n $conflictMsg ]; then
+        return 0
+    else
+        echo "This is conflict messages: ${conflictMsg}"
+        return 1
+    fi
 }
 
 function git_push() {
@@ -121,18 +134,23 @@ function run_xcworkspace(){
 }
 
 main() {
+    cd ..
     get_xcworkspace_directory
     if [ $? -eq 0 ]; then
         cd ${directory%/*}
         get_Input_Message
         git_merge
-        if [ "$buildXcodeChoice" = "y" ]; then
-            run_xcworkspace
-            if [ $? -eq 0 ]; then
+        if [ $? -eq 0 ]; then
+            if [ "$buildXcodeChoice" = "y" ]; then
+                run_xcworkspace
+                if [ $? -eq 0 ]; then
+                    git_push
+                fi
+            else
                 git_push
             fi
         else
-            git_push
+            echo "有冲突，执行失败"
         fi
     else
         echo "执行失败"
